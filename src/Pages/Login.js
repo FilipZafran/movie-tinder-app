@@ -1,5 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+import "./styles.css";
 
 export default function Login() {
   const history = useHistory();
@@ -10,20 +11,24 @@ export default function Login() {
   }
 
   return (
-    <>
-      <br />
-      <br /> <br /> <br />
-      <h1>Login Page</h1>
-      <br />
-      <label> user name </label>
-      <input type="text" />
-      <br />
-      <br />
-      <label> password </label>
-      <input type="text" />
-      <br />
-      <br />
-      <button onClick={login}> Login </button>
-    </>
+    <div className="container">
+      <div className="circle1"></div>
+      <div className="circle2"></div>
+      <div className="circle3"></div>
+      <div className="wrappper">
+        <h1>Login Page</h1>
+
+        <label> user name </label>
+        <input type="text" />
+
+        <label> password </label>
+        <input type="text" />
+
+        <button className="button" onClick={login}>
+          {" "}
+          Login{" "}
+        </button>
+      </div>
+    </div>
   );
 }
