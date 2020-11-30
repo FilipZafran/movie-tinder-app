@@ -36,12 +36,14 @@ const fetchFriendsWannabes = createAsyncThunk("RECEIVE_FRIENDS_WANNABES",
     async () => {
         const rs = await axios({
             method: 'GET',
-            url: `${serverUrl}/Friends/wannabe`,
+            url: `${serverUrl}/friends/wannabe`,
             withCredentials: true,
         })
         // console.log("rs in friendsslice", rs.data)
         // console.log("rs.payload", rs.payload)
         // if (rs) {
+        console.log(rs.data)
+        console.log(rs)
         return {
             friendsWannabes: rs.data
         }
@@ -50,44 +52,56 @@ const fetchFriendsWannabes = createAsyncThunk("RECEIVE_FRIENDS_WANNABES",
 )
 
 const fetchFriendsAccepted = createAsyncThunk('ACCEPT_FRIEND_REQUEST',
+    // const otherId = 
+    async (otherId) => {
+        console.log("otherId in accept friends", otherId)
+        const rs = await axios({
+            method: "POST",
+            url: `${serverUrl}/friends/accepted/${otherId}`,
+            withCredentials: true,
 
-    async () => {
-        const rs = await axios.post(`${serverUrl}/friends/accepted`)
+        })
         // if (rs) {
+        console.log("rs in accepte firends", rs)
         return {
-            friendsAccepted: rs.data
+            friendsWannabes: rs.data,
+            otherId
         }
         // }
     }
 
 )
 
-const fetchFriendsDeclined = createAsyncThunk('/friends/declined',
+const fetchFriendsDeclined = createAsyncThunk('DECLINE_FRIEND_REQUEST',
+    async (otherId) => {
+        console.log("userid in friendsdecline", otherId)
 
-    async () => {
-        const rs = await axios.post(`${serverUrl}/friends/declined`)
-        // if (rs) {
+        const rs = await axios({
+            method: "POST",
+            url: `${serverUrl}/friends/declined/${otherId}`,
+            withCredentials: true
+        })
+        // if (rs) {}
+        console.log("rs in delete friends", rs)
         return {
-            type: "DECLINE_FRIEND_REQUEST"
+            friendsWannabes: rs.data,
+            otherId
         }
-        // }
-    }
-
-)
+    })
 
 //Actions
-const fetchFriendsDeleted = createAsyncThunk('/friends/deleted',
+// const fetchFriendsDeleted = createAsyncThunk('DELETE_FRIEND_REQUEST',
 
-    async () => {
-        const rs = await axios.post(`${serverUrl}/friends/deleted`)
-        // if (rs) {
-        return {
-            type: "DELETE_FRIEND_REQUEST"
-        }
-        // }
-    }
+//     async () => {
+//         const rs = await axios.post(`${serverUrl}/friends/deleted`)
+//         // if (rs) {
+//         return {
+//             type: "DELETE_FRIEND_REQUEST"
+//         }
+//         // }
+//     }
 
-)
+// )
 
 //creates moviesSlice when fetchMovies is fullfilled it will populate the movies slice
 const friendsSlice = createSlice({
@@ -95,6 +109,9 @@ const friendsSlice = createSlice({
     initialState,
     reducers: {
         //here pass the action if not async
+
+
+
     },
     //if async need to crate a thunk 
     extraReducers: {
@@ -111,22 +128,55 @@ const friendsSlice = createSlice({
             return state
         },
 
-        // [fetchFriendsAccepted.fulfilled]: friendsAdapter.setAll,
 
-        // [fetchFriendsWannabes],
-        // [fetchFriendsAccepted]
+        [fetchFriendsAccepted.fulfilled]: (state, action) => {
+            console.log("otherId ", fetchFriendsAccepted.otherId)
+            if (action.type === "ACCEPT_FRIEND_REQUEST/fulfilled") {
+                state = {
+                    ...state,
+                    friendsWannabes: state.friendsWannabes.map(friendsWannabe => {
+                        console.log("friendswannabe", friendsWannabe)
+                        if (action.otherId === friendsWannabe.id) {
+                            console.log("state", state)
+                            console.log("action.otherId", action.otherId)
+                            console.log("friendsWannabe.id", friendsWannabe.id)
+                            friendsWannabe.accepted = true;
+                            return state;
+                        } else {
+                            return state;
+                        }
+                    })
+                };
+            }
+        }
 
-        // if (payload.type === "RECEIVE_FRIENDS_WANNABES")
+        // reduce: (state, action) => {
+        //     if (action.type === "RECEIVE_FRIENDS_WANNABES/fulfilled") {
+        //         console.log("made it to action")
+        //         state = {
+        //             ...state,
+        //             friendsWannabes: action.payload.friendsWannabes
+        //         }
+        //         console.log("state", state)
+        //     } else if (action.type === "ACCEPT_FRIEND_REQUEST/fulfilled") {
+        //         console.log("made it to accept")
+
+        //     }
+
+
+        //     return state
+        // }
     },
 
 });
 
-console.log("friendsSlice", friendsSlice)
-console.log("fetchFriendsWannabes", fetchFriendsWannabes)
 
 export default friendsSlice.reducer;
 
-export { fetchFriendsWannabes, fetchFriendsAccepted, fetchFriendsDeclined, fetchFriendsDeleted };
+export {
+    fetchFriendsWannabes, fetchFriendsAccepted, fetchFriendsDeclined,
+    // fetchFriendsDeleted 
+};
 
 // export const stateWannabes = (state) =>
 //     state.friendsWannabes ? state.friendsWannabes : [];
