@@ -5,7 +5,7 @@ import { ChevronRight } from '../styleElements/icons';
 import { CirclesBackground } from '../styleElements/CirclesBackground';
 import { dummyData } from '../MatchPage/MatchCard/dummyData';
 import { LogoActive } from '../styleElements/icons';
-import Canvas from './CanvasTest';
+import Thumbnail from './Thumbnail';
 
 export function LikedMovies() {
 	const location = useLocation();
@@ -26,7 +26,7 @@ export function LikedMovies() {
 				<h1> Liked Movies </h1>
 			</div>
 
-			<Canvas />
+			<Thumbnail />
 
 			<div className='liked_movies__all'>
 				{likedFilmsAll.map((film) => (
