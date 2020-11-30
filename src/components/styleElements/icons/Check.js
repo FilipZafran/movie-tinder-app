@@ -6,6 +6,7 @@ import './Icon.css';
 export function Check({ width, height }) {
   return (
     <svg
+      data-testid="check"
       width={width ? width : 18}
       height={height ? height : 13}
       viewBox="0 0 18 13"
