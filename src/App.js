@@ -10,44 +10,45 @@ import Registration from './components/UserPathLog/Register';
 import Resetpw from './components/UserPathLog/Resetpw';
 import Friends from './components/Friends/Friends'
 
+const App = (props) => {
+  const [otheridtoparents, setOtherProfileID] = useState('');
+  const handleProfileID = (newAppID) => {
+    setOtherProfileID(newAppID);
+  };
 
+  return (
+    <Router>
+      <Switch>
+        <PrivateRoute path="/dashboard">
+          <Dashboard />
+        </PrivateRoute>
 
-const App = () => {
-	const [otheridtoparents, setOtherProfileID] = useState('')
-	const handleProfileID = (newAppID) => {
-		setOtherProfileID(newAppID)
-	}
+        <Route path="/users">
+          <FindPeople
+            onChange={handleProfileID}
+            setOtherProfileID={setOtherProfileID}
+          />
+        </Route>
+        <Route path="/user/:id">
+          <OtherProfile
+            onChange={handleProfileID}
+            setOtherProfileID={setOtherProfileID}
+          />
+        </Route>
 
-	return (
-		<Router>
-			<Switch>
-				<Route exact path="/" >
-					<Login />
-				</Route>
+        <Route exact path="/register">
+          <Registration />
+        </Route>
+        <Route exact path="/resetpw">
+          <Resetpw />
+        </Route>
 
-				<Route exact path="/register">
-					<Registration />
-				</Route>
-				<Route exact path="/resetpw">
-					<Resetpw />
-				</Route>
-				<PrivateRoute path='/dashboard'>
-					<Dashboard />
-				</PrivateRoute>
-				<Route path='/users'>
-					<FindPeople onChange={handleProfileID} setOtherProfileID={setOtherProfileID} />
-					{/* <Friends /> */}
-
-				</Route>
-				<Route path='/user/:id'>
-					<OtherProfile onChange={handleProfileID} setOtherProfileID={setOtherProfileID} />
-				</Route>
-				{/* <Route path='/friends' >
-					<Friends />
-				</Route> */}
-			</Switch>
-		</Router >
-	);
+        <Route path="/">
+          <Login />
+        </Route>
+      </Switch>
+    </Router>
+  );
 };
 
 export default App;
