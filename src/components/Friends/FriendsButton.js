@@ -5,9 +5,9 @@ import Axios from 'axios'
 export default function FriendsButton() {
     const [buttonText, setButtonText] = useState("something")
     const [errors, setError] = useState(false)
-    var otherUserId = (window.location.pathname).slice(6)
+    var otherUserId = (window.location.pathname).slice(16)
     const serverUrl = process.env.REACT_APP_SERVER;
-
+    console.log("otheruserID", otherUserId)
     useEffect(() => {
         //when component mount, it checks the status of friendship (not friend, friend request, friends)
         Axios({

@@ -74,7 +74,7 @@ export default function FindPeople() {
                 return (
                     <div key={person._id}  >
                         <a
-                            href={`${feUrl}/user/${person._id}`} name={person._id} target="_blank" otheridtoparents={setOtherProfileID} onClick={sendPropsParents}
+                            href={`${feUrl}/dashboard/user/${person._id}`} name={person._id} target="_blank" otheridtoparents={setOtherProfileID} onClick={sendPropsParents}
                         >
                             <p id={person._id} >{person.username}</p>
                         </a>

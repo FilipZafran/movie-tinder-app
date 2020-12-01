@@ -18,7 +18,7 @@ export default function OtherProfile(props) {
 
 
     useEffect(() => {
-        const id = (window.location.pathname).slice(6);
+        const id = (window.location.pathname).slice(16);
         // console.log("id", (window.location.pathname).slice(6))
         // const id = otheridtoparents
         // console.log("otheridtoparents", otheridtoparents)

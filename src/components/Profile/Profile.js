@@ -93,7 +93,7 @@ export function Profile(size) {
 			</div>
 
 			<div className='profile__footer'>
-				<Link to='/users'>
+				<Link to='/dashboard/users'>
 					<div active={location.pathname === '/users'} className='profile__footer-text'>
 						<h1>Friends </h1> <ChevronRight />
 					</div>
