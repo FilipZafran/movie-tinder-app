@@ -82,7 +82,7 @@ const fetchFriendsDeclined = createAsyncThunk('DECLINE_FRIEND_REQUEST',
             withCredentials: true
         })
         // if (rs) {}
-        console.log("rs in delete friends", rs)
+        console.log("otherId in delete friends", otherId)
         return {
             friendsWannabes: rs.data,
             otherId
@@ -130,6 +130,7 @@ const friendsSlice = createSlice({
 
 
         [fetchFriendsAccepted.fulfilled]: (state, action) => {
+            //miss the otherId should be returned from backend
             console.log("otherId ", fetchFriendsAccepted.otherId)
             if (action.type === "ACCEPT_FRIEND_REQUEST/fulfilled") {
                 state = {
@@ -148,24 +149,26 @@ const friendsSlice = createSlice({
                     })
                 };
             }
+        },
+
+
+        [fetchFriendsDeclined.fulfilled]: (state, action) => {
+            console.log("made it to declined friendslce")
+            if (action.type === "DECLINE_FRIEND_REQUEST/fulfilled") {
+                state = {
+                    ...state,
+                    friendsWannabes: state.friendsWannabes.filter(friendsWannabe => {
+                        if (action.otherId !== friendsWannabe.id) {
+                            return {
+                                friendsWannabe
+                            };
+                        } else {
+                            return "There is an issue, we are looking at it";
+                        }
+                    })
+                };
+            }
         }
-
-        // reduce: (state, action) => {
-        //     if (action.type === "RECEIVE_FRIENDS_WANNABES/fulfilled") {
-        //         console.log("made it to action")
-        //         state = {
-        //             ...state,
-        //             friendsWannabes: action.payload.friendsWannabes
-        //         }
-        //         console.log("state", state)
-        //     } else if (action.type === "ACCEPT_FRIEND_REQUEST/fulfilled") {
-        //         console.log("made it to accept")
-
-        //     }
-
-
-        //     return state
-        // }
     },
 
 });

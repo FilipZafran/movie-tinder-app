@@ -65,7 +65,10 @@ export default function Friends() {
 					console.log("friendAccepted", friendsAccepted)
 					// if (friend.receiverUserId === )
 					return (
-						<h2> ID {friend.receiverUserId} </h2>
+						<div>
+							<h2> ID {friend.receiverUserId} </h2>
+							<button onClick={() => dispatch(fetchFriendsDeclined(friend.receiverUserId))}> Unfriend</button>
+						</div>
 					)
 				})}
 			</div>
