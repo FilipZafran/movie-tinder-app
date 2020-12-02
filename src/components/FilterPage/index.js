@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { FilterGroup } from './FilterGroup';
 import { motion } from 'framer-motion';
 import { useHistory, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
 import {
   fetchAllFilters,
@@ -46,10 +46,8 @@ export const FilterPage = ({ toggle, seeFilters, hidden }) => {
       const activeFilters = await dispatch(fetchActiveFilters());
       unwrapResult(allFilters);
       unwrapResult(activeFilters);
-      console.log(allFilters.payload);
 
       if (Object.keys(activeFilters.payload).length > 0) {
-        console.log('here');
         setGenreFilters(
           mapOver(
             activeFilters.payload.genreFilters,

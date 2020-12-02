@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const initialState = { entities: {}, loading: 'idle' };
-
 const serverURL = process.env.REACT_APP_SERVER;
+
+const initialState = { entities: {}, loading: 'idle' };
 
 export const fetchAllFilters = createAsyncThunk(
   'filters/fetchAllFilters',

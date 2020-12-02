@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from './userSlice';
-import moviesReducer from './moviesSlice';
+import likeTrackerReducer from './likeTrackerSlice';
 import filtersReducer from './filtersSlice';
 import friendsReducer from './friendsSlice';
 
@@ -9,7 +9,7 @@ import friendsReducer from './friendsSlice';
 export default configureStore({
   reducer: {
     user: userReducer,
-    movies: moviesReducer,
+    likeTracker: likeTrackerReducer,
     filters: filtersReducer,
     friends: friendsReducer,
   },

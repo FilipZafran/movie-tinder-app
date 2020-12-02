@@ -61,7 +61,7 @@ export const movieQuotes = [
     'TO HAVE AND HAVE NOT',
     '1944',
   ],
-  ["You're gonna need a bigger boat. JAWS 1975"],
+  ["You're gonna need a bigger boat.", 'JAWS', '1975'],
   [
     "Badges? We ain't got no badges! We don't need no badges! I don't have to show you any stinking badges!",
     'TREASURE OF THE SIERRA MADRE, THE',
