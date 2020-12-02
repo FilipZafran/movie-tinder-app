@@ -1,7 +1,7 @@
 .imprint {
     padding: 5%;
     text-align: left;
-    font-size: 12px;
+    font-size: 11px;
     text-justify: inter-character;
 }
 
@@ -15,7 +15,7 @@
 
 .imprint__subTitle {
     color: var(--light-500);
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
     line-height: 26px;
 }

@@ -1,0 +1,28 @@
+.Gdpr {
+    width: 100%;
+    height: 15%;
+    position: fixed;
+    background-color: rgba(255, 255, 255);
+    color: black;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+a {
+    color: black;
+    font-weight: bold;
+}
+
+.Gdpr__content {
+    width: 60%;
+}
+
+.Gdpr__radio {
+    margin-right: 10px;
+}
+
+.Gdpr__button {
+    justify-content: center;
+}

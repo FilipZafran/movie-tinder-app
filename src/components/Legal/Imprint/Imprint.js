@@ -83,14 +83,9 @@ export default function Imprint() {
 
                 <p className="imprint__content">If you don’t want us to process your data anymore, please contact us at filmably.info@gmail.com so we can handle your request. Likewise, if you would like to: access, correct, amend or delete any personal information we have about you, you are invited to contact us at filmably.info@gmail.com</p>
 
-
-
                 <h2 className="imprint__subTitle"> Privacy policy updates </h2>
 
                 <p className="imprint__content"> We reserve the right to modify this privacy policy at any time, so please review it frequently. Changes and clarifications will take effect immediately upon their posting on the website. If we make material changes to this policy, we will notify you here that it has been updated, so that you are aware of what information we collect, how we use it, and under what circumstances, if any, we use and/or disclose it.</p>
-
-
-
             </div>
         </React.Fragment>
     )

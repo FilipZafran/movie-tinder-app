@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 // import Registration from '../UserPathLog/Register';
 // import Resetpw from '../UserPathLog/Resetpw';
 import { Link } from "react-router-dom";
-
+import Gdpr from '../Legal/GDPR/Gdpr.js'
 
 export default function Login() {
 	const [username, setUsername] = useState("");
@@ -66,6 +66,7 @@ export default function Login() {
 				/>
 				<button onClick={login}> Login </button>
 			</div >
+			<Gdpr />
 			<Link to="/register">Register</Link>
 			<Link to="/resetpw"> Reset PW</Link>
 		</React.Fragment>
