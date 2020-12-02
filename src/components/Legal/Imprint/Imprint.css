@@ -1,0 +1,26 @@
+.imprint {
+    padding: 5%;
+    text-align: left;
+    font-size: 12px;
+    text-justify: inter-character;
+}
+
+.imprint__title {
+    color: var(--light-500);
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 26px;
+    margin: 6px 48px 16px 48px;
+}
+
+.imprint__subTitle {
+    color: var(--light-500);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 26px;
+}
+
+.imprint__content {
+    padding-bottom: 2%;
+    line-height: 1.3;
+}

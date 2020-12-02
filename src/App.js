@@ -9,6 +9,7 @@ import OtherProfile from './components/Friends/OtherProfile';
 import Registration from './components/UserPathLog/Register';
 import Resetpw from './components/UserPathLog/Resetpw';
 import Friends from './components/Friends/Friends'
+import Imprint from './components/Legal/Imprint/Imprint.js'
 
 const App = (props) => {
   const [otheridtoparents, setOtherProfileID] = useState('');
@@ -22,6 +23,10 @@ const App = (props) => {
         <PrivateRoute path="/dashboard">
           <Dashboard />
         </PrivateRoute>
+        <Route path="/imprint">
+          <Imprint />
+        </Route>
+
 
         <Route path="/dashboard/users">
           <FindPeople

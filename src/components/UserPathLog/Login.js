@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 export default function Login() {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
+	const [error, setError] = useState(false)
 	const serverUrl = process.env.REACT_APP_SERVER;
 
 	const history = useHistory();
@@ -32,6 +33,8 @@ export default function Login() {
 				setPassword("");
 				localStorage.setItem("isAuthenticated", true);
 				history.replace("/dashboard");
+			} else {
+				setError(true)
 			}
 		});
 	}
@@ -47,6 +50,7 @@ export default function Login() {
 		<React.Fragment>
 			<div className="login">
 				<h1>Login Page</h1>
+				{error && (<div>There was an issue with your login, please try again! </div>)}
 				<label> user name </label>
 				<input
 					type="text"

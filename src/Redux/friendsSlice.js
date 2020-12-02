@@ -15,21 +15,9 @@ const friendsAdapter = createEntityAdapter();
 
 //initial state of moviesSlice
 const initialState = friendsAdapter.getInitialState({
-    // id:
     status: "idle",
     error: null,
 });
-
-// const user = useSelector(selectUser)
-
-//async thunk that will fetch the top 250 movies list from IMDB and store them
-//in the "movies" section of the redux state
-// export const fetchMovies = createAsyncThunk("movies/fetchMovies", async () => {
-//     const response = await axios.get(
-//         `https://imdb-api.com/en/API/Top250Movies/${process.env.REACT_APP_IMDB_KEY}`
-//     );
-//     return response;
-// });
 
 //Actions
 const fetchFriendsWannabes = createAsyncThunk("RECEIVE_FRIENDS_WANNABES",
@@ -39,50 +27,36 @@ const fetchFriendsWannabes = createAsyncThunk("RECEIVE_FRIENDS_WANNABES",
             url: `${serverUrl}/friends/wannabe`,
             withCredentials: true,
         })
-        // console.log("rs in friendsslice", rs.data)
-        // console.log("rs.payload", rs.payload)
-        // if (rs) {
-        console.log(rs.data)
-        console.log(rs)
         return {
             friendsWannabes: rs.data
         }
-        // }
     }
 )
 
 const fetchFriendsAccepted = createAsyncThunk('ACCEPT_FRIEND_REQUEST',
-    // const otherId = 
+
     async (otherId) => {
-        console.log("otherId in accept friends", otherId)
         const rs = await axios({
             method: "POST",
             url: `${serverUrl}/friends/accepted/${otherId}`,
             withCredentials: true,
-
         })
-        // if (rs) {
-        console.log("rs in accepte firends", rs)
         return {
             friendsWannabes: rs.data,
             otherId
-        }
-        // }
+        },
+            console.log("ACCEPT_FRIEND_REQUEST", otherId),
+            console.log("rs in AcceptFriend", rs, rs.data)
     }
-
 )
 
 const fetchFriendsDeclined = createAsyncThunk('DECLINE_FRIEND_REQUEST',
     async (otherId) => {
-        console.log("userid in friendsdecline", otherId)
-
         const rs = await axios({
             method: "POST",
             url: `${serverUrl}/friends/declined/${otherId}`,
             withCredentials: true
         })
-        // if (rs) {}
-        console.log("otherId in delete friends", otherId)
         return {
             friendsWannabes: rs.data,
             otherId
@@ -109,8 +83,6 @@ const friendsSlice = createSlice({
     initialState,
     reducers: {
         //here pass the action if not async
-
-
 
     },
     //if async need to crate a thunk 
@@ -170,7 +142,6 @@ const friendsSlice = createSlice({
             }
         }
     },
-
 });
 
 

@@ -11,7 +11,6 @@ export default function Friends() {
 	const friendsAccepted = useSelector(
 		state => state.friends.friendsWannabes && state.friends.friendsWannabes.filter(
 			friendsWannabe => friendsWannabe.accepted == true
-
 		))
 
 	const friendsPending = useSelector(
@@ -19,30 +18,12 @@ export default function Friends() {
 			friendsWannabe => friendsWannabe.accepted == false
 		)
 	)
-	// console.log("state", (state => state.friendsWannabes && state.friendsWannabes.filter(
-	// 	friendsWannabe => friendsWannabe.accepted == true)))
-	// );
-
-	// console.log("stateWannabes ", stateWannabes)
-	// console.log("fetchFriendsWannabes", fetchFriendsWannabes)
-	// )
-
-	console.log("friendsaccepted", friendsAccepted)
-
-	// const [friendsWannabes, setFriendsWannabes] = useState();
-	// const [friendsAccepted, setFriendsAccepted] = useState();
-	// const [friendsDeclined, setFriendsDeclined] = useState();
-	// const [friendsDelete, setFriendsDelete] = useState();
-
-
 
 	useEffect(() => {
 		dispatch(fetchFriendsWannabes())
-
 	}, [])
 
 	const toggleModale = (e) => {
-		console.log(e)
 		setVisible(!visible)
 		setFriendsVisible(!friendsVisible)
 		if (e.target.innerHTML === "Friends requests") {
@@ -62,8 +43,7 @@ export default function Friends() {
 			{friendsVisible && <div>
 				<h1>I am your friends</h1>
 				{friendsAccepted && friendsAccepted.map(friend => {
-					console.log("friendAccepted", friendsAccepted)
-					// if (friend.receiverUserId === )
+					console.log(friend)
 					return (
 						<div>
 							<h2> ID {friend.receiverUserId} </h2>
@@ -77,10 +57,12 @@ export default function Friends() {
 			{visible && <div>
 				<h1>I am your pending Friends</h1>
 				{friendsPending && friendsPending.map(friend => {
-					console.log("friendsPending", friend.senderUserId)
+					console.log("pending friends", friend)
+					console.log("window", window)
+
 					return (
 						<div>
-							<a>  ID{friend.receiverUserId}</a>
+							<a key={friend.receiverUserId}>  ID{friend.receiverUserId}</a>
 							<button onClick={() => dispatch(fetchFriendsAccepted(friend.receiverUserId))}>Accept Friend request</button>
 							<button onClick={() => dispatch(fetchFriendsDeclined(friend.receiverUserId))}>Reject Friend request</button>
 						</div>
@@ -89,7 +71,6 @@ export default function Friends() {
 			</div>
 			}
 		</React.Fragment>
-
 	)
 }
 
