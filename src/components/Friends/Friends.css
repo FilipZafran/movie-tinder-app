@@ -24,27 +24,29 @@
 .Friends__searchBar {
     border: none;
     background-color: rgb(22, 22, 22);
-    width: 60%;
+    width: 70%;
     height: 4vh;
     margin-bottom: 2vh;
+    color: white;
 }
 
 .Friends__LatestRegister {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
-    border: pink solid 4px;
-    padding-left: 10%;
-    padding-right: 10%;
-}
-
-.Friends__TitlePic {
-    justify-content: flex-start;
-    flex-direction: row;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-bottom: 0.5vh;
+    padding-top: 0.5vh;
+    border-bottom: solid 1px rgb(22, 22, 22);
 }
 
 .Friends__LatestRegisterImg {
     width: 50px;
     height: 50px;
+    margin-right: 10px;
+}
+
+.Friends__TitlePic a.Friends__NameLoading {
+    align-items: center;
 }

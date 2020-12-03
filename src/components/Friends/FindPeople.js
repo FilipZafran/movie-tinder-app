@@ -86,18 +86,19 @@ export default function FindPeople() {
                 <X />
                 {/* <button >Search</button> */}
             </div>
+            <p>New comer</p>
             {people && people.map(person => {
                 return (
                     <div className="Friends__LatestRegister" key={person._id}  >
 
-                        {/* <div > */}
-                        <img className="Friends__LatestRegisterImg" src="https://wikiclipart.com/wp-content/uploads/2016/11/Monkey-black-and-white-monkey-black-and-white-clip-art-clipart-2.jpg" alt="imagetest"></img>
-                        <a className="Friends__TitlePic"
-                            href={`${feUrl}/dashboard/user/${person._id}`} name={person._id} target="_blank" otheridtoparents={setOtherProfileID} onClick={sendPropsParents}
-                        >
-                            <p id={person._id} >{person.username}</p>
-                            {/* </div> */}
-                        </a>
+                        <div className="Friends__TitlePic" id={person._id}>
+                            <img className="Friends__LatestRegisterImg" src="https://wikiclipart.com/wp-content/uploads/2016/11/Monkey-black-and-white-monkey-black-and-white-clip-art-clipart-2.jpg" alt="imagetest" />
+                            <a className="Friends__NameLoading"
+                                href={`${feUrl}/dashboard/user/${person._id}`} name={person._id} target="_blank" otheridtoparents={setOtherProfileID} onClick={sendPropsParents}
+                            >
+                                {person.username}
+                            </a>
+                        </div>
                         <Heart />
                     </div>
                 )

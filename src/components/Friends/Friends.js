@@ -36,7 +36,7 @@ export default function Friends() {
 
 	return (
 		<React.Fragment>
-			<h3> Friends</h3>
+			<h2> My Friends</h2>
 			<button onClick={e => toggleModale(e)}>{buttonTitle}</button>
 
 			{friendsVisible && <div>
