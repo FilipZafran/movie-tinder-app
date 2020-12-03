@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 // import Registration from '../UserPathLog/Register';
 // import Resetpw from '../UserPathLog/Resetpw';
 import { Link } from "react-router-dom";
+import Gdpr from '../Legal/GDPR/Gdpr.js'
 
 export default function Login() {
 	const [username, setUsername] = useState("");
@@ -28,8 +29,13 @@ export default function Login() {
 			url: `${serverUrl}/authenticate/login`,
 		}).then((res) => {
 			if (res.data.message === "Successfully Authenticated") {
+
+				//  document.getElementById("gdpr").add.classList("isVisible").
+				//need to add pop up with GDPR
+				// if ()
 				setUsername("");
 				setPassword("");
+
 				localStorage.setItem("isAuthenticated", true);
 				history.replace("/dashboard");
 			} else {
@@ -65,6 +71,7 @@ export default function Login() {
 				/>
 				<button onClick={login}> Login </button>
 			</div >
+			{/* <Gdpr id="gdpr" /> */}
 			<Link to="/register">Register</Link>
 			<Link to="/resetpw"> Reset PW</Link>
 		</React.Fragment>

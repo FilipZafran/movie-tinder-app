@@ -4,10 +4,6 @@ import Axios from "axios"
 import CookieConsent, { Cookies } from "react-cookie-consent";
 
 export default function Gdpr() {
-    // const [radioYes, setRadioYes] = useState(false)
-    // const [radioNo, setRadioNo] = useState(false)
-    // const [error, setError] = useState(false)
-    // const [consented, hasConsented] = useState('')
     const [mustAgree, setMustAgree] = useState(false)
     const serverUrl = process.env.REACT_APP_SERVER;
     const feUrl = process.env.REACT_APP_FE

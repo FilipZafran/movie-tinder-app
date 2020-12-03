@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { fetchFriendsWannabes, fetchFriendsAccepted, fetchFriendsDeclined, stateWannabes } from '../../Redux/friendsSlice'
 import { useDispatch, useSelector } from "react-redux";
-// import {}
 
 export default function Friends() {
 	const [visible, setVisible] = useState(false)
@@ -46,7 +45,7 @@ export default function Friends() {
 					console.log(friend)
 					return (
 						<div>
-							<h2> ID {friend.receiverUserId} </h2>
+							<h2 key={friend.receiverUserId}> ID {friend.receiverUserId} </h2>
 							<button onClick={() => dispatch(fetchFriendsDeclined(friend.receiverUserId))}> Unfriend</button>
 						</div>
 					)

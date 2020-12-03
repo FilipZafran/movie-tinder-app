@@ -1,0 +1,50 @@
+.Friends__header {
+    padding-top: 5vh;
+    padding-bottom: 2vh;
+    padding-left: 3vh;
+    margin-bottom: 2vh;
+    font-size: 22px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.Friends__searchBar__container {
+    background-color: rgb(22, 22, 22);
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 2vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 2%;
+    border-radius: 5px;
+}
+
+.Friends__searchBar {
+    border: none;
+    background-color: rgb(22, 22, 22);
+    width: 60%;
+    height: 4vh;
+    margin-bottom: 2vh;
+}
+
+.Friends__LatestRegister {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border: pink solid 4px;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.Friends__TitlePic {
+    justify-content: flex-start;
+    flex-direction: row;
+}
+
+.Friends__LatestRegisterImg {
+    width: 50px;
+    height: 50px;
+}

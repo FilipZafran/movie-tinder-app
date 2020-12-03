@@ -27,6 +27,7 @@ const fetchFriendsWannabes = createAsyncThunk("RECEIVE_FRIENDS_WANNABES",
             url: `${serverUrl}/friends/wannabe`,
             withCredentials: true,
         })
+        console.log("rs in annabees", rs)
         return {
             friendsWannabes: rs.data
         }
