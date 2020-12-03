@@ -10,6 +10,7 @@ import Registration from './components/UserPathLog/Register';
 import Resetpw from './components/UserPathLog/Resetpw';
 import Friends from './components/Friends/Friends'
 import Imprint from './components/Legal/Imprint/Imprint.js'
+import Gdpr from './components/Legal/GDPR/Gdpr.js'
 
 const App = (props) => {
   const [otheridtoparents, setOtherProfileID] = useState('');
@@ -51,6 +52,8 @@ const App = (props) => {
         <Route path="/">
           <Login />
         </Route>
+        <Gdpr id="gdpr" />
+
       </Switch>
     </Router>
   );
