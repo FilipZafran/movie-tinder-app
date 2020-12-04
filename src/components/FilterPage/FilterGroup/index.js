@@ -10,10 +10,10 @@ const StyledFilterGroup = styled.div`
   font-weight: 400;
   line-height: 16.25px;
   width: 100%;
+  margin-bottom: 16px;
 
   .filterGroup__name {
     margin-bottom: 8px;
-    margin-top: 16px;
   }
 `;
 

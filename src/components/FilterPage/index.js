@@ -124,12 +124,12 @@ export const FilterPage = ({ toggle, seeFilters, hidden }) => {
           <motion.div layout className="letsStart__content">
             <FilterGroup
               clickHandler={toggleActive(timeFilters, setTimeFilters)}
-              name="timeFilters"
+              name="Time"
               filters={timeFilters}
             />
             <FilterGroup
               clickHandler={toggleActive(genreFilters, setGenreFilters)}
-              name="genreFilters"
+              name="Genre"
               filters={genreFilters}
             />
           </motion.div>
