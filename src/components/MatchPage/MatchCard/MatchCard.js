@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Flip } from '../../styleElements/icons';
 import './MatchCard.css';
-import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { addLike, addDislike } from '../../../Redux/likeTrackerSlice';
 
 //Dummy Data can be removed when backend route has been built
 import { dummyData } from './dummyData';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 export const MatchCard = ({ decision, reset }) => {
   const [currentFilm, setCurrentFilm] = useState({
@@ -20,6 +22,8 @@ export const MatchCard = ({ decision, reset }) => {
   });
   const [filmArray, setFilmArray] = useState([]);
   const [showInfo, setShowInfo] = useState(false);
+
+  const dispatch = useDispatch();
 
   //show movie info or show movie poster (default is show poster)
   const toggleInfo = () => setShowInfo(!showInfo);
@@ -75,14 +79,9 @@ export const MatchCard = ({ decision, reset }) => {
     if (decision === 'like') {
       const updateLikes = async () => {
         try {
-          const response = await axios({
-            method: 'PUT',
-            withCredentials: true,
-            url: `${serverURL}/likeTracker/like`,
-            data: { film: filmArray[0] },
-          });
-          console.log(response.data);
-          return response.data;
+          const newLike = await dispatch(addLike(filmArray[0]));
+          unwrapResult(newLike);
+          console.log(newLike.payload);
         } catch (err) {
           return err;
         }
@@ -95,14 +94,9 @@ export const MatchCard = ({ decision, reset }) => {
     if (decision === 'dislike') {
       const updateDislikes = async () => {
         try {
-          const response = await axios({
-            method: 'PUT',
-            withCredentials: true,
-            url: `${serverURL}/likeTracker/dislike`,
-            data: { film: filmArray[0] },
-          });
-          console.log(response.data);
-          return response.data;
+          const newDislike = await dispatch(addDislike(filmArray[0]));
+          unwrapResult(newDislike);
+          console.log(newDislike.payload);
         } catch (err) {
           return err;
         }
@@ -112,7 +106,7 @@ export const MatchCard = ({ decision, reset }) => {
       setShowInfo(false);
       reset();
     }
-  }, [decision, reset, filmArray, serverURL]);
+  }, [decision, reset, filmArray, serverURL, dispatch]);
 
   return (
     <div className="matchCard">

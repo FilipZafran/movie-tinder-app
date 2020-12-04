@@ -3,35 +3,22 @@ import React, { useState, useEffect } from 'react';
 import { FilterGroup } from './FilterGroup';
 import { motion } from 'framer-motion';
 import { useHistory, useLocation } from 'react-router-dom';
-import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { unwrapResult } from '@reduxjs/toolkit';
+import {
+  fetchAllFilters,
+  fetchActiveFilters,
+  submitActiveFilters,
+} from '../../Redux/filtersSlice';
 import './FilterPage.css';
 
 export const FilterPage = ({ toggle, seeFilters, hidden }) => {
-  const [timeFilters, setTimeFilters] = useState({});
-  const [genreFilters, setGenreFilters] = useState({});
-
-  const currentTimeFilters = [
-    '2020s',
-    '2010s',
-    '2000s',
-    '1990s',
-    '1980s',
-    '1970s',
-  ];
-  const currentGenreFilters = [
-    'Western',
-    'Romance',
-    'Science Fiction',
-    'Drama',
-    'Action',
-    'Comedy',
-    'Horror',
-  ];
-
+  const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
 
-  const serverURL = process.env.REACT_APP_SERVER;
+  const [timeFilters, setTimeFilters] = useState({});
+  const [genreFilters, setGenreFilters] = useState({});
 
   //toggles the filters from active to inactive in the state
   const toggleActive = (getter, setter) => (filter) =>
@@ -52,6 +39,36 @@ export const FilterPage = ({ toggle, seeFilters, hidden }) => {
     return result;
   };
 
+  //gets the current filters and converts them into an object in the state
+  const getFilters = async () => {
+    try {
+      const allFilters = await dispatch(fetchAllFilters());
+      const activeFilters = await dispatch(fetchActiveFilters());
+      unwrapResult(allFilters);
+      unwrapResult(activeFilters);
+
+      if (Object.keys(activeFilters.payload).length > 0) {
+        setGenreFilters(
+          mapOver(
+            activeFilters.payload.genreFilters,
+            allFilters.payload.genreFilters
+          )
+        );
+        setTimeFilters(
+          mapOver(
+            activeFilters.payload.timeFilters,
+            allFilters.payload.timeFilters
+          )
+        );
+      } else {
+        setGenreFilters(mapOver([], allFilters.payload.genreFilters));
+        setTimeFilters(mapOver([], allFilters.payload.timeFilters));
+      }
+    } catch (err) {
+      return err;
+    }
+  };
+
   //takes the current state and makes an array of active filters
   const reverseMapOver = (filterObject) => {
     let filterArray = [];
@@ -61,57 +78,22 @@ export const FilterPage = ({ toggle, seeFilters, hidden }) => {
     return filterArray;
   };
 
-  //gets the current filters and converts them into an object in the state
-  const getFilters = async () => {
-    try {
-      const response = await axios({
-        method: 'GET',
-        withCredentials: true,
-        url: `${serverURL}/likeTracker/filters`,
-      });
-      if (Object.keys(response.data.filters).length > 0) {
-        const gFilters = mapOver(
-          response.data.filters.genreFilters,
-          currentGenreFilters
-        );
-        const tFilters = mapOver(
-          response.data.filters.timeFilters,
-          currentTimeFilters
-        );
-        setGenreFilters(gFilters);
-        setTimeFilters(tFilters);
-      } else {
-        console.log('no object');
-        setGenreFilters(mapOver([], currentGenreFilters));
-        setTimeFilters(mapOver([], currentTimeFilters));
-      }
-      return response.data.filters;
-    } catch (err) {
-      return err;
-    }
-  };
-
   //converts state filter objects into two strings and saves them in the DB
   const clickOkay = async () => {
     try {
-      const response = await axios({
-        method: 'POST',
-        withCredentials: true,
-        url: `${serverURL}/likeTracker/filters`,
-        data: {
-          filters: {
-            genreFilters: reverseMapOver(genreFilters),
-            timeFilters: reverseMapOver(timeFilters),
-          },
-        },
-      });
-      console.log(response.data);
+      const newFilters = await dispatch(
+        submitActiveFilters({
+          genreFilters: reverseMapOver(genreFilters),
+          timeFilters: reverseMapOver(timeFilters),
+        })
+      );
+      unwrapResult(newFilters);
       if (location.pathname === '/dashboard/matchPage') {
         toggle();
       } else {
         history.push('/dashboard/matchPage');
       }
-      return response.data;
+      return newFilters.payload;
     } catch (err) {
       return err;
     }
