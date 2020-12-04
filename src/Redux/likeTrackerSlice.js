@@ -37,6 +37,37 @@ export const fetchDislikes = createAsyncThunk(
   }
 );
 
+export const addLike = createAsyncThunk('likeTracker/addLike', async (film) => {
+  try {
+    const response = await axios({
+      method: 'PUT',
+      withCredentials: true,
+      url: `${serverURL}/likeTracker/like`,
+      data: { film: film },
+    });
+    return response.data;
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+export const addDislike = createAsyncThunk(
+  'likeTracker/addDislike',
+  async (film) => {
+    try {
+      const response = await axios({
+        method: 'PUT',
+        withCredentials: true,
+        url: `${serverURL}/likeTracker/dislike`,
+        data: { film: film },
+      });
+      return response.data;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
+
 //creates moviesSlice when fetchMovies is fullfilled it will populate the movies slice
 const likeTrackerSlice = createSlice({
   name: 'movies',

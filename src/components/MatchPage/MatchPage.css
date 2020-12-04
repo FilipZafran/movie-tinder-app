@@ -1,7 +1,7 @@
 .matchPage {
   width: 100vw;
-  height: 600px;
-  margin-bottom: 100px;
+  height: 100vh;
+  min-height: 800px;
   display: flex;
   justify-content: center;
   align-items: center;
