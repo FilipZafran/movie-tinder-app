@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Select, MenuItem, FormControl, InputLabel, makeStyles } from '@material-ui/core';
 import { Link, useLocation } from 'react-router-dom';
+import { Formik } from 'formik';
 import { CirclesBackground } from '../styleElements/CirclesBackground';
 import { TopNav } from '../TopNav';
 import { Toggle } from '../styleElements/controls/Toggle';
 import Avatar from '../styleElements/avatar/Avatar.js';
+import { Check } from '../styleElements/icons/Check.js';
 
 const useStyles = makeStyles((theme) => ({
 	formControl: {
@@ -36,60 +38,111 @@ export function ProfileEdit() {
 					<Avatar className='profile__avatar' />
 				</div>
 
-				<div className='profile__edit-label-input'>
-					<label> Username:</label>
-					<input type='text' />
-				</div>
-				<div className='profile__edit-label-input profile__edit__age-select-wrapper'>
-					<FormControl
-						className={`${classes.formControl} profile__edit__age-select`}
-						id='profile__edit-formcontrol'
-					>
-						<InputLabel id='profile__edit-inputlabel'>Age range:</InputLabel>
-						<Select id='profile__edit-select' onChange={handleChange}>
-							<MenuItem value={'Newb'}> Younger than 18yo</MenuItem>
-							<MenuItem value={'Generation Z'}>Between 22 - 30yo</MenuItem>
-							<MenuItem value={'Midlife Crisis'}> Between 30 - 40yo</MenuItem>
-							<MenuItem value={'Golden Age'}> Between 40 - 50yo </MenuItem>
-							<MenuItem value={'Veteran'}>Over 50yo </MenuItem>
-						</Select>
-					</FormControl>
-				</div>
+				<Formik
+					initialValues={{ email: '', password: '' }}
+					validate={(values) => {
+						const errors = {};
+						if (!values.email) {
+							errors.email = 'Required';
+						} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+							errors.email = 'Invalid email address';
+						}
+						return errors;
+					}}
+					onSubmit={(values, { setSubmitting }) => {
+						setTimeout(() => {
+							alert(JSON.stringify(values, null, 2));
+							setSubmitting(false);
+						}, 400);
+					}}
+				>
+					{({
+						values,
+						errors,
+						touched,
+						handleChange,
+						handleBlur,
+						handleSubmit,
+						isSubmitting
+						/* and other goodies */
+					}) => (
+						<form onSubmit={handleSubmit}>
+							<div className='profile__edit-label-input'>
+								<label> Username:</label>
+								<input type='text' />
+							</div>
+							<div className='profile__edit-label-input profile__edit__age-select-wrapper'>
+								<FormControl
+									className={`${classes.formControl} profile__edit__age-select`}
+									id='profile__edit-formcontrol'
+								>
+									<InputLabel id='profile__edit-inputlabel'>Age range:</InputLabel>
+									<Select id='profile__edit-select' onChange={handleChange}>
+										<MenuItem value={'Newb'}> Younger than 18yo</MenuItem>
+										<MenuItem value={'Generation Z'}>Between 22 - 30yo</MenuItem>
+										<MenuItem value={'Midlife Crisis'}> Between 30 - 40yo</MenuItem>
+										<MenuItem value={'Golden Age'}> Between 40 - 50yo </MenuItem>
+										<MenuItem value={'Veteran'}>Over 50yo </MenuItem>
+									</Select>
+								</FormControl>
+							</div>
 
-				<div className='profile__edit-label-input'>
-					<label> City: </label>
-					<input type='text' />
-				</div>
+							<div className='profile__edit-label-input'>
+								<label> City: </label>
+								<input type='text' />
+							</div>
 
-				<div className='profile__edit-label-input'>
-					<label> Email: </label>
-					<input type='text' />
-				</div>
+							<div className='profile__edit-label-input'>
+								<label> Email: </label>
+								<input
+									type='email'
+									name='email'
+									onChange={handleChange}
+									onBlur={handleBlur}
+									value={values.email}
+								/>
+								{errors.email && touched.email && errors.email}
+							</div>
 
-				<div className='profile__edit-label-input'>
-					<label> Password: </label>
-					<input type='text' />
-				</div>
+							<div className='profile__edit-label-input'>
+								<label> Password: </label>
+								<input
+									type='password'
+									name='password'
+									onChange={handleChange}
+									onBlur={handleBlur}
+									value={values.password}
+								/>
+								{errors.password && touched.password && errors.password}
+							</div>
 
-				<div className='profile__edit-current-filters'>
-					<h4> Current filters: - - - EDIT SYMBOL</h4>
-					<div className='profile__edit-span-container'>
-						<span>1970s</span>
-						<span>1980s</span>
-						<span>Art</span>
-						<span>Indy</span>
-						<span>Si-Fi</span>
-						<span>Western</span>
-						<span>Si-Fi</span>
-						<span>Western</span>
-					</div>
-				</div>
+							<div className='profile__edit-current-filters'>
+								<h4> Current filters: - - - EDIT SYMBOL</h4>
+								<div className='profile__edit-span-container'>
+									<span>1970s</span>
+									<span>1980s</span>
+									<span>Art</span>
+									<span>Indy</span>
+									<span>Si-Fi</span>
+									<span>Western</span>
+									<span>Si-Fi</span>
+									<span>Western</span>
+								</div>
+							</div>
 
-				<Link to='/Profile'>
-					<button className='profile__bttn' active={location.pathname === '/dashboard//Profile'}>
-						--- SAVE ICON -- Save
-					</button>
-				</Link>
+							<Link to='/Profile'>
+								<button
+									className='profile__bttn'
+									active={location.pathname === '/dashboard//Profile'}
+									type='submit'
+									disabled={isSubmitting}
+								>
+									<Check /> &nbsp; Save
+								</button>
+							</Link>
+						</form>
+					)}
+				</Formik>
 
 				<div className='profile__edit-likes-friends'>
 					<div className='profile__edit-grid'>
