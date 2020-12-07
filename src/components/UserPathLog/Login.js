@@ -1,15 +1,15 @@
-import Axios from 'axios';
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import Axios from "axios";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 // import Registration from '../UserPathLog/Register';
 // import Resetpw from '../UserPathLog/Resetpw';
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-import { UnderConstruction } from '../UnderConstruction';
+import { UnderConstruction } from "../UnderConstruction";
 
 export default function Login() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const serverUrl = process.env.REACT_APP_SERVER;
 
   const history = useHistory();
@@ -20,7 +20,7 @@ export default function Login() {
   //a registration route is set up under POST "http://localhost:5000/authentication/register" (also accepts username and pw)
   function login() {
     Axios({
-      method: 'POST',
+      method: "POST",
       data: {
         username: username,
         password: password,
@@ -28,11 +28,11 @@ export default function Login() {
       withCredentials: true,
       url: `${serverUrl}/authenticate/login`,
     }).then((res) => {
-      if (res.data.message === 'Successfully Authenticated') {
-        setUsername('');
-        setPassword('');
-        localStorage.setItem('isAuthenticated', true);
-        history.replace('/dashboard');
+      if (res.data.message === "Successfully Authenticated") {
+        setUsername("");
+        setPassword("");
+        localStorage.setItem("isAuthenticated", true);
+        history.replace("/dashboard");
       }
     });
   }
@@ -50,6 +50,7 @@ export default function Login() {
         <h1>Login Page</h1>
         <label> user name </label>
         <input
+          className="input-field"
           type="text"
           placeholder="username"
           onChange={(e) => setUsername(e.target.value)}
