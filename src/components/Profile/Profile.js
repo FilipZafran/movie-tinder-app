@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Profile.css';
 import { Settings } from '../styleElements/icons/Settings';
 import { Link, useLocation } from 'react-router-dom';
@@ -7,6 +7,7 @@ import { LogoActive } from '../styleElements/icons';
 import { ChevronRight } from '../styleElements/icons';
 import { dummyData } from '../MatchPage/MatchCard/dummyData';
 import Avatar from '../styleElements/avatar/Avatar.js';
+// import axios from 'axios';
 
 export function Profile(size) {
 	const location = useLocation();
@@ -21,23 +22,59 @@ export function Profile(size) {
 		topMatches.push(dummyData[i]);
 	}
 
+	const [ posts, setPosts ] = useState([]);
+
+	// useEffect(() => {
+	// 	axios
+	// 		.get('https://jsonplaceholder.typicode.com/posts')
+	// 		.then((res) => {
+	// 			console.log(res);
+	// 			setPosts(res.data);
+	// 		})
+	// 		.catch((err) => {
+	// 			console.log(err);
+	// 		});
+	// }, []);
+
+	// 	useEffect(() => {
+	// 		const response = await axios({
+	// 			method: 'PUT',
+	// 			withCredentials: true,
+	// 			url: `${serverURL}/likeTracker/like`,
+	// 			data: { film: filmArray[0] },
+	// 		});
+	// 		console.log(response.data);
+	// 		return response.data;
+	// 	} catch (err) {
+	// 		return err;
+	// 	}
+	// }
+
 	return (
 		<div className='profile__container'>
-			<div id='profile__settings'>
-				<Link to='/dashboard/ProfileEdit'>
-					<Settings className={location.pathname === '/dashboard/ProfileEdit' ? 'activeLogo' : null} />
-				</Link>
+			<div className='profile__header'>
+				<div className='profile__settings'>
+					<Link to='/dashboard/ProfileEdit'>
+						<Settings className={location.pathname === '/dashboard/ProfileEdit' ? 'activeLogo' : null} />
+					</Link>
+				</div>
+
 				<Link to='/'>
-					<p id='profile__logout' active={location.pathname === '/'}>
+					<p className='profile__logout' active={location.pathname === '/'}>
 						{' '}
 						Logout
 					</p>
 				</Link>
 			</div>
 
-			<div profile__header-container>
+			<div className='profile__avatar-container'>
 				<Avatar />
 			</div>
+
+			{/* <div>
+				<ul>{posts.map((post) => <li key={post.id}>{post.title}</li>)}</ul>
+			</div> */}
+
 			<div className='profile__name-box'>
 				<h2>Linda Bear</h2>
 				<h3>
@@ -52,7 +89,7 @@ export function Profile(size) {
 					<span> Berlin </span>
 				</div>
 
-				<h4> Current filter:</h4>
+				<h4> Search Catagories:</h4>
 				<div className='profile__span-container-big'>
 					<span>1970s</span>
 					<span>1980s</span>

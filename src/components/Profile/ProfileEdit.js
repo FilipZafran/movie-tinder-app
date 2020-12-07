@@ -20,23 +20,6 @@ export function ProfileEdit() {
 
 	const handleChange = (e) => setValue(e.target.value);
 
-	/*
-  How to make post http requests with axios?
-  How to send data in post http requests with axios?
-  How to work with Redux Thunk (redux-toolkit)?
-  Finish form validation with Formik
-  Show validation errors in the form
-  Learn Formik API
-  learn basics about http requests/responds. 101/crashcorse http
-  How your server receives http requests
-  Find out if there is already an API endpoint for profile/user updating?
-  If no - create one
-  Found out how to get/RECEIVE the data from the http POST request 
-  how to put data into mongo db - ex
-  post vs get vs get requests
-  how to respond to the client - http status codes: 201 / 400 / 500
-*/
-
 	return (
 		<div>
 			<CirclesBackground />
