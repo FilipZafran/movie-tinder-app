@@ -65,7 +65,6 @@ export default function Login() {
       </div>
       <Link to="/register">Register</Link>
       <Link to="/resetpw"> Reset PW</Link>
-      <UnderConstruction />
     </React.Fragment>
   );
 }
