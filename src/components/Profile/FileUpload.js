@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import axios from 'axios';
+import { lightGreen } from '@material-ui/core/colors';
 
 const FileUpload = () => {
 	const [ file, setFile ] = useState('');
@@ -17,21 +18,18 @@ const FileUpload = () => {
 		formData.append('file', file);
 
 		try {
-			const res = await axios.post('${__dirname}/client/public/uploads/', formData, {
+			const res = await axios.post(`${process.env.REACT_APP_SERVER}/uploads/`, formData, {
 				headers: {
 					'Content-Type': 'multipart/form-data'
 				}
 			});
 
 			const { fileName, filePath } = res.data;
+			console.log(fileName, filePath);
 
 			setUploadedFile({ fileName, filePath });
 		} catch (err) {
-			if (err.response.status === 500) {
-				console.log('Server issue');
-			} else {
-				console.log(err.response.data.msg);
-			}
+			console.error(err);
 		}
 	};
 

@@ -148,7 +148,7 @@ export function ProfileEdit() {
 							<Link to='/dashboard/Profile'>
 								<button
 									className='profile__bttn'
-									active={location.pathname === '/dashboard/Profile'}
+									// active={location.pathname === '/dashboard/Profile'}
 									type='submit'
 									disabled={isSubmitting}
 								>
