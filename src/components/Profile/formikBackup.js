@@ -7,7 +7,6 @@ import { TopNav } from '../TopNav';
 import { Toggle } from '../styleElements/controls/Toggle';
 import Avatar from '../styleElements/avatar/Avatar.js';
 import { Check } from '../styleElements/icons/Check.js';
-import FileUpload from './FileUpload';
 
 const useStyles = makeStyles((theme) => ({
 	formControl: {
@@ -38,8 +37,6 @@ export function ProfileEdit() {
 				<div id='profile__edit-picture-container'>
 					<Avatar className='profile__avatar' />
 				</div>
-
-				<FileUpload />
 
 				<Formik
 					initialValues={{ username: '', age: '', city: '', email: '', password: '' }}
