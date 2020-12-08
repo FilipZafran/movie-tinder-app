@@ -48,6 +48,35 @@ const FileUpload = () => {
 		}
 	};
 
+	// // connect to cloudinary
+	// var CLOUDINARTY_URL = 'https://api.cloudinary.com/v1_1/filmably-app/uploads';
+	// var CLOUDINARY_UPLOAD_PRESET = 'profile_picture';
+
+	// var imgPreview = document.getElementById('uploaded-profile-picture');
+	// var fileUploader = document.getElementById('file-uploader');
+
+	// fileUploader.addEventListener('change', function(event) {
+	// 	var file = event.target.files[0];
+	// 	var formData = new FormData();
+	// 	formData.append('file', file);
+	// 	formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
+	// 	axios({
+	// 		url: CLOUDINARTY_URL,
+	// 		method: 'POST',
+	// 		headers: {
+	// 			'Content-type': 'application/x-www-form-urlencoded'
+	// 		},
+	// 		data: formData
+	// 	})
+	// 		.then(function(res) {
+	// 			console.log(res);
+	// 		})
+	// 		.catch(function(err) {
+	// 			console.log(err);
+	// 		});
+	// });
+
 	return (
 		<Fragment>
 			{message ? <Message msg={message} /> : null}
@@ -56,7 +85,7 @@ const FileUpload = () => {
 				<div className='custome-file mb-4'>
 					<input type='file' className='custome-file-input' id='customFile' onChange={onChange} />
 
-					<label className='custome-file-label' htmlFor='customFile'>
+					<label id='file-uploader' className='custome-file-label' htmlFor='customFile'>
 						{fileName}
 					</label>
 				</div>
@@ -68,7 +97,9 @@ const FileUpload = () => {
 			{uploadedFile ? (
 				<div className='row mt-5'>
 					{uploadedFile.fileName}
-					<img id='uploaded-profile-picture' src={uploadedFile.filePath} alt='my profile picture' />
+					{/* 
+					!!!!! IMPORTANTE !!! path ne valja brijem, jer ne prikazuje sliku */}
+					{/* <img id='uploaded-profile-picture' src={uploadedFile.filePath} alt='my profile picture' /> */}
 				</div>
 			) : null}
 		</Fragment>

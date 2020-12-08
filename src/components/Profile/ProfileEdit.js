@@ -7,13 +7,40 @@ import { TopNav } from '../TopNav';
 import { Toggle } from '../styleElements/controls/Toggle';
 import Avatar from '../styleElements/avatar/Avatar.js';
 import { Check } from '../styleElements/icons/Check.js';
-import FileUpload from './FileUpload';
+import FileUploader from './FileUploader';
 
 const useStyles = makeStyles((theme) => ({
 	formControl: {
 		minWidth: 100
 	}
 }));
+
+const ranges = [
+	{
+		value: 'none',
+		label: 'none'
+	},
+	{
+		value: 'Newb',
+		label: 'Younger than 18yo'
+	},
+	{
+		value: 'Generation Z',
+		label: 'Between 22 - 30yo'
+	},
+	{
+		value: 'Midlife Crisis',
+		label: 'Between 30 - 40yo'
+	},
+	{
+		value: 'Golden Age',
+		label: 'Between 40 - 50yo'
+	},
+	{
+		value: 'Veteran',
+		label: 'Over 50yo '
+	}
+];
 
 export function ProfileEdit() {
 	const location = useLocation();
@@ -39,7 +66,7 @@ export function ProfileEdit() {
 					<Avatar className='profile__avatar' />
 				</div>
 
-				<FileUpload />
+				<FileUploader />
 
 				<Formik
 					initialValues={{ username: '', age: '', city: '', email: '', password: '' }}
@@ -59,16 +86,7 @@ export function ProfileEdit() {
 						}, 400);
 					}}
 				>
-					{({
-						values,
-						errors,
-						touched,
-						handleChange,
-						handleBlur,
-						handleSubmit,
-						isSubmitting
-						/* and other goodies */
-					}) => (
+					{({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
 						<form onSubmit={handleSubmit}>
 							<div className='profile__edit-label-input'>
 								<label> Username:</label>
