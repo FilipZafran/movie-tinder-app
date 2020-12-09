@@ -20,6 +20,7 @@ object-fit: cover;
 }
 
 
+
 .profile__name-box {
     position: absolute;
     /* dark 500 */
@@ -531,7 +532,7 @@ div {
   display: flex;
   align-items: center;
 }
-
+/* 
 .liked_movies__year-match {
 display: grid;
 grid-template-columns: 70px 100px;
@@ -546,4 +547,27 @@ grid-template-columns: 70px 100px;
 
 .single-image {
   width: 50px;
+} */
+
+
+.profile__upload-div {
+  height: 50px;
+}
+
+.profile__image-cropper {
+  position: relative;
+  top: -228px;
+  left: 70px;
+  z-index: 3;
+  width: 180px;
+  height: 180px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+#profile__circle_image {
+  display: inline;
+  margin: 0 auto;
+  height: 130%;
+  width: auto;
 }
