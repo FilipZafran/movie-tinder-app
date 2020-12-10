@@ -24,17 +24,31 @@ const fetchFriendsWannabes = createAsyncThunk("RECEIVE_FRIENDS_WANNABES",
     async () => {
         const rs = await axios({
             method: 'GET',
-            url: `${serverUrl}/friends/wannabe`,
+            url: `${serverUrl}/friends/wannabees`,
             withCredentials: true,
         })
         console.log("rs in annabees", rs)
         return {
-            friendsWannabes: rs.data
+            friendsWannabes: rs.data.wannabees
         }
     }
 )
 
-const fetchFriendsAccepted = createAsyncThunk('ACCEPT_FRIEND_REQUEST',
+const fetchFriends = createAsyncThunk("RECEIVE_FRIENDS",
+    async () => {
+        const rs = await axios({
+            method: 'GET',
+            url: `${serverUrl}/friends/allFriends`,
+            withCredentials: true,
+        })
+        console.log("rs in Friends", rs)
+        return {
+            friendsWannabes: rs.data.wannabees
+        }
+    }
+)
+
+const acceptFriendRequest = createAsyncThunk('ACCEPT_FRIEND_REQUEST',
 
     async (otherId) => {
         const rs = await axios({
@@ -94,17 +108,29 @@ const friendsSlice = createSlice({
                 // console.log("made it to action")
                 state = {
                     ...state,
-                    friendsWannabes: action.payload.friendsWannabes
+                    sender: action.payload.friendsWannabes.senderArray,
+                    receiver: action.payload.friendsWannabes.receiverArray
                 }
                 console.log("state", state)
+                console.log("friends wannabe:", state.sender)
+                console.log("state receive", state.receiver)
             }
             return state
         },
-
-
-        [fetchFriendsAccepted.fulfilled]: (state, action) => {
+        [fetchFriends.fulfilled]: (state, action) => {
+            if (action.type === "RECEIVE_FRIENDS/fulfilled") {
+                // console.log("made it to action")
+                state = {
+                    ...state,
+                    friendsWannabes: action.payload.friendsWannabes
+                }
+                console.log("state in receive friends", state)
+            }
+            return state
+        },
+        [acceptFriendRequest.fulfilled]: (state, action) => {
             //miss the otherId should be returned from backend
-            console.log("otherId ", fetchFriendsAccepted.otherId)
+            console.log("otherId ", acceptFriendRequest.otherId)
             if (action.type === "ACCEPT_FRIEND_REQUEST/fulfilled") {
                 state = {
                     ...state,
@@ -149,7 +175,7 @@ const friendsSlice = createSlice({
 export default friendsSlice.reducer;
 
 export {
-    fetchFriendsWannabes, fetchFriendsAccepted, fetchFriendsDeclined,
+    fetchFriendsWannabes, acceptFriendRequest, fetchFriendsDeclined, fetchFriends
     // fetchFriendsDeleted 
 };
 
