@@ -11,6 +11,7 @@ import {
   submitActiveFilters,
 } from '../../Redux/filtersSlice';
 import './FilterPage.css';
+import { fetchToSwipe } from '../../Redux/moviesSlice';
 
 export const FilterPage = ({ toggle, seeFilters, hidden }) => {
   const dispatch = useDispatch();
@@ -81,6 +82,8 @@ export const FilterPage = ({ toggle, seeFilters, hidden }) => {
   //converts state filter objects into two strings and saves them in the DB
   const clickOkay = async () => {
     try {
+      const moviesList = await dispatch(fetchToSwipe());
+      unwrapResult(moviesList);
       const newFilters = await dispatch(
         submitActiveFilters({
           genreFilters: reverseMapOver(genreFilters),
