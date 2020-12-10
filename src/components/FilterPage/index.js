@@ -82,8 +82,6 @@ export const FilterPage = ({ toggle, seeFilters, hidden }) => {
   //converts state filter objects into two strings and saves them in the DB
   const clickOkay = async () => {
     try {
-      const moviesList = await dispatch(fetchToSwipe());
-      unwrapResult(moviesList);
       const newFilters = await dispatch(
         submitActiveFilters({
           genreFilters: reverseMapOver(genreFilters),
@@ -91,6 +89,7 @@ export const FilterPage = ({ toggle, seeFilters, hidden }) => {
         })
       );
       unwrapResult(newFilters);
+      dispatch(fetchToSwipe());
       if (location.pathname === '/dashboard/matchPage') {
         toggle();
       } else {
@@ -109,6 +108,7 @@ export const FilterPage = ({ toggle, seeFilters, hidden }) => {
 
   useEffect(() => {
     getFilters();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

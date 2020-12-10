@@ -26,21 +26,26 @@ const moviesSlice = createSlice({
   initialState,
   reducers: {
     preloadAdded(state) {
-      state.entities.preload.push(state.entities.toSwipe.slice(0, 5));
+      state.entities.preload = [
+        ...state.entities.preload,
+        ...state.entities.toSwipe.slice(0, 5),
+      ];
       state.entities.toSwipe = state.entities.toSwipe.slice(5);
     },
     preloadRemoveOne(state) {
-      state.entities.preload.shift();
+      state.entities.current = state.entities.preload.shift();
     },
   },
   extraReducers: {
     [fetchToSwipe.fulfilled]: (state, action) => {
-      state.entities.toSwipe = action.payload;
+      state.entities.toSwipe = action.payload.slice(6);
+      state.entities.preload = action.payload.slice(1, 6);
+      state.entities.current = action.payload[0];
     },
   },
 });
 
-export const { preloadAdded, preloadRemoveOne } = moviesSlice.reducer;
+export const { preloadAdded, preloadRemoveOne } = moviesSlice.actions;
 
 export default moviesSlice.reducer;
 
@@ -50,12 +55,10 @@ export const selectToSwipe = (state) =>
 export const selectPreload = (state) =>
   state.movies ? state.movies.entities.preload : [];
 
-export const selectCurrent = (state) =>
-  state.movies.entities.preload
-    ? {
-        ...state.movies.entities.preload[0],
-        crew: state.movies.entities.preload[0]['crew']
-          .replace('dir.', 'director')
-          .split(', '),
-      }
-    : { crew: [] };
+export const selectCurrent = (state) => {
+  if (state.movies.entities.current) {
+    return state.movies.entities.current;
+  } else {
+    return { crew: '' };
+  }
+};

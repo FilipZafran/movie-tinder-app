@@ -27,11 +27,17 @@ export const MatchCard = ({ decision, reset }) => {
 
   //maps over crew and makes a div for every crew member
 
-  const crewMembers = currentFilm.crew.map((member) => (
-    <div className="matchCard__bubble" key={member}>
-      {member}
-    </div>
-  ));
+  const crewMembers = (currentFilm['crew']
+    ? currentFilm['crew']
+    : currentFilm['description']
+  )
+    .replace('dir.', 'director')
+    .split(', ')
+    .map((member) => (
+      <div className="matchCard__bubble" key={member}>
+        {member}
+      </div>
+    ));
 
   useEffect(() => {
     if (isMounted.current && preLoadArray.length < 5) {
