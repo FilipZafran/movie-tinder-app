@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, setState } from 'react';
 import { Select, MenuItem, FormControl, InputLabel, makeStyles } from '@material-ui/core';
 import { Link, useLocation } from 'react-router-dom';
 import { Formik } from 'formik';
@@ -50,6 +50,14 @@ export function ProfileEdit() {
 
 	const handleChange = (e) => setValue(e.target.value);
 
+	// FileUploader > ProfileEdit
+	const [ picture, setPicture ] = useState('');
+
+	// callback function
+	function setPictureCallback(url) {
+		setPicture(url);
+	}
+
 	return (
 		<div>
 			<CirclesBackground />
@@ -62,14 +70,8 @@ export function ProfileEdit() {
 					<h1>Profile Settings </h1>
 				</div>
 
-				<div id='profile__edit-picture-container'>
-					<Avatar className='profile__avatar' />
-				</div>
-
-				<FileUploader />
-
 				<Formik
-					initialValues={{ username: '', age: '', city: '', email: '', password: '' }}
+					initialValues={{ picture: '', username: '', age: '', city: '', email: '', password: '' }}
 					validate={(values) => {
 						const errors = {};
 						if (!values.email) {
@@ -88,6 +90,10 @@ export function ProfileEdit() {
 				>
 					{({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
 						<form onSubmit={handleSubmit}>
+							<div id='profile__edit-picture-container'>
+								<Avatar className='profile__avatar' />
+							</div>
+							<FileUploader picture={setPictureCallback} />
 							<div className='profile__edit-label-input'>
 								<label> Username:</label>
 								<input

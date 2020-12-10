@@ -551,12 +551,12 @@ grid-template-columns: 70px 100px;
 
 
 .profile__upload-div {
-  height: 50px;
+  height: 30px;
 }
 
 .profile__image-cropper {
   position: relative;
-  top: -228px;
+  top: -250px;
   left: 70px;
   z-index: 3;
   width: 180px;
@@ -570,4 +570,18 @@ grid-template-columns: 70px 100px;
   margin: 0 auto;
   height: 130%;
   width: auto;
+}
+
+.profile__upload_symbol_position {
+  position: relative;
+   top: -40px;
+   left: 130px;
+   z-index: 4;
+}
+
+.profile__upload_symbol_position 
+input {
+z-index: 5!important;
+visibility: hidden; 
+
 }
