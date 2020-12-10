@@ -19,15 +19,15 @@ export default function Friends() {
 		state => state.friends.friends
 	)
 
-	const friendsPendingReceiving = useSelector(
-		state => state.friends.sender
+	const friendsPending = useSelector(
+		state => state.friends.friendsWannabes
 
 	)
 
 
-	const friendsPendingSending = useSelector(
-		state => state.friends.receiver
-	)
+	// const friendsPendingSending = useSelector(
+	// 	state => state.friends.receiver
+	// )
 
 	// console.log(friendsPending)
 
@@ -81,45 +81,29 @@ export default function Friends() {
 			}
 
 			{visible && <div>
-				<button name="receiveReq" onClick={e => { togglePendingModal(e) }}>Received Friends Requests</button>
+				{/* <button name="receiveReq" onClick={e => { togglePendingModal(e) }}>Received Friends Requests</button>
 
 				<button name="sentReq" onClick={e => { togglePendingModal(e) }}>Sent requests</button>
 				<h1>I am the requests you received
-				</h1>
-				{visibleReceiveReq && (<div>
-					{friendsPendingReceiving && friendsPendingReceiving.map(friend => {
-						console.log("pending friends", friend)
-						console.log("window", window)
+				</h1> */}
+				{/* {visibleReceiveReq && (<div> */}
+				{friendsPending && friendsPending.map(friend => {
+					console.log("pending friends", friend)
+					console.log("window", window)
 
-						return (
-							<div>
-								<a key={friend} href={`${feUrl}/dashboard/user/${friend}`} target="_blank"> ID{friend}</a>
-								<button onClick={() => dispatch(acceptFriendRequest(friend))}>Accept Friend request</button>
-								<button onClick={() => dispatch(fetchFriendsDeclined(friend.receiverUserId))}>Reject Friend request</button>
-							</div>
-						)
-					})}
-				</div>
-				)}
-
-				{visibleSentReq && (<div>
-					{friendsPendingSending && friendsPendingSending.map(friend => {
-						console.log("pending friends", friend)
-						console.log("window", window)
-
-						return (
-							<div>
-								<a key={friend} href={`${feUrl}/dashboard/user/${friend}`} target="_blank"> ID{friend}</a>
-
-								<button onClick={() => dispatch(fetchFriendsDeclined(friend.receiverUserId))}>Cancel friends request</button>
-							</div>
-						)
-					})}
-				</div>
-				)}
+					return (
+						<div>
+							<a key={friend} href={`${feUrl}/dashboard/user/${friend}`} target="_blank"> ID{friend}</a>
+							<button onClick={() => dispatch(acceptFriendRequest(friend))}>Accept Friend request</button>
+							<button onClick={() => dispatch(fetchFriendsDeclined(friend))}>Reject Friend request</button>
+						</div>
+					)
+				})}
 			</div>
 			}
-		</React.Fragment>
+
+
+		</React.Fragment >
 	)
 }
 

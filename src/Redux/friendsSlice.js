@@ -24,12 +24,12 @@ const fetchFriendsWannabes = createAsyncThunk("RECEIVE_FRIENDS_WANNABES",
     async () => {
         const rs = await axios({
             method: 'GET',
-            url: `${serverUrl}/friends/wannabees`,
+            url: `${serverUrl}/friends/wannabes`,
             withCredentials: true,
         })
         console.log("rs in annabees", rs)
         return {
-            friendsWannabes: rs.data.wannabees
+            friendsWannabes: rs.data.wannabes
         }
     }
 )
@@ -108,12 +108,12 @@ const friendsSlice = createSlice({
                 // console.log("made it to action")
                 state = {
                     ...state,
-                    sender: action.payload.friendsWannabes.senderArray,
-                    receiver: action.payload.friendsWannabes.receiverArray
+                    friendsWannabes: action.payload.friendsWannabes.otherId,
+
                 }
                 console.log("state", state)
-                console.log("friends wannabe:", state.sender)
-                console.log("state receive", state.receiver)
+                // console.log("friends wannabe:", state.sender)
+                console.log("state receive", state.otherId)
             }
             return state
         },
