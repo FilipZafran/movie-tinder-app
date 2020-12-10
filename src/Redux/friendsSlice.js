@@ -43,7 +43,7 @@ const fetchFriends = createAsyncThunk("RECEIVE_FRIENDS",
         })
         console.log("rs in Friends", rs)
         return {
-            friendsWannabes: rs.data.wannabees
+            friends: rs.data.friends
         }
     }
 )
@@ -119,10 +119,10 @@ const friendsSlice = createSlice({
         },
         [fetchFriends.fulfilled]: (state, action) => {
             if (action.type === "RECEIVE_FRIENDS/fulfilled") {
-                // console.log("made it to action")
+                console.log("made it to action")
                 state = {
                     ...state,
-                    friendsWannabes: action.payload.friendsWannabes
+                    friends: action.payload.friends
                 }
                 console.log("state in receive friends", state)
             }

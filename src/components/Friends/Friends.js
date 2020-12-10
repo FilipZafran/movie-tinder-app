@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { fetchFriendsWannabes, acceptFriendRequest, fetchFriendsDeclined, stateWannabes } from '../../Redux/friendsSlice'
+import { fetchFriendsWannabes, fetchFriends, acceptFriendRequest, fetchFriendsDeclined, stateWannabes } from '../../Redux/friendsSlice'
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from 'react-router-dom';
 
@@ -15,10 +15,9 @@ export default function Friends() {
 
 
 	// console.log("fetch friends Wannabe", useSelector(state => state.friends.friendsWannabes.receiverArray))
-	// const friendsAccepted = useSelector(
-	// 	state => state.friends.friendsWannabes && state.friends.friendsWannabes.filter(
-	// 		friendsWannabe => friendsWannabe.accepted == true
-	// 	))
+	const friendsAccepted = useSelector(
+		state => state.friends.friends
+	)
 
 	const friendsPendingReceiving = useSelector(
 		state => state.friends.sender
@@ -34,6 +33,7 @@ export default function Friends() {
 
 	useEffect(() => {
 		dispatch(fetchFriendsWannabes())
+		dispatch(fetchFriends())
 	}, [])
 
 	const toggleModale = (e) => {
@@ -66,19 +66,19 @@ export default function Friends() {
 			<h2> My Friends</h2>
 			<button onClick={e => toggleModale(e)}>{buttonTitle}</button>
 
-			{/* {friendsVisible && <div>
+			{friendsVisible && <div>
 				<h1>I am your friends</h1>
 				{friendsAccepted && friendsAccepted.map(friend => {
 					console.log(friend)
 					return (
 						<div>
-							<h2 key={friend.receiverUserId}> ID {friend.receiverUserId} </h2>
-							<button onClick={() => dispatch(fetchFriendsDeclined(friend.receiverUserId))}> Unfriend</button>
+							<h2 key={friend}> ID {friend} </h2>
+							<button onClick={() => dispatch(fetchFriendsDeclined(friend))}> Unfriend</button>
 						</div>
 					)
 				})}
 			</div>
-			} */}
+			}
 
 			{visible && <div>
 				<button name="receiveReq" onClick={e => { togglePendingModal(e) }}>Received Friends Requests</button>
@@ -110,8 +110,8 @@ export default function Friends() {
 						return (
 							<div>
 								<a key={friend} href={`${feUrl}/dashboard/user/${friend}`} target="_blank"> ID{friend}</a>
-								<button onClick={() => dispatch(acceptFriendRequest(friend))}>Accept Friend request</button>
-								<button onClick={() => dispatch(fetchFriendsDeclined(friend.receiverUserId))}>Reject Friend request</button>
+
+								<button onClick={() => dispatch(fetchFriendsDeclined(friend.receiverUserId))}>Cancel friends request</button>
 							</div>
 						)
 					})}
