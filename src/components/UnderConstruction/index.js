@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import profilePrime from '../../Resources/profile_prime.png';
 import { loginUser } from '../../Redux/userSlice';
+import { X } from '../styleElements/icons';
 import {
   ConstructionContainer,
   ConstructionBox,
@@ -13,11 +14,18 @@ import {
   ConstructionTitle,
   ButtonContainer,
   DemoButton,
+  ConstructionClose,
+  CloseContainer,
 } from './StyledUnderConstruction';
 
 export const UnderConstruction = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const [display, setDisplay] = useState(true);
+
+  const closeHandler = () => {
+    setDisplay(!display);
+  };
   const clickHandler = async () => {
     try {
       const login = await dispatch(
@@ -34,12 +42,17 @@ export const UnderConstruction = () => {
   };
 
   return (
-    <ConstructionContainer>
+    <ConstructionContainer display={display}>
       <ConstructionBox>
         <ConstructionImage>
           <img src={profilePrime} alt="Filmably Logo" />
         </ConstructionImage>
         <ConstructionContent>
+          <CloseContainer>
+            <ConstructionClose onClick={closeHandler}>
+              <X size={16} />
+            </ConstructionClose>
+          </CloseContainer>
           <ConstructionTitle>Pardon our mess!</ConstructionTitle>
           <ConstructionText>
             Filmably is still under construction. To have a look around, feel
