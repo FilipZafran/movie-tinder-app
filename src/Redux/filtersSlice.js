@@ -30,6 +30,10 @@ export const fetchActiveFilters = createAsyncThunk(
         withCredentials: true,
         url: `${serverURL}/likeTracker/filters`,
       });
+      if (response.data === 'not authenticated') {
+        localStorage.setItem('isAuthenticated', 'false');
+        window.location.reload(false);
+      }
 
       return response.data === 'not authenticated'
         ? { timeFilters: [], genreFilters: [] }

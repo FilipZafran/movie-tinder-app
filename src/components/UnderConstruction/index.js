@@ -33,7 +33,7 @@ export const UnderConstruction = () => {
       );
       unwrapResult(login);
       if (login.payload.message === 'Successfully Authenticated') {
-        localStorage.setItem('isAuthenticated', true);
+        localStorage.setItem('isAuthenticated', 'true');
         history.replace('/dashboard');
       }
     } catch (err) {
