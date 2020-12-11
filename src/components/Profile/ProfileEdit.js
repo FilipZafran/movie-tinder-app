@@ -8,6 +8,7 @@ import { Toggle } from '../styleElements/controls/Toggle';
 import Avatar from '../styleElements/avatar/Avatar.js';
 import { Check } from '../styleElements/icons/Check.js';
 import FileUploader from './FileUploader';
+import { Settings } from '../styleElements/icons/Settings';
 
 const useStyles = makeStyles((theme) => ({
 	formControl: {
@@ -93,7 +94,9 @@ export function ProfileEdit() {
 							<div id='profile__edit-picture-container'>
 								<Avatar className='profile__avatar' />
 							</div>
+
 							<FileUploader picture={setPictureCallback} />
+
 							<div className='profile__edit-label-input'>
 								<label> Username:</label>
 								<input
@@ -156,7 +159,10 @@ export function ProfileEdit() {
 							</div>
 
 							<div className='profile__edit-current-filters'>
-								<h4> Current filters: - - - EDIT SYMBOL</h4>
+								<h4>
+									{' '}
+									Current filters: &nbsp; <Settings />
+								</h4>
 								<div className='profile__edit-span-container'>
 									<span>1970s</span>
 									<span>1980s</span>
@@ -169,16 +175,14 @@ export function ProfileEdit() {
 								</div>
 							</div>
 
-							<Link to='/dashboard/Profile'>
-								<button
-									className='profile__bttn'
-									// active={location.pathname === '/dashboard/Profile'}
-									type='submit'
-									disabled={isSubmitting}
-								>
-									<Check /> &nbsp; Save
-								</button>
-							</Link>
+							<button
+								className='profile__bttn'
+								// active={location.pathname === '/dashboard/Profile'}
+								type='submit'
+								disabled={isSubmitting}
+							>
+								<Check /> &nbsp; Save
+							</button>
 						</form>
 					)}
 				</Formik>
