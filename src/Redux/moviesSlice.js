@@ -1,40 +1,64 @@
-import {
-  createSlice,
-  createEntityAdapter,
-  createAsyncThunk,
-} from "@reduxjs/toolkit";
-import axios from "axios";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
-const moviesAdapter = createEntityAdapter();
+const serverURL = process.env.REACT_APP_SERVER;
 
-//initial state of moviesSlice
-const initialState = moviesAdapter.getInitialState({
-  status: "idle",
-  error: null,
-});
+const initialState = { entities: {}, loading: 'idle' };
 
-//async thunk that will fetch the top 250 movies list from IMDB and store them
-//in the "movies" section of the redux state
-export const fetchMovies = createAsyncThunk("movies/fetchMovies", async () => {
-  const response = await axios.get(
-    `https://imdb-api.com/en/API/Top250Movies/${process.env.REACT_APP_IMDB_KEY}`
-  );
-  return response;
-});
+export const fetchToSwipe = createAsyncThunk(
+  'movies/fetchToSwipe',
+  async () => {
+    try {
+      const response = await axios({
+        method: 'GET',
+        withCredentials: true,
+        url: `${serverURL}/toSwipe`,
+      });
+      return response.data;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
 
-//creates moviesSlice when fetchMovies is fullfilled it will populate the movies slice
 const moviesSlice = createSlice({
-  name: "movies",
+  name: 'movies',
   initialState,
-  reducers: {},
+  reducers: {
+    preloadAdded(state) {
+      state.entities.preload = [
+        ...state.entities.preload,
+        ...state.entities.toSwipe.slice(0, 5),
+      ];
+      state.entities.toSwipe = state.entities.toSwipe.slice(5);
+    },
+    preloadRemoveOne(state) {
+      state.entities.current = state.entities.preload.shift();
+    },
+  },
   extraReducers: {
-    [fetchMovies.fulfilled]: moviesAdapter.setAll,
+    [fetchToSwipe.fulfilled]: (state, action) => {
+      state.entities.toSwipe = action.payload.slice(6);
+      state.entities.preload = action.payload.slice(1, 6);
+      state.entities.current = action.payload[0];
+    },
   },
 });
 
+export const { preloadAdded, preloadRemoveOne } = moviesSlice.actions;
+
 export default moviesSlice.reducer;
 
-//selects all moves from the redux store
-//Note: the shape of the redux state is a bit awkward but I'm not sure how to clean this up
-export const selectAllMovies = (state) =>
-  state.movies ? state.movies.entities.undefined.items : [];
+export const selectToSwipe = (state) =>
+  state.movies ? state.movies.entities.toSwipe : [];
+
+export const selectPreload = (state) =>
+  state.movies ? state.movies.entities.preload : [];
+
+export const selectCurrent = (state) => {
+  if (state.movies.entities.current) {
+    return state.movies.entities.current;
+  } else {
+    return { crew: '' };
+  }
+};

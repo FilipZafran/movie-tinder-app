@@ -9,6 +9,8 @@ import { LikedMovies } from '../Profile/LikedMovies';
 import { TopMatches } from '../Profile/TopMatches';
 import { Start } from '../Start/Start';
 import { BottomNav } from '../BottomNav';
+import { ChatPage } from '../ChatPage';
+import OtherProfile from '../Friends/OtherProfile';
 
 const Dashboard = () => {
   return (
@@ -20,7 +22,9 @@ const Dashboard = () => {
           <Route path="/dashboard/ProfileEdit" component={ProfileEdit} />
           <Route path="/dashboard/LikedMovies" component={LikedMovies} />
           <Route path="/dashboard/TopMatches" component={TopMatches} />
+          <Route path="/dashboard/Chat" component={ChatPage} />
           <Route path="/dashboard/users" component={FindPeople} />
+          <Route path="/dashboard/user" component={OtherProfile} />
           <Route path="/dashboard/matchPage" component={MatchPage} />
           <Route path="/dashboard" component={Start} />
         </Switch>

@@ -1,25 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Flip } from '../../styleElements/icons';
 import './MatchCard.css';
-import axios from 'axios';
-
-//Dummy Data can be removed when backend route has been built
-import { dummyData } from './dummyData';
+import { useDispatch, useSelector } from 'react-redux';
+import { addLike, addDislike } from '../../../Redux/likeTrackerSlice';
+import {
+  selectCurrent,
+  selectPreload,
+  preloadAdded,
+  preloadRemoveOne,
+} from '../../../Redux/moviesSlice';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 export const MatchCard = ({ decision, reset }) => {
-  const [currentFilm, setCurrentFilm] = useState({
-    id: '',
-    rank: '',
-    title: '',
-    fullTitle: '',
-    year: '',
-    image: '',
-    crew: '',
-    imDbRating: '',
-    imDbRatingCount: '',
-  });
-  const [filmArray, setFilmArray] = useState([]);
   const [showInfo, setShowInfo] = useState(false);
+  const dispatch = useDispatch();
+
+  const preLoadArray = useSelector(selectPreload);
+  const currentFilm = useSelector(selectCurrent);
 
   //show movie info or show movie poster (default is show poster)
   const toggleInfo = () => setShowInfo(!showInfo);
@@ -28,44 +25,29 @@ export const MatchCard = ({ decision, reset }) => {
   //the filmArray has loaded (and not on mount)
   const isMounted = useRef(false);
 
-  //should be replaced with an axios call to the backend
-  const getFilms = () => {
-    const films = [];
-    for (let i = 0; i < 5; i++) {
-      films.push(dummyData[Math.floor(Math.random() * dummyData.length)]);
-    }
-    return films;
-  };
-
-  //splits crew string into an array of individual crew members
-  //replaces (dir.) with (director)
-  const crew = filmArray[0]
-    ? filmArray[0]['crew'].replace('dir.', 'director').split(', ')
-    : [];
-
   //maps over crew and makes a div for every crew member
-  const crewMembers = crew.map((member) => (
-    <div className="matchCard__bubble" key={member}>
-      {member}
-    </div>
-  ));
 
-  //concates the newArray to end of the filmArray when the filmArray is < 5
-  useEffect(() => {
-    if (filmArray.length < 5) {
-      const newArray = getFilms();
-      setFilmArray([...filmArray, ...newArray]);
-    }
-  }, [filmArray]);
+  const crewMembers = (currentFilm['crew']
+    ? currentFilm['crew']
+    : currentFilm['description']
+    ? currentFilm['description']
+    : ''
+  )
+    .replace('dir.', 'director')
+    .split(', ')
+    .map((member) => (
+      <div className="matchCard__bubble" key={member}>
+        {member}
+      </div>
+    ));
 
-  //sets the currentFilm to be the first film in the filmArray
   useEffect(() => {
-    if (isMounted.current) {
-      setCurrentFilm(filmArray[0]);
+    if (isMounted.current && preLoadArray.length < 5) {
+      dispatch(preloadAdded());
     } else {
       isMounted.current = true;
     }
-  }, [filmArray]);
+  }, [preLoadArray]);
 
   //when a decision is made it triggers an axios call
 
@@ -75,44 +57,34 @@ export const MatchCard = ({ decision, reset }) => {
     if (decision === 'like') {
       const updateLikes = async () => {
         try {
-          const response = await axios({
-            method: 'PUT',
-            withCredentials: true,
-            url: `${serverURL}/likeTracker/like`,
-            data: { film: filmArray[0] },
-          });
-          console.log(response.data);
-          return response.data;
+          const newLike = await dispatch(addLike(preLoadArray[0]));
+          unwrapResult(newLike);
+          console.log(newLike.payload);
         } catch (err) {
           return err;
         }
       };
       updateLikes();
-      setFilmArray(filmArray.slice(1));
+      dispatch(preloadRemoveOne());
       setShowInfo(false);
       reset();
     }
     if (decision === 'dislike') {
       const updateDislikes = async () => {
         try {
-          const response = await axios({
-            method: 'PUT',
-            withCredentials: true,
-            url: `${serverURL}/likeTracker/dislike`,
-            data: { film: filmArray[0] },
-          });
-          console.log(response.data);
-          return response.data;
+          const newDislike = await dispatch(addDislike(preLoadArray[0]));
+          unwrapResult(newDislike);
+          console.log(newDislike.payload);
         } catch (err) {
           return err;
         }
       };
       updateDislikes();
-      setFilmArray(filmArray.slice(1));
+      dispatch(preloadRemoveOne());
       setShowInfo(false);
       reset();
     }
-  }, [decision, reset, filmArray, serverURL]);
+  }, [decision, reset, preLoadArray, serverURL, dispatch]);
 
   return (
     <div className="matchCard">
