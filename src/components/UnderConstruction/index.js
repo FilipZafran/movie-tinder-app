@@ -42,7 +42,7 @@ export const UnderConstruction = () => {
   };
 
   return (
-    <ConstructionContainer display={display}>
+    <ConstructionContainer display={display.toString()}>
       <ConstructionBox>
         <ConstructionImage>
           <img src={profilePrime} alt="Filmably Logo" />
