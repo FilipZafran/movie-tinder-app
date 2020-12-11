@@ -37,7 +37,6 @@ function FileUploader(props) {
 			</div>
 		</div>
 	);
-	// var profile_picture_url = {file.secure_url}
 }
 
 export default FileUploader;

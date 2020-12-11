@@ -1,7 +1,7 @@
 import React, { useState, setState } from 'react';
-import { Select, MenuItem, FormControl, InputLabel, makeStyles } from '@material-ui/core';
+import { Select, MenuItem, FormControl, InputLabel, makeStyles, TextField } from '@material-ui/core';
 import { Link, useLocation } from 'react-router-dom';
-import { Formik } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import { CirclesBackground } from '../styleElements/CirclesBackground';
 import { TopNav } from '../TopNav';
 import { Toggle } from '../styleElements/controls/Toggle';
@@ -89,11 +89,18 @@ export function ProfileEdit() {
 					}}
 				>
 					{({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
-						<form onSubmit={handleSubmit}>
+						<Form onSubmit={handleSubmit}>
 							<div id='profile__edit-picture-container'>
 								<Avatar className='profile__avatar' />
 							</div>
-							<FileUploader picture={setPictureCallback} />
+
+							<FileUploader
+								picture={setPictureCallback}
+								type='text'
+								name='puicture'
+								value={values.picture}
+							/>
+
 							<div className='profile__edit-label-input'>
 								<label> Username:</label>
 								<input
@@ -105,19 +112,19 @@ export function ProfileEdit() {
 								/>
 							</div>
 							<div className='profile__edit-label-input profile__edit__age-select-wrapper'>
-								<FormControl
-									className={`${classes.formControl} profile__edit__age-select`}
-									id='profile__edit-formcontrol'
+								<label> Age Range:</label>
+
+								<Field
+									name='age'
+									as='select'
+									placeholder='Select smth'
+									value={values.age}
+									as={TextField}
 								>
-									<InputLabel id='profile__edit-inputlabel'>Age range:</InputLabel>
-									<Select id='profile__edit-select' onChange={handleChange}>
-										<MenuItem value={'Newb'}> Younger than 18yo</MenuItem>
-										<MenuItem value={'Generation Z'}>Between 22 - 30yo</MenuItem>
-										<MenuItem value={'Midlife Crisis'}> Between 30 - 40yo</MenuItem>
-										<MenuItem value={'Golden Age'}> Between 40 - 50yo </MenuItem>
-										<MenuItem value={'Veteran'}>Over 50yo </MenuItem>
-									</Select>
-								</FormControl>
+									<option value='Newb'>Younger than 18yo </option>
+									<option value='Generation Z'>Between 22 - 30yo </option>
+									<option value='Midlife Crisis'>Between 30 - 40yo </option>
+								</Field>
 							</div>
 
 							<div className='profile__edit-label-input'>
@@ -169,17 +176,15 @@ export function ProfileEdit() {
 								</div>
 							</div>
 
-							<Link to='/dashboard/Profile'>
-								<button
-									className='profile__bttn'
-									// active={location.pathname === '/dashboard/Profile'}
-									type='submit'
-									disabled={isSubmitting}
-								>
-									<Check /> &nbsp; Save
-								</button>
-							</Link>
-						</form>
+							<button
+								className='profile__bttn'
+								// active={location.pathname === '/dashboard/Profile'}
+								type='submit'
+								disabled={isSubmitting}
+							>
+								<Check /> &nbsp; Save
+							</button>
+						</Form>
 					)}
 				</Formik>
 
