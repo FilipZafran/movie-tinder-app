@@ -30,6 +30,8 @@ export const MatchCard = ({ decision, reset }) => {
   const crewMembers = (currentFilm['crew']
     ? currentFilm['crew']
     : currentFilm['description']
+    ? currentFilm['description']
+    : ''
   )
     .replace('dir.', 'director')
     .split(', ')
