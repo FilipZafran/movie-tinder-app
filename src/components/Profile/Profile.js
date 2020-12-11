@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Profile.css';
 import { Settings } from '../styleElements/icons/Settings';
 import { Link, useLocation } from 'react-router-dom';
@@ -6,6 +6,8 @@ import { Star } from '../styleElements/icons';
 import { LogoActive } from '../styleElements/icons';
 import { ChevronRight } from '../styleElements/icons';
 import { dummyData } from '../MatchPage/MatchCard/dummyData';
+import Avatar from '../styleElements/avatar/Avatar.js';
+// import axios from 'axios';
 
 export function Profile(size) {
 	const location = useLocation();
@@ -20,21 +22,59 @@ export function Profile(size) {
 		topMatches.push(dummyData[i]);
 	}
 
+	const [ posts, setPosts ] = useState([]);
+
+	// useEffect(() => {
+	// 	axios
+	// 		.get('https://jsonplaceholder.typicode.com/posts')
+	// 		.then((res) => {
+	// 			console.log(res);
+	// 			setPosts(res.data);
+	// 		})
+	// 		.catch((err) => {
+	// 			console.log(err);
+	// 		});
+	// }, []);
+
+	// 	useEffect(() => {
+	// 		const response = await axios({
+	// 			method: 'PUT',
+	// 			withCredentials: true,
+	// 			url: `${serverURL}/likeTracker/like`,
+	// 			data: { film: filmArray[0] },
+	// 		});
+	// 		console.log(response.data);
+	// 		return response.data;
+	// 	} catch (err) {
+	// 		return err;
+	// 	}
+	// }
+
 	return (
 		<div className='profile__container'>
-			<div id='profile__settings'>
-				<Link to='/ProfileEdit'>
-					<Settings active={location.pathname === '/ProfileEdit'} />
+			<div className='profile__header'>
+				<div className='profile__settings'>
+					<Link to='/dashboard/ProfileEdit'>
+						<Settings className={location.pathname === '/dashboard/ProfileEdit' ? 'activeLogo' : null} />
+					</Link>
+				</div>
+
+				<Link to='/'>
+					<p className='profile__logout' active={location.pathname === '/'}>
+						{' '}
+						Logout
+					</p>
 				</Link>
 			</div>
 
-			<div profile__header-container>
-				<img
-					className='profile__profile-picture'
-					src='https://boroondaraosteopathy.com.au/wp-content/uploads/2018/05/20180313_120911-2-1024x1024.jpg'
-					alt='new'
-				/>
+			<div className='profile__avatar-container'>
+				<Avatar />
 			</div>
+
+			{/* <div>
+				<ul>{posts.map((post) => <li key={post.id}>{post.title}</li>)}</ul>
+			</div> */}
+
 			<div className='profile__name-box'>
 				<h2>Linda Bear</h2>
 				<h3>
@@ -49,7 +89,7 @@ export function Profile(size) {
 					<span> Berlin </span>
 				</div>
 
-				<h4> Current filter:</h4>
+				<h4> Search Catagories:</h4>
 				<div className='profile__span-container-big'>
 					<span>1970s</span>
 					<span>1980s</span>
@@ -62,32 +102,37 @@ export function Profile(size) {
 
 			<div id='profile__likes-container'>
 				<div className='profile__text-container'>
-					<p>Likes</p>
+					<span>Likes</span>
 					<p className='profile__show-all'>Show All </p>
 
-					<Link to='/LikedMovies'>
-						<ChevronRight size={15} active={location.pathname === '/LikedMovies'} />
+					<Link to='/dashboard/LikedMovies'>
+						<ChevronRight size={15} active={location.pathname === '/dashboard/LikedMovies'} />
 					</Link>
 				</div>
 
 				<div className='profile__likes-container'>
 					{likedFilms.map((film) => (
-						<img className='profile__likes-picture' src={film.image} alt='movie thumbnail' />
+						<img className='profile__likes-picture' src={film.image} key={film.id} alt='movie thumbnail' />
 					))}
 				</div>
 			</div>
 
 			<div id='profile__matches-container'>
 				<div className='profile__text-container'>
-					<p>Top Matches</p>
+					<span>Top Matches</span>
 					<p className='profile__show-all'>Show All </p>
-					<Link to='/TopMatches'>
-						<ChevronRight size={15} active={location.pathname === '/TopMatches'} />
+					<Link to='/dashboard/TopMatches'>
+						<ChevronRight size={15} active={location.pathname === '/dashboard/TopMatches'} />
 					</Link>
 				</div>
 				<div className='profile__likes-container'>
 					{topMatches.map((match) => (
-						<img className='profile__likes-picture' src={match.image} alt='movie thumbnail' />
+						<img
+							className='profile__likes-picture'
+							src={match.image}
+							key={match.id}
+							alt='movie thumbnail'
+						/>
 					))}
 				</div>
 			</div>

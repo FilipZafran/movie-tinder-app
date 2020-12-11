@@ -1,7 +1,7 @@
 .avatarBackground {
-  margin-left: 200px;
-  height: 5rem;
-  width: 5rem;
+  /* margin-left: 200px; */
+  height: 220px;
+  width: 360px;
   border-radius: 12px;
   background-color: var(--warm-900);
   overflow: hidden;
@@ -9,13 +9,14 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  border-radius: 0;
 }
 
 .SvgCircle {
   position: absolute;
   z-index: 1;
-  height: 6rem;
-  width: 6rem;
+  height: 400px;
+  width: 400px;
 }
 
 .circleSmall {

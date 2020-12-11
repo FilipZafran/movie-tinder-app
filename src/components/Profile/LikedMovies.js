@@ -1,10 +1,11 @@
 import React, { Fragment } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ChevronLeft } from '../styleElements/icons';
+import { TopNav } from '../TopNav';
 import { ChevronRight } from '../styleElements/icons';
 import { CirclesBackground } from '../styleElements/CirclesBackground';
 import { dummyData } from '../MatchPage/MatchCard/dummyData';
 import { LogoActive } from '../styleElements/icons';
+import Thumbnail from './Thumbnail';
 
 export function LikedMovies() {
 	const location = useLocation();
@@ -17,19 +18,19 @@ export function LikedMovies() {
 	return (
 		<div className='liked_movies__container'>
 			<CirclesBackground />
+			<Link to='/dashboard/Profile'>
+				<TopNav backIcon active={location.pathname === '/dashboard/Profile'} />
+			</Link>
 
 			<div className='profile__edit-footer'>
-				<div className='profile__chevron-left'>
-					<Link to='/Profile'>
-						<ChevronLeft size={30} active={location.pathname === '/Profile'} />
-					</Link>
-				</div>
 				<h1> Liked Movies </h1>
 			</div>
 
+			<Thumbnail />
+
 			<div className='liked_movies__all'>
 				{likedFilmsAll.map((film) => (
-					<Fragment>
+					<Fragment key={film.id}>
 						<img className='liked_movies__thumbnail' src={film.image} alt='movie thumbnail' />
 						<div className='liked_movies__text-container'>
 							<p>{film.title} </p>
