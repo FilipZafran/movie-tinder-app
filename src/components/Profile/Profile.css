@@ -583,5 +583,8 @@ grid-template-columns: 70px 100px;
 input {
 z-index: 5!important;
 visibility: hidden; 
-
 }
+
+.profile__upload-label {
+  cursor: pointer;
+}   

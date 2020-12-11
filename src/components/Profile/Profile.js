@@ -59,21 +59,15 @@ export function Profile(size) {
 					</Link>
 				</div>
 
-				<Link to='/'>
-					<p className='profile__logout' active={location.pathname === '/'}>
-						{' '}
-						Logout
-					</p>
-				</Link>
+				<p className='profile__logout'>
+					{' '}
+					<Link to='/'> Logout </Link>
+				</p>
 			</div>
 
 			<div className='profile__avatar-container'>
 				<Avatar />
 			</div>
-
-			{/* <div>
-				<ul>{posts.map((post) => <li key={post.id}>{post.title}</li>)}</ul>
-			</div> */}
 
 			<div className='profile__name-box'>
 				<h2>Linda Bear</h2>

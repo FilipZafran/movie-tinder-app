@@ -27,7 +27,7 @@ function FileUploader(props) {
 	return (
 		<div className='profile__upload-div'>
 			<div className='profile__upload_symbol_position'>
-				<label>
+				<label className='profile__upload-label'>
 					<Settings />
 					<input type='file' name='file' onChange={uploadImage} />
 				</label>
@@ -37,7 +37,6 @@ function FileUploader(props) {
 			</div>
 		</div>
 	);
-	// var profile_picture_url = {file.secure_url}
 }
 
 export default FileUploader;
