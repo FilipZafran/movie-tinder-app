@@ -47,7 +47,9 @@ export const FilterPage = ({ toggle, seeFilters, hidden }) => {
       const activeFilters = await dispatch(fetchActiveFilters());
       unwrapResult(allFilters);
       unwrapResult(activeFilters);
-
+      if (localStorage.getItem('isAuthenticated') !== 'true') {
+        window.location.reload(false);
+      }
       if (Object.keys(activeFilters.payload).length > 0) {
         setGenreFilters(
           mapOver(
@@ -89,6 +91,9 @@ export const FilterPage = ({ toggle, seeFilters, hidden }) => {
         })
       );
       unwrapResult(newFilters);
+      if (localStorage.getItem('isAuthenticated') !== 'true') {
+        window.location.reload(false);
+      }
       dispatch(fetchToSwipe());
       if (location.pathname === '/dashboard/matchPage') {
         toggle();

@@ -61,8 +61,7 @@ export const MatchCard = ({ decision, reset }) => {
         try {
           const newLike = await dispatch(addLike(preLoadArray[0]));
           unwrapResult(newLike);
-          if (newLike.payload === 'not authenticated') {
-            localStorage.setItem('isAuthenticated', 'false');
+          if (localStorage.getItem('isAuthenticated') !== 'true') {
             window.location.reload(false);
           }
           console.log(newLike.payload);
@@ -71,17 +70,20 @@ export const MatchCard = ({ decision, reset }) => {
         }
       };
       updateLikes();
-      dispatch(preloadRemoveOne());
-      setShowInfo(false);
-      reset();
+      if (localStorage.getItem('isAuthenticated') !== 'true') {
+        window.location.reload(false);
+      } else {
+        dispatch(preloadRemoveOne());
+        setShowInfo(false);
+        reset();
+      }
     }
     if (decision === 'dislike') {
       const updateDislikes = async () => {
         try {
           const newDislike = await dispatch(addDislike(preLoadArray[0]));
           unwrapResult(newDislike);
-          if (newDislike.payload === 'not authenticated') {
-            localStorage.setItem('isAuthenticated', 'false');
+          if (localStorage.getItem('isAuthenticated') !== 'true') {
             window.location.reload(false);
           }
           console.log(newDislike.payload);
@@ -90,9 +92,13 @@ export const MatchCard = ({ decision, reset }) => {
         }
       };
       updateDislikes();
-      dispatch(preloadRemoveOne());
-      setShowInfo(false);
-      reset();
+      if (localStorage.getItem('isAuthenticated') !== 'true') {
+        window.location.reload(false);
+      } else {
+        dispatch(preloadRemoveOne());
+        setShowInfo(false);
+        reset();
+      }
     }
   }, [decision, reset, preLoadArray, serverURL, dispatch]);
 

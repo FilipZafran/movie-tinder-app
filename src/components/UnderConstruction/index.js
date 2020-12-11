@@ -32,8 +32,7 @@ export const UnderConstruction = () => {
         loginUser({ username: 'Admin', password: 'password' })
       );
       unwrapResult(login);
-      if (login.payload.message === 'Successfully Authenticated') {
-        localStorage.setItem('isAuthenticated', 'true');
+      if (login.payload.msg === 'User successfully logged in') {
         history.replace('/dashboard');
       }
     } catch (err) {

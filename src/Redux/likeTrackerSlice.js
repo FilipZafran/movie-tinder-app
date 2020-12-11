@@ -11,7 +11,7 @@ export const fetchLikes = createAsyncThunk(
     try {
       const response = await axios({
         method: 'GET',
-        withCredentials: true,
+        headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
         url: `${serverURL}/likeTracker/likes`,
       });
       return response.data.dislikes;
@@ -27,7 +27,7 @@ export const fetchDislikes = createAsyncThunk(
     try {
       const response = await axios({
         method: 'GET',
-        withCredentials: true,
+        headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
         url: `${serverURL}/likeTracker/dislikes`,
       });
       return response.data.likes;
@@ -41,12 +41,13 @@ export const addLike = createAsyncThunk('likeTracker/addLike', async (film) => {
   try {
     const response = await axios({
       method: 'PUT',
-      withCredentials: true,
+      headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
       url: `${serverURL}/likeTracker/like`,
       data: { film: film },
     });
     return response.data;
   } catch (err) {
+    localStorage.removeItem('isAuthenticated');
     console.log(err);
   }
 });
@@ -57,12 +58,13 @@ export const addDislike = createAsyncThunk(
     try {
       const response = await axios({
         method: 'PUT',
-        withCredentials: true,
+        headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
         url: `${serverURL}/likeTracker/dislike`,
         data: { film: film },
       });
       return response.data;
     } catch (err) {
+      localStorage.removeItem('isAuthenticated');
       console.log(err);
     }
   }
