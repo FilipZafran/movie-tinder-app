@@ -11,7 +11,6 @@ export const fetchAllFilters = createAsyncThunk(
     try {
       const response = await axios({
         method: 'GET',
-        withCredentials: true,
         url: `${serverURL}/movies/filterNames`,
       });
       return response.data.filters;
@@ -27,15 +26,14 @@ export const fetchActiveFilters = createAsyncThunk(
     try {
       const response = await axios({
         method: 'GET',
-        withCredentials: true,
+        headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
         url: `${serverURL}/likeTracker/filters`,
       });
-
-      return response.data === 'not authenticated'
-        ? { timeFilters: [], genreFilters: [] }
-        : response.data.filters;
+      return response.data.filters;
     } catch (err) {
       console.log(err);
+      localStorage.removeItem('isAuthenticated');
+      return { timeFilters: [], genreFilters: [] };
     }
   }
 );
@@ -46,7 +44,7 @@ export const submitActiveFilters = createAsyncThunk(
     try {
       const response = await axios({
         method: 'POST',
-        withCredentials: true,
+        headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
         url: `${serverURL}/likeTracker/filters`,
         data: {
           filters: {
@@ -57,6 +55,7 @@ export const submitActiveFilters = createAsyncThunk(
       });
       return response.data;
     } catch (err) {
+      localStorage.removeItem('isAuthenticated');
       console.log(err);
     }
   }

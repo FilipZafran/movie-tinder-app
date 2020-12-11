@@ -11,7 +11,7 @@ export const fetchToSwipe = createAsyncThunk(
     try {
       const response = await axios({
         method: 'GET',
-        withCredentials: true,
+        headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
         url: `${serverURL}/toSwipe`,
       });
       return response.data;
