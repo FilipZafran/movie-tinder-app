@@ -6,7 +6,8 @@
       "src": "Icon.svg",
       "sizes": "24x24",
       "type": "image/svg"
-    }
+    },
+    { "src": "profile_prime.png", "sizes": "825x825", "type": "image/png" }
   ],
   "start_url": ".",
   "display": "standalone",
