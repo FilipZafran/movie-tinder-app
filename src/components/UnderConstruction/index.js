@@ -34,12 +34,9 @@ export const UnderConstruction = () => {
       unwrapResult(login);
       if (login.payload.msg === 'User successfully logged in') {
         history.replace('/dashboard');
-      } else {
-        localStorage.setItem('isAuthenticated', 'false');
       }
     } catch (err) {
       console.log(err);
-      localStorage.setItem('isAuthenticated', 'not true');
     }
   };
 
