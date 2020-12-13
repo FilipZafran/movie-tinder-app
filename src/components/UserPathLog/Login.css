@@ -1,4 +1,11 @@
+.login {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  flex-direction: column;
+}
+
 .input-field {
   border-radius: 4px;
-  background-color: "red";
+  background-color: --dark-300-50;
 }

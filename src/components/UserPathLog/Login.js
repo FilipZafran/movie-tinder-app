@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 // import Resetpw from '../UserPathLog/Resetpw';
 import { Link } from "react-router-dom";
 import "./Login.css";
+import { Logo } from "./styleElements/icons/index/Logo";
 
 import { UnderConstruction } from "../UnderConstruction";
 
@@ -48,8 +49,9 @@ export default function Login() {
   return (
     <React.Fragment>
       <div className="login">
-        <h1>Login Page</h1>
-        <label> user name </label>
+        <Logo />
+        <h1>Welcome</h1>
+
         <input
           className="input-field"
           type="text"
@@ -57,7 +59,7 @@ export default function Login() {
           onChange={(e) => setUsername(e.target.value)}
           value={username}
         />
-        <label> password </label>
+
         <input
           type="password"
           onChange={(e) => setPassword(e.target.value)}
