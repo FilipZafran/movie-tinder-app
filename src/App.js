@@ -11,7 +11,6 @@ import Resetpw from "./components/UserPathLog/Resetpw";
 import Friends from "./components/Friends/Friends";
 import { UnderConstruction } from "./components/UnderConstruction";
 import { CirclesBackground } from "./components/styleElements/CirclesBackground";
-import { Edit } from "./components/styleElements/icons/Edit";
 
 const App = (props) => {
   const [otheridtoparents, setOtherProfileID] = useState("");
@@ -49,7 +48,7 @@ const App = (props) => {
         <Route path="/">
           <Login />
           <CirclesBackground />
-          <Edit />
+
           <UnderConstruction />
         </Route>
       </Switch>
