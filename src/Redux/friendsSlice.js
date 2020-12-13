@@ -2,6 +2,7 @@ import {
     createSlice,
     createEntityAdapter,
     createAsyncThunk,
+    combineReducers
 } from "@reduxjs/toolkit";
 import axios from "axios";
 // import { useSelector } from 'react-redux';
@@ -12,6 +13,8 @@ const feUrl = process.env.REACT_APP_FE;
 
 const friendsAdapter = createEntityAdapter();
 // const initialState = { entities: [], loading: 'idle' };
+
+// let friendsWannabes = [];
 
 //initial state of moviesSlice
 const initialState = friendsAdapter.getInitialState({
@@ -57,15 +60,17 @@ const acceptFriendRequest = createAsyncThunk('ACCEPT_FRIEND_REQUEST',
             withCredentials: true,
         })
         return {
-            friendsWannabes: rs.data,
+            friendsWannabe: rs.data,
             otherId
+
+            // otherId
         },
             console.log("ACCEPT_FRIEND_REQUEST", otherId),
             console.log("rs in AcceptFriend", rs, rs.data)
     }
 )
 
-const fetchFriendsDeclined = createAsyncThunk('DECLINE_FRIEND_REQUEST',
+const declineFriendRequest = createAsyncThunk('DECLINE_FRIEND_REQUEST',
     async (otherId) => {
         const rs = await axios({
             method: "POST",
@@ -73,36 +78,23 @@ const fetchFriendsDeclined = createAsyncThunk('DECLINE_FRIEND_REQUEST',
             withCredentials: true
         })
         return {
-            friendsWannabes: rs.data,
+            friendsWannabe: rs.data,
             otherId
         }
     })
 
-//Actions
-// const fetchFriendsDeleted = createAsyncThunk('DELETE_FRIEND_REQUEST',
 
-//     async () => {
-//         const rs = await axios.post(`${serverUrl}/friends/deleted`)
-//         // if (rs) {
-//         return {
-//             type: "DELETE_FRIEND_REQUEST"
-//         }
-//         // }
-//     }
-
-// )
 
 //creates moviesSlice when fetchMovies is fullfilled it will populate the movies slice
 const friendsSlice = createSlice({
     name: "friendsList",
     initialState,
     reducers: {
-        //here pass the action if not async
 
     },
-    //if async need to crate a thunk 
+
     extraReducers: {
-        [fetchFriendsWannabes.fulfilled]: (state, action) => {
+        [fetchFriendsWannabes.fulfilled]: (state = {}, action) => {
             // console.log("state before", action.type)
             if (action.type === "RECEIVE_FRIENDS_WANNABES/fulfilled") {
                 // console.log("made it to action")
@@ -117,7 +109,8 @@ const friendsSlice = createSlice({
             }
             return state
         },
-        [fetchFriends.fulfilled]: (state, action) => {
+        [fetchFriends.fulfilled]: (state = {}, action) => {
+            console.log("state somewhere", state)
             if (action.type === "RECEIVE_FRIENDS/fulfilled") {
                 console.log("made it to action")
                 state = {
@@ -128,30 +121,38 @@ const friendsSlice = createSlice({
             }
             return state
         },
-        [acceptFriendRequest.fulfilled]: (state, action) => {
+        [acceptFriendRequest.fulfilled]: (state = {}, action) => {
             //miss the otherId should be returned from backend
-            console.log("otherId ", acceptFriendRequest.otherId)
+
             if (action.type === "ACCEPT_FRIEND_REQUEST/fulfilled") {
+                console.log("made it yes")
+                console.log("otherId ", action.meta.arg)
+                console.log("state in accept", state)
+                console.log("state in accepted", state.friends.friendsWannabes)
                 state = {
                     ...state,
-                    friendsWannabes: state.friendsWannabes.map(friendsWannabe => {
-                        console.log("friendswannabe", friendsWannabe)
-                        if (action.otherId === friendsWannabe.id) {
-                            console.log("state", state)
-                            console.log("action.otherId", action.otherId)
-                            console.log("friendsWannabe.id", friendsWannabe.id)
-                            friendsWannabe.accepted = true;
-                            return state;
-                        } else {
-                            return state;
-                        }
-                    })
+                    friendsWannabes: state.friends.friendsWannabes
+                    //  .forEach(friendsWannabe => {
+                    //     console.log("friendswannabe", friendsWannabe)
+                    //     //     // console.log("action.otherId", action.payload.otherId)
+
+                    //     //     if (action.meta.arg === friendsWannabe.id) {
+                    //     //         console.log("state in accept", state)
+                    //     //         console.log("friendsWannabe.id", friendsWannabe.id)
+                    //     //         // friendsWannabe.accepted = true;
+                    //     //         return state;
+                    //     //     } else {
+                    //     //         return state;
+                    //     //     }
+                    // })
                 };
+                console.log("friendsWann be", state.friendsWannabe)
+                // console.log("state in accept firends" state)
             }
         },
 
 
-        [fetchFriendsDeclined.fulfilled]: (state, action) => {
+        [declineFriendRequest.fulfilled]: (state, action) => {
             console.log("made it to declined friendslce")
             if (action.type === "DECLINE_FRIEND_REQUEST/fulfilled") {
                 state = {
@@ -169,13 +170,16 @@ const friendsSlice = createSlice({
             }
         }
     },
+
 });
 
 
-export default friendsSlice.reducer;
 
+
+export default friendsSlice.reducer;
+// console.log(friendsState)
 export {
-    fetchFriendsWannabes, acceptFriendRequest, fetchFriendsDeclined, fetchFriends
+    fetchFriendsWannabes, acceptFriendRequest, declineFriendRequest, fetchFriends
     // fetchFriendsDeleted 
 };
 

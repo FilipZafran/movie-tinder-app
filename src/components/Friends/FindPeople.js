@@ -77,7 +77,7 @@ export default function FindPeople() {
             <Link to='/dashboard'>
                 <div className="Friends__header" active={location.pathname === '/dashboard'} >
                     <ChevronLeft />
-                    <h1 className="Friends__title">Friends </h1>
+                    <h1 className="Friends__title">Find friends </h1>
                     <ChevronLeft />
                 </div>
             </Link>

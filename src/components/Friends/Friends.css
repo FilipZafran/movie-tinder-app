@@ -30,6 +30,11 @@
     color: white;
 }
 
+input.Friends__searchBar:hover,
+input.Friends__searchBar:focus {
+    outline: none;
+}
+
 .Friends__LatestRegister {
     display: flex;
     flex-direction: row;
@@ -49,4 +54,57 @@
 
 .Friends__TitlePic a.Friends__NameLoading {
     align-items: center;
+}
+
+.Friends__button {
+    /* color: var(--light-100); */
+    background-color: rgb(255, 203, 31);
+    padding: 1rem;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.Friends__button:hover,
+.Friends__button__unfriend:hover {
+    color: white;
+}
+.Friends__YourFriends {
+    padding-top: 3rem;
+    font-size: 22px;
+    padding-bottom: 15px;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.Friends__button__unfriend {
+    font-size: 12px;
+    padding: 4px 8px 4px 8px;
+    border-bottom: solid 1px rgb(22, 22, 22);
+    background-color: rgb(255, 203, 31);
+    border-radius: 5px;
+    outline: none;
+    border: none;
+}
+
+.Friends__list {
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-bottom: 0.5vh;
+    padding-top: 0.5vh;
+    border-bottom: solid 1px rgb(22, 22, 22);
+}
+
+.Friends__card {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 0.5vh;
+    padding-top: 0.5vh;
+}
+
+#rest {
+    height: 400px;
 }
