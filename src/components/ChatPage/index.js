@@ -6,7 +6,7 @@ export const ChatPage = () => {
   return (
     <StyledChatPage>
       <CirclesBackground />
-      to be continued...
+      Coming Soon
     </StyledChatPage>
   );
 };

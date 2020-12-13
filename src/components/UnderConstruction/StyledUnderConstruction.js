@@ -1,16 +1,17 @@
 import styled from 'styled-components';
 
 export const ConstructionContainer = styled.div`
+  display: ${(props) => (props.display === 'true' ? 'flex' : 'none')};
   position: fixed;
   width: 100vw;
   height: 65vh;
-  display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
 `;
 
 export const ConstructionBox = styled.div`
+  position: relative;
   background: var(--dark-900-50);
   width: 380px;
   height: 200px;
@@ -64,4 +65,28 @@ export const DemoButton = styled.div`
   cursor: pointer;
   border-radius: 10px;
   background: var(--dark-300);
+  :hover {
+    padding: 11px;
+    border: 0.25px solid var(--light-300);
+  }
+`;
+
+export const ConstructionClose = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: 1px solid var(--dark-300);
+  border-radius: 10px;
+  width: 18px;
+  height: 18px;
+  :hover {
+    border: 1px solid var(--light-300);
+  }
+`;
+
+export const CloseContainer = styled.div`
+  position: absolute;
+  top: 5px;
+  right: 5px;
 `;

@@ -11,6 +11,7 @@ import {
   submitActiveFilters,
 } from '../../Redux/filtersSlice';
 import './FilterPage.css';
+import { fetchToSwipe } from '../../Redux/moviesSlice';
 
 export const FilterPage = ({ toggle, seeFilters, hidden }) => {
   const dispatch = useDispatch();
@@ -46,7 +47,9 @@ export const FilterPage = ({ toggle, seeFilters, hidden }) => {
       const activeFilters = await dispatch(fetchActiveFilters());
       unwrapResult(allFilters);
       unwrapResult(activeFilters);
-
+      if (localStorage.getItem('isAuthenticated') !== 'true') {
+        window.location.reload(false);
+      }
       if (Object.keys(activeFilters.payload).length > 0) {
         setGenreFilters(
           mapOver(
@@ -88,6 +91,10 @@ export const FilterPage = ({ toggle, seeFilters, hidden }) => {
         })
       );
       unwrapResult(newFilters);
+      if (localStorage.getItem('isAuthenticated') !== 'true') {
+        window.location.reload(false);
+      }
+      dispatch(fetchToSwipe());
       if (location.pathname === '/dashboard/matchPage') {
         toggle();
       } else {
@@ -106,6 +113,7 @@ export const FilterPage = ({ toggle, seeFilters, hidden }) => {
 
   useEffect(() => {
     getFilters();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
