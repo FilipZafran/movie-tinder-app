@@ -1,19 +1,20 @@
-import React, { useState } from 'react';
-import './App.css';
-import Dashboard from './components/Dashboard/Dashboard';
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
-import PrivateRoute from './components/PrivateRoute';
-import Login from './components/UserPathLog/Login';
-import FindPeople from './components/Friends/FindPeople';
-import OtherProfile from './components/Friends/OtherProfile';
-import Registration from './components/UserPathLog/Register';
-import Resetpw from './components/UserPathLog/Resetpw';
-import Friends from './components/Friends/Friends';
-import { UnderConstruction } from './components/UnderConstruction';
-import { CirclesBackground } from './components/styleElements/CirclesBackground';
+import React, { useState } from "react";
+import "./App.css";
+import Dashboard from "./components/Dashboard/Dashboard";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import PrivateRoute from "./components/PrivateRoute";
+import Login from "./components/UserPathLog/Login";
+import FindPeople from "./components/Friends/FindPeople";
+import OtherProfile from "./components/Friends/OtherProfile";
+import Registration from "./components/UserPathLog/Register";
+import Resetpw from "./components/UserPathLog/Resetpw";
+import Friends from "./components/Friends/Friends";
+import { UnderConstruction } from "./components/UnderConstruction";
+import { CirclesBackground } from "./components/styleElements/CirclesBackground";
+import { Edit } from "./components/styleElements/icons/Edit";
 
 const App = (props) => {
-  const [otheridtoparents, setOtherProfileID] = useState('');
+  const [otheridtoparents, setOtherProfileID] = useState("");
   const handleProfileID = (newAppID) => {
     setOtherProfileID(newAppID);
   };
@@ -48,6 +49,7 @@ const App = (props) => {
         <Route path="/">
           <Login />
           <CirclesBackground />
+          <Edit />
           <UnderConstruction />
         </Route>
       </Switch>
