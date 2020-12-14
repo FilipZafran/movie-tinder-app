@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "./Login.css";
 import { Logo } from "../styleElements/icons/Logo";
+import { Button } from "../styleElements/buttons/Button";
 
 import { UnderConstruction } from "../UnderConstruction";
 
@@ -67,9 +68,24 @@ export default function Login() {
           onChange={(e) => setPassword(e.target.value)}
           value={password}
         />
-        <button onClick={login}> Login </button>
+        <Button
+          onClick={login}
+          type="button"
+          buttonStyle="btn--primary--solid"
+          buttonSize="btn--medium"
+        >
+          Login
+        </Button>
       </div>
       <div className="links-container">
+        <Button
+          onClick={"/register"}
+          type="button"
+          buttonStyle="btn--stealth"
+          buttonSize="btn--medium"
+        >
+          Create an account
+        </Button>
         <Link to="/register">Register</Link>
         <Link to="/resetpw"> Reset PW</Link>
       </div>

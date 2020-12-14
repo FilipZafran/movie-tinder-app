@@ -1,0 +1,59 @@
+@import url("https://rsms.me/inter/inter.css");
+
+.btn {
+  font-weight: 500;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.btn:hover {
+  transform: scale(1.1);
+}
+
+/* Button colors and style */
+
+.btn--primary--solid {
+  background-color: var(--prime-500);
+  color: var(--dark-900);
+  border: none;
+}
+
+.btn--primary--outline {
+  background-color: transparent;
+  color: var(--prime-500);
+  border: 2px solid var(--prime-500);
+}
+
+.btn--secondary--solid {
+  background-color: var(--light-900);
+  color: var(--dark-900);
+  border: none;
+}
+
+.btn--secondary--outline {
+  background-color: transparent;
+  color: var(--light-900);
+  border: 2px solid var(--light-900);
+}
+
+.btn--stealth {
+  background-color: transparent;
+  color: var(--light-900);
+  border: none;
+}
+
+/* Button size */
+
+.btn--medium {
+  padding: 12px 24px;
+  font-size: 1.2rem;
+}
+
+.btn--large {
+  padding: 16px 32px;
+  font-size: 1.5rem;
+}
