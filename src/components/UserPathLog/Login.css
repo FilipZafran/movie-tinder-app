@@ -9,3 +9,10 @@
   border-radius: 4px;
   background-color: --dark-300-50;
 }
+
+.links-container {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  flex-direction: column;
+}

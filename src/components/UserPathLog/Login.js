@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 // import Resetpw from '../UserPathLog/Resetpw';
 import { Link } from "react-router-dom";
 import "./Login.css";
-import { Logo } from "./styleElements/icons/index/Logo";
+import { Logo } from "../styleElements/icons/Logo";
 
 import { UnderConstruction } from "../UnderConstruction";
 
@@ -50,6 +50,7 @@ export default function Login() {
     <React.Fragment>
       <div className="login">
         <Logo />
+
         <h1>Welcome</h1>
 
         <input
@@ -61,14 +62,17 @@ export default function Login() {
         />
 
         <input
+          className="input-field"
           type="password"
           onChange={(e) => setPassword(e.target.value)}
           value={password}
         />
         <button onClick={login}> Login </button>
       </div>
-      <Link to="/register">Register</Link>
-      <Link to="/resetpw"> Reset PW</Link>
+      <div className="links-container">
+        <Link to="/register">Register</Link>
+        <Link to="/resetpw"> Reset PW</Link>
+      </div>
     </React.Fragment>
   );
 }
