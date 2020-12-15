@@ -8,7 +8,6 @@ import FindPeople from './components/Friends/FindPeople';
 import OtherProfile from './components/Friends/OtherProfile';
 import Registration from './components/UserPathLog/Register';
 import Resetpw from './components/UserPathLog/Resetpw';
-import Friends from './components/Friends/Friends';
 import { UnderConstruction } from './components/UnderConstruction';
 import { CirclesBackground } from './components/styleElements/CirclesBackground';
 
