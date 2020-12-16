@@ -136,7 +136,13 @@ export default function Resetpw(e) {
 					Reset{' '}
 				</button>
 
-				<h1>Don't have an account? Sign up</h1>
+				<h1>
+					Don't have an account?{' '}
+					<Link to='/'>
+						{' '}
+						<a className='resetPw__link'>Sing up</a>{' '}
+					</Link>
+				</h1>
 			</div>
 
 			{/* {getCurrentDisplay()} */}

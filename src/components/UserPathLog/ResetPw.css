@@ -8,10 +8,12 @@
 
 .resetPw__container h1 {
     margin: 30px;
-    /* padding-right: 150px; */
-    /* width: 240px;  */
     text-align: center;
     font-size: 15px;
+}
+
+.resetPw__link {
+    color: #282bdd;
 }
 
 .resetPw__container p {
@@ -21,7 +23,7 @@
 }
 
  .resetPw__logo {
-     margin-top: 40%;
+     margin-top: 6em;
    }
 
 h1:nth-child(2)
@@ -30,25 +32,21 @@ h1:nth-child(2)
 }
 
 .resetPw__input {
-    display: flex;
+    display: inline-block; 
     padding: 10px;
-    padding-right: 20px;
-    margin-top: 15px;
     margin-bottom: 15px;
     background: rgba(5, 5, 5, 0.25);
     border-radius: 10px;
     width: 245px;
+    text-align: center;
 }
-
 
 .login__bttn {
     background: #F5BC00;
     border-radius: 8px;
     width: 245px;
     height: 56px;
-    left: 56px;
-    bottom: 397px;
-    color: --dark900;
+    color: var(--dark-900);
     font-size: 26px;
     font-weight: bold;
     margin-top: 40px;
