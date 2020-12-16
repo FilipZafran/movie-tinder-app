@@ -6,8 +6,10 @@
 }
 
 .input-field {
+  display: flex;
   border-radius: 4px;
   background-color: --dark-300-50;
+  margin: 12px 0;
 }
 
 .links-container {
@@ -15,4 +17,5 @@
   align-items: center;
   align-content: center;
   flex-direction: column;
+  margin: 12px 0;
 }

@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { useHistory, Link } from "react-router-dom";
 // import Registration from '../UserPathLog/Register';
 // import Resetpw from '../UserPathLog/Resetpw';
-import './Login.css';
-import { Logo } from '../styleElements/icons/Logo';
-import { Button } from '../styleElements/buttons/Button';
+import "./Login.css";
+import { Logo } from "../styleElements/icons/Logo";
+import { Button } from "../styleElements/buttons/Button";
 
-import { loginUser } from '../../Redux/userSlice';
-import { useDispatch } from 'react-redux';
-import { unwrapResult } from '@reduxjs/toolkit';
+import { loginUser } from "../../Redux/userSlice";
+import { useDispatch } from "react-redux";
+import { unwrapResult } from "@reduxjs/toolkit";
 
 export default function Login() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const history = useHistory();
   const dispatch = useDispatch();
@@ -26,10 +26,10 @@ export default function Login() {
         loginUser({ username: username, password: password })
       );
       unwrapResult(authenticate);
-      if (authenticate.payload?.msg === 'User successfully logged in') {
-        setUsername('');
-        setPassword('');
-        history.replace('/dashboard');
+      if (authenticate.payload?.msg === "User successfully logged in") {
+        setUsername("");
+        setPassword("");
+        history.replace("/dashboard");
       }
     } catch (err) {
       if (err) console.log(err);
@@ -64,6 +64,7 @@ export default function Login() {
           onChange={(e) => setPassword(e.target.value)}
           value={password}
         />
+        <Link to="/resetpw"> Reset PW</Link>
         <Button
           onClick={login}
           type="button"
@@ -83,8 +84,6 @@ export default function Login() {
             Create an account
           </Button>
         </Link>
-        <Link to="/register">Register</Link>
-        <Link to="/resetpw"> Reset PW</Link>
       </div>
     </React.Fragment>
   );
