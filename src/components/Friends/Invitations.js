@@ -53,10 +53,14 @@ export const Invitations = () => {
   }, []);
   return (
     <div>
-      Invitations:
-      {pendingInvitations}
-      Requests:
-      {pendingRequests}
+      <div>
+        Invitations:
+        {pendingInvitations}
+      </div>
+      <div>
+        Requests:
+        {pendingRequests}
+      </div>
     </div>
   );
 };

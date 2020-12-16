@@ -120,4 +120,5 @@ const friendsSlice = createSlice({
 
 export default friendsSlice.reducer;
 
-export const selectAllFriends = (state) => state.friends.entities.allFriends;
+export const selectAllFriends = (state) =>
+  state.friends ? state.friends.entities.allFriends : [];

@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Flip } from '../../styleElements/icons';
 import './MatchCard.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { addLike, addDislike } from '../../../Redux/likeTrackerSlice';
 import {
   selectCurrent,
@@ -15,7 +14,6 @@ import { unwrapResult } from '@reduxjs/toolkit';
 export const MatchCard = ({ decision, reset }) => {
   const [showInfo, setShowInfo] = useState(false);
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const preLoadArray = useSelector(selectPreload);
   const currentFilm = useSelector(selectCurrent);
@@ -49,7 +47,7 @@ export const MatchCard = ({ decision, reset }) => {
     } else {
       isMounted.current = true;
     }
-  }, [preLoadArray]);
+  }, [preLoadArray, dispatch]);
 
   //when a decision is made it triggers an axios call
 

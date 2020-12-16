@@ -1,7 +1,5 @@
 import React from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
-// import Friends from '../Friends/Friends';
-// import FindPeople from '../Friends/FindPeople';
 import { Friends } from '../Friends';
 import { MatchPage } from '../MatchPage';
 import { Profile } from '../Profile/Profile';
