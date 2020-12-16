@@ -5,12 +5,31 @@ const initialState = { entities: [], loading: 'idle' };
 
 const serverURL = process.env.REACT_APP_SERVER;
 
-export const fetchUser = createAsyncThunk('user/fetchUser', async () => {
+export const fetchSearchResults = createAsyncThunk(
+  'user/fetchSearchResults',
+  async (username) => {
+    try {
+      const response = await axios({
+        method: 'GET',
+        url: `${serverURL}/profiles/findFriend`,
+        headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
+        data: username,
+      });
+      console.log(response.data);
+      return response.data;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
+
+export const fetchUser = createAsyncThunk('user/fetchUser', async (userId) => {
   try {
     const response = await axios({
       method: 'GET',
-      url: `${serverURL}/authenticate/user`,
+      url: `${serverURL}/profiles/user`,
       headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
+      data: userId,
     });
     return response.data;
   } catch (err) {

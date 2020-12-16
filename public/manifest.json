@@ -1,0 +1,16 @@
+{
+  "short_name": "Filmably",
+  "name": "Filmably",
+  "icons": [
+    {
+      "src": "Icon.svg",
+      "sizes": "24x24",
+      "type": "image/svg"
+    },
+    { "src": "profile_prime.png", "sizes": "825x825", "type": "image/png" }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
