@@ -20,7 +20,7 @@ export const Button = ({
   buttonStyle,
   buttonSize,
 }) => {
-  /* Vriable checks if prop matches with STYLES and SIZE vriables if not it will be set to default */
+  /* Checks if prop matches with STYLES and SIZE, if not it will be set to default */
   const checkButtonStyle = STYLES.includes(buttonStyle)
     ? buttonStyle
     : STYLES[0];
