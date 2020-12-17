@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const serverURL = process.env.REACT_APP_SERVER;
+const token = localStorage.getItem('x-auth-token');
 
 const initialState = { entities: {}, loading: 'idle' };
 
@@ -12,7 +13,7 @@ export const fetchFriendsInvitations = createAsyncThunk(
       const response = await axios({
         method: 'GET',
         url: `${serverURL}/friends/invitations`,
-        headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
+        headers: { 'x-auth-token': token },
       });
       console.log(response.data);
       return response.data.pendingInvitations;
@@ -29,7 +30,7 @@ export const fetchFriendsRequests = createAsyncThunk(
       const response = await axios({
         method: 'GET',
         url: `${serverURL}/friends/requests`,
-        headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
+        headers: { 'x-auth-token': token },
       });
       console.log(response.data);
       return response.data.pendingRequests;
@@ -46,7 +47,7 @@ export const fetchAllFriends = createAsyncThunk(
       const response = await axios({
         method: 'GET',
         url: `${serverURL}/friends/allFriends`,
-        headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
+        headers: { 'x-auth-token': token },
       });
       console.log(response.data);
       return response.data.friends;
@@ -62,11 +63,12 @@ export const sendFriendRequest = createAsyncThunk(
     try {
       const response = await axios({
         method: 'POST',
-        url: `${serverURL}/friends/sendRequest/${otherId}`,
-        headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
+        url: `${serverURL}/friends/sendRequest`,
+        headers: { 'x-auth-token': token },
+        data: otherId,
       });
       console.log(response);
-      return response;
+      return response.data;
     } catch (err) {
       console.log(err);
     }
@@ -80,10 +82,10 @@ export const acceptFriendRequest = createAsyncThunk(
       const response = await axios({
         method: 'PATCH',
         url: `${serverURL}/friends/acceptRequest/${otherId}`,
-        headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
+        headers: { 'x-auth-token': token },
       });
       console.log(response);
-      return response;
+      return response.data;
     } catch (err) {
       console.log(err);
     }
@@ -97,10 +99,10 @@ export const deleteFriend = createAsyncThunk(
       const response = await axios({
         method: 'DELETE',
         url: `${serverURL}/friends/removeFriend/${otherId}`,
-        headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
+        headers: { 'x-auth-token': token },
       });
       console.log(response);
-      return response;
+      return response.data;
     } catch (err) {
       console.log(err);
     }
@@ -115,6 +117,12 @@ const friendsSlice = createSlice({
     [fetchAllFriends.fulfilled]: (state, action) => {
       state.entities.allFriends = action.payload;
     },
+    [fetchFriendsInvitations.fulfilled]: (state, action) => {
+      state.entities.invitations = action.payload;
+    },
+    [fetchFriendsRequests.fulfilled]: (state, action) => {
+      state.entities.requests = action.payload;
+    },
   },
 });
 
@@ -122,3 +130,9 @@ export default friendsSlice.reducer;
 
 export const selectAllFriends = (state) =>
   state.friends ? state.friends.entities.allFriends : [];
+
+export const selectFriendsInvitations = (state) =>
+  state.friends ? state.friends.entities.invitations : [];
+
+export const selectFriendsRequests = (state) =>
+  state.friends ? state.friends.entities.requests : [];

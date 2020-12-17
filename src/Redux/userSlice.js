@@ -10,10 +10,10 @@ export const fetchSearchResults = createAsyncThunk(
   async (username) => {
     try {
       const response = await axios({
-        method: 'GET',
+        method: 'POST',
         url: `${serverURL}/profiles/findFriend`,
         headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
-        data: username,
+        data: { username: username },
       });
       console.log(response.data);
       return response.data;

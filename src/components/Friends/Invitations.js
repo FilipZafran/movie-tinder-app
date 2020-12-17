@@ -4,9 +4,9 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import {
   fetchFriendsInvitations,
   fetchFriendsRequests,
+  fetchAllFriends,
   acceptFriendRequest,
   deleteFriend,
-  fetchAllFriends,
 } from '../../Redux/friendsSlice';
 
 export const Invitations = () => {
@@ -38,6 +38,7 @@ export const Invitations = () => {
     try {
       const fetchInvitations = await dispatch(fetchFriendsInvitations());
       const fetchRequests = await dispatch(fetchFriendsRequests());
+      dispatch(fetchAllFriends());
       unwrapResult(fetchInvitations);
       unwrapResult(fetchRequests);
       setInvitations(fetchInvitations.payload);
