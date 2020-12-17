@@ -15,11 +15,11 @@ export const Invitations = () => {
   const [requests, setRequests] = useState([]);
 
   const pendingInvitations = invitations.map((x) => (
-    <div key={x}>
-      {x}
+    <div key={x.id}>
+      {x.username}
       <div
         onClick={() => {
-          dispatch(acceptFriendRequest(x));
+          dispatch(acceptFriendRequest(x.id));
           dispatch(fetchAllFriends());
         }}
       >
@@ -28,9 +28,9 @@ export const Invitations = () => {
     </div>
   ));
   const pendingRequests = requests.map((x) => (
-    <div key={x}>
-      {x}
-      <div onClick={() => dispatch(deleteFriend(x))}>Cancel</div>
+    <div key={x.id}>
+      {x.username}
+      <div onClick={() => dispatch(deleteFriend(x.id))}>Cancel</div>
     </div>
   ));
 

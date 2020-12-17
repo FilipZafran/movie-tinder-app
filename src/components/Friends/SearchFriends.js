@@ -38,9 +38,9 @@ export const SearchFriends = () => {
   };
 
   const friendsList = friends.map((x) => (
-    <div key={x}>
-      {x}
-      <div onClick={() => dispatch(deleteFriend(x))}>Unfriend</div>
+    <div key={x.id}>
+      {x.username}
+      <div onClick={() => dispatch(deleteFriend(x.id))}>Unfriend</div>
     </div>
   ));
 
@@ -48,28 +48,29 @@ export const SearchFriends = () => {
     people?.length > 0 ? (
       people.map((x) => {
         const button =
-          friends.indexOf(x) >= 0 ? (
+          friends.find((element) => element.id === x.id) !== undefined ? (
             <div
               onClick={() => {
-                dispatch(deleteFriend(x));
+                dispatch(deleteFriend(x.id));
                 dispatch(fetchAllFriends());
               }}
             >
               Unfriend
             </div>
-          ) : request.indexOf(x) >= 0 ? (
+          ) : request.find((element) => element.id === x.id) !== undefined ? (
             <div
               onClick={() => {
-                dispatch(deleteFriend(x));
+                dispatch(deleteFriend(x.id));
                 dispatch(fetchFriendsRequests());
               }}
             >
               Cancel
             </div>
-          ) : invitations.indexOf(x) >= 0 ? (
+          ) : invitations.find((element) => element.id === x.id) !==
+            undefined ? (
             <div
               onClick={() => {
-                dispatch(acceptFriendRequest(x));
+                dispatch(acceptFriendRequest(x.id));
                 dispatch(fetchFriendsInvitations());
                 dispatch(fetchAllFriends());
               }}
@@ -79,7 +80,7 @@ export const SearchFriends = () => {
           ) : (
             <div
               onClick={() => {
-                dispatch(sendFriendRequest({ id: x }));
+                dispatch(sendFriendRequest({ id: x.id }));
                 dispatch(fetchFriendsRequests());
               }}
             >
@@ -88,8 +89,8 @@ export const SearchFriends = () => {
           );
 
         return (
-          <div key={x}>
-            {x}
+          <div key={x.id}>
+            {x.username}
             {button}
           </div>
         );
