@@ -18,7 +18,11 @@ function Registration() {
   const submit = async () => {
     try {
       const register = await dispatch(
-        registerUser({ username: values.username, password: values.password })
+        registerUser({
+          username: values.username,
+          password: values.password,
+          email: values.email,
+        })
       );
       unwrapResult(register);
       if (register.payload?.msg === 'User successfully created') {
@@ -29,28 +33,6 @@ function Registration() {
       console.log(err);
     }
   };
-
-  // func expression to post the data gathered in the inputfield
-  // const submit = () => {
-  // 	//post route to backend
-  // 	axios
-  // 		.post('/register', {
-  // 			first: values.first,
-  // 			last: values.last,
-  // 			email: values.email,
-  // 			pw: values.pw
-  // 		})
-  // 		.then(({ data }) => {
-  // 			//data is the response from backend
-  // 			if (data.success) {
-  // 				//should send user to its account
-  // 				window.location.replace('/');
-  // 			} else {
-  // 				setError(true);
-  // 			}
-  // 		});
-  // 	return [ submit, error ];
-  // };
 
   //will handle the fact that many letters can be written and update to the lastest version
   const handleChange = (e) => {
@@ -69,14 +51,14 @@ function Registration() {
         <input
           type="text"
           name="username"
-          placeholder="username**"
+          placeholder="username"
           onInput={(e) => setInput(e.target.value)}
           onChange={handleChange}
         />
         <input
           type="password"
           name="password"
-          placeholder="password**"
+          placeholder="password"
           onInput={(e) => setInput(e.target.value)}
           onChange={handleChange}
         />
