@@ -50,18 +50,26 @@ export const SearchFriends = () => {
         const button =
           friends.find((element) => element.id === x.id) !== undefined ? (
             <div
-              onClick={() => {
-                dispatch(deleteFriend(x.id));
-                dispatch(fetchAllFriends());
+              onClick={async () => {
+                try {
+                  await dispatch(deleteFriend(x.id));
+                  dispatch(fetchAllFriends());
+                } catch (err) {
+                  console.log(err);
+                }
               }}
             >
               Unfriend
             </div>
           ) : request.find((element) => element.id === x.id) !== undefined ? (
             <div
-              onClick={() => {
-                dispatch(deleteFriend(x.id));
-                dispatch(fetchFriendsRequests());
+              onClick={async () => {
+                try {
+                  await dispatch(deleteFriend(x.id));
+                  dispatch(fetchFriendsRequests());
+                } catch (err) {
+                  console.log(err);
+                }
               }}
             >
               Cancel
@@ -69,19 +77,27 @@ export const SearchFriends = () => {
           ) : invitations.find((element) => element.id === x.id) !==
             undefined ? (
             <div
-              onClick={() => {
-                dispatch(acceptFriendRequest(x.id));
-                dispatch(fetchFriendsInvitations());
-                dispatch(fetchAllFriends());
+              onClick={async () => {
+                try {
+                  await dispatch(acceptFriendRequest(x.id));
+                  dispatch(fetchFriendsInvitations());
+                  dispatch(fetchAllFriends());
+                } catch (err) {
+                  console.log(err);
+                }
               }}
             >
               Accept
             </div>
           ) : (
             <div
-              onClick={() => {
-                dispatch(sendFriendRequest({ id: x.id }));
-                dispatch(fetchFriendsRequests());
+              onClick={async () => {
+                try {
+                  await dispatch(sendFriendRequest({ id: x.id }));
+                  dispatch(fetchFriendsRequests());
+                } catch (err) {
+                  console.log(err);
+                }
               }}
             >
               Friend Request

@@ -19,9 +19,13 @@ export const FetchInvitations = () => {
     <div key={x.id}>
       {x.username}
       <div
-        onClick={() => {
-          dispatch(acceptFriendRequest(x.id));
-          dispatch(fetchAllFriends());
+        onClick={async () => {
+          try {
+            await dispatch(acceptFriendRequest(x.id));
+            fetchData();
+          } catch (err) {
+            console.log(err);
+          }
         }}
       >
         Accept
@@ -31,7 +35,18 @@ export const FetchInvitations = () => {
   const pendingRequests = requests.map((x) => (
     <div key={x.id}>
       {x.username}
-      <div onClick={() => dispatch(deleteFriend(x.id))}>Cancel</div>
+      <div
+        onClick={async () => {
+          try {
+            await dispatch(deleteFriend(x.id));
+            fetchData();
+          } catch (err) {
+            console.log(err);
+          }
+        }}
+      >
+        Cancel
+      </div>
     </div>
   ));
 

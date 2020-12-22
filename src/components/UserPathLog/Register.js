@@ -25,7 +25,7 @@ function Registration() {
         })
       );
       unwrapResult(register);
-      if (register.payload?.msg === 'User successfully created') {
+      if (register.payload?.msg === 'User successfully created and logged in') {
         history.replace('/dashboard');
       }
     } catch (err) {

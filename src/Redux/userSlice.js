@@ -63,6 +63,10 @@ export const registerUser = createAsyncThunk(
         url: `${serverURL}/authenticate/register`,
         data: user,
       });
+      if (response.data.msg === 'User successfully created and logged in') {
+        localStorage.setItem('isAuthenticated', 'true');
+        localStorage.setItem('x-auth-token', response.data.token);
+      }
       return response.data;
     } catch (err) {
       console.log(err);
