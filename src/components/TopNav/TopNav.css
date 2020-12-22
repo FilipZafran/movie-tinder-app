@@ -34,3 +34,9 @@
   padding: 8px 16px;
   margin: 20px;
 }
+
+.toNav_title {
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--light-100);
+}

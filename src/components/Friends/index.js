@@ -1,11 +1,11 @@
 import React from 'react';
-import { Invitations } from './Invitations';
+import { TopNav } from '../TopNav';
 import { SearchFriends } from './SearchFriends';
 
 export const Friends = () => {
   return (
     <div>
-      <Invitations />
+      <TopNav />
       <SearchFriends />
     </div>
   );
