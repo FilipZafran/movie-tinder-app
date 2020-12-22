@@ -8,8 +8,9 @@ import {
   acceptFriendRequest,
   deleteFriend,
 } from '../../Redux/friendsSlice';
+import { TopNav } from '../TopNav';
 
-export const Invitations = () => {
+export const FetchInvitations = () => {
   const dispatch = useDispatch();
   const [invitations, setInvitations] = useState([]);
   const [requests, setRequests] = useState([]);
@@ -54,6 +55,7 @@ export const Invitations = () => {
   }, []);
   return (
     <div>
+      <TopNav backIcon bellIcon title="Invitations" />
       <div>
         Invitations:
         {pendingInvitations}

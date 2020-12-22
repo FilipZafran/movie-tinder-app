@@ -38,7 +38,7 @@ export const TopNav = ({
           <Filter className="light300" />
         </div>
       ) : bellIcon ? (
-        <Link to={invitations}>
+        <Link to={'/dashboard/invitations'}>
           <div className="topNav__button">
             <Bell size="24" />
           </div>
