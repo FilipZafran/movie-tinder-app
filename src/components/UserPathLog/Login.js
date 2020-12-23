@@ -5,6 +5,7 @@ import { useHistory, Link } from 'react-router-dom';
 import './Login.css';
 import { Logo } from '../styleElements/icons/Logo';
 import { Button } from '../styleElements/buttons/Button';
+import { RequestReset } from '../ResetPassword/RequestReset';
 
 import { loginUser } from '../../Redux/userSlice';
 import { useDispatch } from 'react-redux';
@@ -84,7 +85,7 @@ export default function Login() {
           </Button>
         </Link>
         <Link to="/register">Register</Link>
-        <Link to="/resetpw"> Reset PW</Link>
+        <RequestReset />
       </div>
     </React.Fragment>
   );
