@@ -13,9 +13,9 @@ export const ResetPassword = () => {
       <input
         type="text"
         value={password}
-        onChange={(x) => setPassword(e.target.value)}
+        onChange={(e) => setPassword(e.target.value)}
       ></input>
-      <button onClick={(x) => dispatch(resetPassword(password, token))}>
+      <button onClick={(e) => dispatch(resetPassword(password, token))}>
         Submit
       </button>
     </div>

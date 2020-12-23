@@ -7,13 +7,13 @@ export const RequestReset = () => {
   const dispatch = useDispatch();
   return (
     <div className="requestReset">
-      <button onClick={(x) => dispatch(requestReset(email))}>
+      <button onClick={(e) => dispatch(requestReset(email))}>
         reset password
       </button>
       <input
         type="text"
         value={email}
-        onChange={(x) => setEmail(e.target.value)}
+        onChange={(e) => setEmail(e.target.value)}
         placeholder="e-mail"
       ></input>
     </div>
