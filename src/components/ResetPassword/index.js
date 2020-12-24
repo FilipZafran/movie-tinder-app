@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import {Link} from 'react-router-dom';
 import { useParams } from 'react-router';
 import { resetPassword } from '../../Redux/resetSlice';
 import {Button} from '../styleElements/buttons/Button';
@@ -34,7 +35,11 @@ export const ResetPassword = () => {
       setCheckPass('Invalid Password')
     }
    else {
-      dispatch(resetPassword({password: password, token: token}))}}
+      dispatch(resetPassword({password: password, token: token}));
+      setPassword("");
+      setConfirmPassword("");
+    }
+  }
 
 
 useEffect(() => {
@@ -58,7 +63,8 @@ useEffect(() => {
       <input type="password" placeholder="confirm password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
       <p>{matchMessage}</p>
       <Button children="Submit" buttonStyle="btn--primary--outline" onClick={submitHandler} />
-    <div>{checkPass}</div>
+    <p>{checkPass}</p>
+    <Link to="/">to Login</Link>
     </StyledResetPassword>
   );
 };

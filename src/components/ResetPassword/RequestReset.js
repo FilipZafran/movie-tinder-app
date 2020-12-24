@@ -20,6 +20,12 @@ input {
 export const RequestReset = () => {
   const [email, setEmail] = useState('');
   const dispatch = useDispatch();
+
+  const onSubmit = (e) => {
+    dispatch(requestReset(email));
+    setEmail("");
+  }
+
   return (
 
     <StyledRequestReset>
@@ -31,7 +37,7 @@ export const RequestReset = () => {
         onChange={(e) => setEmail(e.target.value)}
         placeholder="e-mail"
       ></input>
-      <Button children="Send E-mail" buttonStyle="btn--primary--outline" onClick={(e) => dispatch(requestReset(email))}/>
+      <Button children="Send E-mail" buttonStyle="btn--primary--outline" onClick={onSubmit}/>
    
     </StyledRequestReset>
   );
