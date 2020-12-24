@@ -65,6 +65,7 @@ export default function Login() {
           onChange={(e) => setPassword(e.target.value)}
           value={password}
         />
+        <Link to="/requestReset">Reset Password</Link>
         <Button
           onClick={login}
           type="button"
@@ -84,8 +85,6 @@ export default function Login() {
             Create an account
           </Button>
         </Link>
-        <Link to="/register">Register</Link>
-        <RequestReset />
       </div>
     </React.Fragment>
   );

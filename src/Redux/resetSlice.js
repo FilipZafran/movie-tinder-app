@@ -24,12 +24,12 @@ export const requestReset = createAsyncThunk(
 
 export const resetPassword = createAsyncThunk(
   'reset/resetPassword',
-  async (password, token) => {
+  async (data) => {
     try {
       const response = await axios({
         method: 'POST',
         url: `${serverURL}/resetPassword/newPassword`,
-        data: { password: password, token: token },
+        data: data,
       });
       console.log(response.data);
       return response.data;

@@ -1,23 +1,64 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router';
 import { resetPassword } from '../../Redux/resetSlice';
+import {Button} from '../styleElements/buttons/Button';
 import { useDispatch } from 'react-redux';
+import styled from 'styled-components';
+
+
+const StyledResetPassword = styled.div`
+height: 85vh;
+width: 100vw;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+input {
+  margin-top: 30px;
+}
+p {
+  margin-bottom: 30px;
+}
+`;
 
 export const ResetPassword = () => {
-  const { token } = useParams();
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [matchMessage, setMatchMessage] = useState("");
+  const [checkPass, setCheckPass] = useState('');
   const dispatch = useDispatch();
+  const {token} = useParams();
+
+  const submitHandler = (e) => {
+    if (password === '' || password !== confirmPassword) {
+      setCheckPass('Invalid Password')
+    }
+   else {
+      dispatch(resetPassword({password: password, token: token}))}}
+
+
+useEffect(() => {
+  if (password !== confirmPassword && matchMessage === "") {
+    setMatchMessage('passwords must match')
+  }
+  else if (password === confirmPassword && matchMessage === 'passwords must match'){
+    setMatchMessage("")
+  }
+}, [password, confirmPassword, matchMessage]
+)
 
   return (
-    <div className="resetPassword">
+    <StyledResetPassword>
       <input
-        type="text"
+        type="password"
+        placeholder="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       ></input>
-      <button onClick={(e) => dispatch(resetPassword(password, token))}>
-        Submit
-      </button>
-    </div>
+      <input type="password" placeholder="confirm password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+      <p>{matchMessage}</p>
+      <Button children="Submit" buttonStyle="btn--primary--outline" onClick={submitHandler} />
+    <div>{checkPass}</div>
+    </StyledResetPassword>
   );
 };
