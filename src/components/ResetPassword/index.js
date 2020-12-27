@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import { useParams } from 'react-router';
 import { resetPassword } from '../../Redux/resetSlice';
 import {Button} from '../styleElements/buttons/Button';
+import {InputField} from '../styleElements/inputField';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
