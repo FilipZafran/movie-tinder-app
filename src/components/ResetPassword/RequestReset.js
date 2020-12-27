@@ -31,7 +31,7 @@ export const RequestReset = () => {
   return (
 
     <StyledRequestReset>
-          <TopNav backIcon title="Account Recovery" text=" " />
+          <TopNav backIcon title="Account Recovery" text="Login" textLink="/" />
    
       <InputField
         type="text"
