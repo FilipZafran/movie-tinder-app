@@ -5,7 +5,9 @@ import { resetPassword } from '../../Redux/resetSlice';
 import {Button} from '../styleElements/buttons/Button';
 import {InputField} from '../styleElements/inputField';
 import { useDispatch } from 'react-redux';
+import {TopNav} from '../TopNav';
 import styled from 'styled-components';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 
 const StyledResetPassword = styled.div`
@@ -15,11 +17,17 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
-input {
-  margin-top: 30px;
+
+.inputErr {
+  margin-top: 5px;
+  color: var(--error-500);
 }
-p {
-  margin-bottom: 30px;
+.inputMsg {
+  margin-top: 5px;
+  color: var(--light-100);
+}
+Button {
+  margin-top: 15px;
 }
 `;
 
@@ -27,16 +35,18 @@ export const ResetPassword = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [matchMessage, setMatchMessage] = useState("");
-  const [checkPass, setCheckPass] = useState('');
+  const [resMsg, setResMsg] = useState({err: true, msg: ''});
   const dispatch = useDispatch();
   const {token} = useParams();
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     if (password === '' || password !== confirmPassword) {
-      setCheckPass('Invalid Password')
+      setResMsg({err: true, msg: 'invalid password'})
     }
    else {
-      dispatch(resetPassword({password: password, token: token}));
+      const msg = await dispatch(resetPassword({password: password, token: token}));
+      unwrapResult(msg);
+      setResMsg(msg.payload);
       setPassword("");
       setConfirmPassword("");
     }
@@ -55,17 +65,17 @@ useEffect(() => {
 
   return (
     <StyledResetPassword>
-      <input
+      <TopNav backIcon title="Reset Password" text="Login" textLink="/" />
+      <InputField
         type="password"
         placeholder="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-      ></input>
-      <input type="password" placeholder="confirm password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-      <p>{matchMessage}</p>
+        msg={{err:true, msg:''}}
+      ></InputField>
+      <InputField msg={{err:true, msg:matchMessage}} type="password" placeholder="confirm password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
       <Button children="Submit" buttonStyle="btn--primary--outline" onClick={submitHandler} />
-    <p>{checkPass}</p>
-    <Link to="/">to Login</Link>
+    <p className={resMsg.err ? 'inputErr' : 'inputMsg'}>{resMsg.msg}</p>
     </StyledResetPassword>
   );
 };

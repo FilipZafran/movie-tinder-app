@@ -2,13 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledInputField = styled.div`
-padding: 20px;
+margin: 5px;
 display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
 input {
-    margin: 10px;
+    margin: 5px;
     background: var(--dark-900-25);
     width: 285px;
     height: 24px;
@@ -24,6 +24,7 @@ input {
     }
     :focus {
         background: var(--dark-900-50);
+        outline: none;
     }
 
 }
@@ -31,8 +32,13 @@ p {
     text-align: left;
     width: 300px;
     height: 20px;
-    color: var(--error-500);
     font-size: 13px;
+}
+.inputError {
+    color: var(--error-500);
+}
+.inputMsg {
+    color: var(--light-100);
 }
 `;
 
@@ -40,7 +46,7 @@ export const InputField = ({msg, value, placeholder, type, onChange}) => {
 
     return (
         <StyledInputField>
-            <input onChange={onChange} type={type} value={value} placeholder={placeholder}></input><p>{msg.msg}</p>
+            <input onChange={onChange} type={type} value={value} placeholder={placeholder}></input><p className={msg.err ? "inputError" : "inputMsg" }>{msg.msg}</p>
         </StyledInputField>
     )
 }

@@ -33,9 +33,10 @@ export const resetPassword = createAsyncThunk(
         data: data,
       });
       console.log(response.data);
-      return response.data;
+      return {err: false, msg: response.data.msg};
     } catch (err) {
       console.log(err);
+      return {err: true, msg: err.response.data.msg};
     }
   }
 );
