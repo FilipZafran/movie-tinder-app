@@ -4,23 +4,28 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import {
   fetchFriendsInvitations,
   fetchFriendsRequests,
+  fetchAllFriends,
   acceptFriendRequest,
   deleteFriend,
-  fetchAllFriends,
 } from '../../Redux/friendsSlice';
+import { TopNav } from '../TopNav';
 
-export const Invitations = () => {
+export const FetchInvitations = () => {
   const dispatch = useDispatch();
   const [invitations, setInvitations] = useState([]);
   const [requests, setRequests] = useState([]);
 
   const pendingInvitations = invitations.map((x) => (
-    <div key={x}>
-      {x}
+    <div key={x.id}>
+      {x.username}
       <div
-        onClick={() => {
-          dispatch(acceptFriendRequest(x));
-          dispatch(fetchAllFriends());
+        onClick={async () => {
+          try {
+            await dispatch(acceptFriendRequest(x.id));
+            fetchData();
+          } catch (err) {
+            console.log(err);
+          }
         }}
       >
         Accept
@@ -28,9 +33,20 @@ export const Invitations = () => {
     </div>
   ));
   const pendingRequests = requests.map((x) => (
-    <div key={x}>
-      {x}
-      <div onClick={() => dispatch(deleteFriend(x))}>Cancel</div>
+    <div key={x.id}>
+      {x.username}
+      <div
+        onClick={async () => {
+          try {
+            await dispatch(deleteFriend(x.id));
+            fetchData();
+          } catch (err) {
+            console.log(err);
+          }
+        }}
+      >
+        Cancel
+      </div>
     </div>
   ));
 
@@ -38,6 +54,7 @@ export const Invitations = () => {
     try {
       const fetchInvitations = await dispatch(fetchFriendsInvitations());
       const fetchRequests = await dispatch(fetchFriendsRequests());
+      dispatch(fetchAllFriends());
       unwrapResult(fetchInvitations);
       unwrapResult(fetchRequests);
       setInvitations(fetchInvitations.payload);
@@ -53,6 +70,7 @@ export const Invitations = () => {
   }, []);
   return (
     <div>
+      <TopNav backIcon bellIcon title="Invitations" />
       <div>
         Invitations:
         {pendingInvitations}

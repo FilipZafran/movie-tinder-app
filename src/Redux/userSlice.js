@@ -10,10 +10,10 @@ export const fetchSearchResults = createAsyncThunk(
   async (username) => {
     try {
       const response = await axios({
-        method: 'GET',
+        method: 'POST',
         url: `${serverURL}/profiles/findFriend`,
         headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
-        data: username,
+        data: { username: username },
       });
       console.log(response.data);
       return response.data;
@@ -63,6 +63,10 @@ export const registerUser = createAsyncThunk(
         url: `${serverURL}/authenticate/register`,
         data: user,
       });
+      if (response.data.msg === 'User successfully created and logged in') {
+        localStorage.setItem('isAuthenticated', 'true');
+        localStorage.setItem('x-auth-token', response.data.token);
+      }
       return response.data;
     } catch (err) {
       console.log(err);

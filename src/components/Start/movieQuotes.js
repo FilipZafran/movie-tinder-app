@@ -98,7 +98,7 @@ export const movieQuotes = [
     'DIRTY HARRY',
     '1971',
   ],
-  ['You had me at "hello."', 'JERRY MAGUIRE', '1996'],
+  ['You had me at \'hello.\'', 'JERRY MAGUIRE', '1996'],
   [
     "One morning I shot an elephant in my pajamas. How he got in my pajamas, I don't know.",
     'ANIMAL CRACKERS',

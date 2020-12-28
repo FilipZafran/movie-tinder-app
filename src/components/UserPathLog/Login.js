@@ -5,6 +5,7 @@ import { useHistory, Link } from 'react-router-dom';
 import './Login.css';
 import { Logo } from '../styleElements/icons/Logo';
 import { Button } from '../styleElements/buttons/Button';
+import { RequestReset } from '../ResetPassword/RequestReset';
 
 import { loginUser } from '../../Redux/userSlice';
 import { useDispatch } from 'react-redux';
@@ -64,6 +65,7 @@ export default function Login() {
           onChange={(e) => setPassword(e.target.value)}
           value={password}
         />
+        <Link to="/requestReset">Reset Password</Link>
         <Button
           onClick={login}
           type="button"
@@ -83,8 +85,6 @@ export default function Login() {
             Create an account
           </Button>
         </Link>
-        <Link to="/register">Register</Link>
-        <Link to="/resetpw"> Reset PW</Link>
       </div>
     </React.Fragment>
   );
