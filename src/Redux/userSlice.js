@@ -31,7 +31,7 @@ export const fetchUser = createAsyncThunk('user/fetchUser', async (userId) => {
       headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
       data: userId,
     });
-    return response.data;
+    return { err: false, msg: response.data.msg };
   } catch (err) {
     console.log(err);
   }
@@ -51,6 +51,7 @@ export const loginUser = createAsyncThunk('user/loginUser', async (user) => {
     return response.data;
   } catch (err) {
     console.log(err);
+    return { err: true, msg: err.response.data.msg };
   }
 });
 
@@ -67,9 +68,10 @@ export const registerUser = createAsyncThunk(
         localStorage.setItem('isAuthenticated', 'true');
         localStorage.setItem('x-auth-token', response.data.token);
       }
-      return response.data;
+      return { err: false, msg: response.data.msg };
     } catch (err) {
       console.log(err);
+      return { err: true, msg: err.response.data.msg };
     }
   }
 );

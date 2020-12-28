@@ -1,19 +1,36 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { requestReset } from '../../Redux/resetSlice';
-import {Button} from '../styleElements/buttons/Button'
-import {TopNav} from '../TopNav';
-import {InputField} from '../styleElements/inputField';
+import { Button } from '../styleElements/buttons/Button';
+import { Link } from 'react-router-dom';
+import { InputField } from '../styleElements/inputField';
 import styled from 'styled-components';
 import { unwrapResult } from '@reduxjs/toolkit';
+import { LogoActive } from '../styleElements/icons';
 
 const StyledRequestReset = styled.div`
-height: 85vh;
-width: 100vw;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
+  height: 80vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h1 {
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--light-100);
+    margin-bottom: 21px;
+    margin-top: 29px;
+  }
+  .subtitle {
+    font-size: 15px;
+    color: var(--light-900);
+    width: 280px;
+    margin-bottom: 30px;
+  }
+  Button {
+    margin-bottom: 30px;
+  }
 `;
 
 export const RequestReset = () => {
@@ -25,14 +42,15 @@ export const RequestReset = () => {
     const msg = await dispatch(requestReset(email));
     unwrapResult(msg);
     setMessage(msg.payload);
-    setEmail("");
-  }
+    setEmail('');
+  };
 
   return (
-
     <StyledRequestReset>
-          <TopNav backIcon title="Account Recovery" text="Login" textLink="/" />
-   
+      <LogoActive size="42" />
+      <h1>Account Recovery</h1>
+      <p className="subtitle">request an email to reset you password</p>
+
       <InputField
         type="text"
         value={email}
@@ -40,8 +58,13 @@ export const RequestReset = () => {
         placeholder="E-Mail"
         msg={message}
       ></InputField>
-      <Button children="Send E-mail" buttonStyle="btn--primary--outline" onClick={onSubmit}/>
-   
+      <Button
+        children="Send E-mail"
+        buttonStyle="btn--primary--solid"
+        buttonSize="btn--wide"
+        onClick={onSubmit}
+      />
+      <Link to="/login"> Go to Login</Link>
     </StyledRequestReset>
   );
 };

@@ -3,30 +3,67 @@ import { useHistory, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { registerUser } from '../../Redux/userSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
+import { InputField } from '../styleElements/inputField';
+import { LogoActive } from '../styleElements/icons';
+import { Button } from '../styleElements/buttons/Button';
+import styled from 'styled-components';
+
+const StyledRegistration = styled.div`
+  height: 90vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  h1 {
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--light-100);
+    margin-bottom: 21px;
+    margin-top: 29px;
+  }
+  .error {
+    height: 20px;
+    font-size: 13px;
+    color: var(--error-500);
+    margin-bottom: 18px;
+  }
+  .subtitle {
+    font-size: 15px;
+    color: var(--light-900);
+    width: 280px;
+    margin-bottom: 30px;
+  }
+  Button {
+    margin-bottom: 5px;
+  }
+`;
 
 function Registration() {
-  const [values, setInput] = useState('');
-  const [error, setError] = useState();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
 
   const dispatch = useDispatch();
   const history = useHistory();
-
-  // const [values, setInput] = useState('')
-  // const [error, setError] = useState();
 
   // func expression to post the data gathered in the inputfield
   const submit = async () => {
     try {
       const register = await dispatch(
         registerUser({
-          username: values.username,
-          password: values.password,
-          email: values.email,
+          username: username,
+          password: password,
+          email: email,
         })
       );
       unwrapResult(register);
       if (register.payload?.msg === 'User successfully created and logged in') {
         history.replace('/dashboard');
+      }
+      if (register.payload?.err) {
+        setError(register.payload.msg);
       }
     } catch (err) {
       setError(err);
@@ -34,46 +71,45 @@ function Registration() {
     }
   };
 
-  //will handle the fact that many letters can be written and update to the lastest version
-  const handleChange = (e) => {
-    //with set input, update the state of name and value together
-    setInput({
-      ...values,
-      [e.target.name]: e.target.value,
-    });
-    return [values, handleChange];
-  };
-
   return (
-    <React.Fragment>
+    <StyledRegistration>
+      <LogoActive size="42" />
+      <h1>Welcome</h1>
+      <p className="subtitle">
+        Create an account and start directly with the movie matcher
+      </p>
       <div>
-        {error && <div>Something went wrong!</div>}
-        <input
+        <InputField
           type="text"
-          name="username"
-          placeholder="username"
-          onInput={(e) => setInput(e.target.value)}
-          onChange={handleChange}
+          value={username}
+          placeholder="Username"
+          onChange={(e) => setUsername(e.target.value)}
+          msg={{ err: true, msg: '' }}
         />
-        <input
+        <InputField
           type="password"
-          name="password"
-          placeholder="password"
-          onInput={(e) => setInput(e.target.value)}
-          onChange={handleChange}
+          value={password}
+          placeholder="Password"
+          onChange={(e) => setPassword(e.target.value)}
+          msg={{ err: true, msg: '' }}
         />
-        <input
+        <InputField
           type="email"
-          name="email"
-          placeholder="e-mail"
-          onInput={(e) => setInput(e.target.value)}
-          onChange={handleChange}
+          value={email}
+          placeholder="E-Mail"
+          onChange={(e) => setEmail(e.target.value)}
+          msg={{ err: true, msg: '' }}
         />
-        <button onClick={submit}> Register </button>
-        <Link to="/login"> Log In</Link>
-        <Link to="/resetpw">Reset PW</Link>
       </div>
-    </React.Fragment>
+      <Button
+        children="Register"
+        buttonStyle="btn--primary--solid"
+        buttonSize="btn--wide"
+        onClick={submit}
+      />
+      <p className="error">{error}</p>
+      <Link to="/login"> Go to Login</Link>
+    </StyledRegistration>
   );
 }
 
