@@ -20,7 +20,7 @@ const StyledResetPassword = styled.div`
   h1 {
     font-size: 32px;
     font-weight: 500;
-    color: var(--light-100);
+    color: var(--light-300);
     margin-bottom: 30px;
     margin-top: 30px;
   }
@@ -28,13 +28,11 @@ const StyledResetPassword = styled.div`
     margin-top: 5px;
     color: var(--error-500);
     height: 20px;
-    margin-bottom: 15px;
   }
   .inputMsg {
     margin-top: 5px;
     color: var(--light-100);
     height: 20px;
-    margin-bottom: 15px;
   }
   Button {
     margin-top: 15px;
@@ -99,7 +97,11 @@ export const ResetPassword = () => {
         onClick={submitHandler}
       />
       <p className={resMsg.err ? 'inputErr' : 'inputMsg'}>{resMsg.msg}</p>
-      <Link to="/login"> Go to Login</Link>
+      <Link to="/login">
+        <Button type="button" buttonStyle="btn--stealth">
+          Go to Login
+        </Button>
+      </Link>
     </StyledResetPassword>
   );
 };

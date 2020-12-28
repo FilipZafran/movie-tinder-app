@@ -18,7 +18,7 @@ const StyledRegistration = styled.div`
   h1 {
     font-size: 32px;
     font-weight: 500;
-    color: var(--light-100);
+    color: var(--light-300);
     margin-bottom: 21px;
     margin-top: 29px;
   }
@@ -26,7 +26,7 @@ const StyledRegistration = styled.div`
     height: 20px;
     font-size: 13px;
     color: var(--error-500);
-    margin-bottom: 18px;
+    margin-bottom: 8px;
   }
   .subtitle {
     font-size: 15px;
@@ -108,7 +108,11 @@ function Registration() {
         onClick={submit}
       />
       <p className="error">{error}</p>
-      <Link to="/login"> Go to Login</Link>
+      <Link to="/login">
+        <Button type="button" buttonStyle="btn--stealth">
+          Go to Login
+        </Button>
+      </Link>
     </StyledRegistration>
   );
 }

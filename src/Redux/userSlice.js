@@ -48,7 +48,7 @@ export const loginUser = createAsyncThunk('user/loginUser', async (user) => {
       localStorage.setItem('isAuthenticated', 'true');
       localStorage.setItem('x-auth-token', response.data.token);
     }
-    return response.data;
+    return { err: false, msg: response.data.msg };
   } catch (err) {
     console.log(err);
     return { err: true, msg: err.response.data.msg };

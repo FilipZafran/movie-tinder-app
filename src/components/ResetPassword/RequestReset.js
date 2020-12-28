@@ -18,7 +18,7 @@ const StyledRequestReset = styled.div`
   h1 {
     font-size: 32px;
     font-weight: 500;
-    color: var(--light-100);
+    color: var(--light-300);
     margin-bottom: 21px;
     margin-top: 29px;
   }
@@ -29,7 +29,7 @@ const StyledRequestReset = styled.div`
     margin-bottom: 30px;
   }
   Button {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
   }
 `;
 
@@ -64,7 +64,11 @@ export const RequestReset = () => {
         buttonSize="btn--wide"
         onClick={onSubmit}
       />
-      <Link to="/login"> Go to Login</Link>
+      <Link to="/login">
+        <Button type="button" buttonStyle="btn--stealth">
+          Go to Login
+        </Button>
+      </Link>
     </StyledRequestReset>
   );
 };
