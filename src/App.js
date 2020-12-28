@@ -5,7 +5,8 @@ import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute';
 import Login from './components/UserPathLog/Login';
 import Registration from './components/UserPathLog/Register';
-import Resetpw from './components/UserPathLog/Resetpw';
+import { ResetPassword } from './components/ResetPassword';
+import {RequestReset} from './components/ResetPassword/RequestReset'
 import { UnderConstruction } from './components/UnderConstruction';
 import { CirclesBackground } from './components/styleElements/CirclesBackground';
 
@@ -20,8 +21,10 @@ const App = (props) => {
         <Route exact path="/register">
           <Registration />
         </Route>
-        <Route exact path="/resetpw">
-          <Resetpw />
+        <Route exact path="/requestReset"><CirclesBackground /><RequestReset /></Route>
+        <Route exact path="/resetPassword/:token">
+          <CirclesBackground />
+          <ResetPassword />
         </Route>
 
         <Route path="/">
