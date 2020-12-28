@@ -6,7 +6,6 @@ import { resetPassword } from '../../Redux/resetSlice';
 import { Button } from '../styleElements/buttons/Button';
 import { InputField } from '../styleElements/inputField';
 import { useDispatch } from 'react-redux';
-import { TopNav } from '../TopNav';
 import styled from 'styled-components';
 import { unwrapResult } from '@reduxjs/toolkit';
 
