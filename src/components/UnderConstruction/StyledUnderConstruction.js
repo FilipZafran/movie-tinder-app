@@ -3,19 +3,23 @@ import styled from 'styled-components';
 export const ConstructionContainer = styled.div`
   display: ${(props) => (props.display === 'true' ? 'flex' : 'none')};
   position: fixed;
+  top: 0;
   width: 100vw;
-  height: 65vh;
+  height: 80vh;
+  padding-bottom: 20vh;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  z-index: 10;
+  background: var(--dark-900-50);
 `;
 
 export const ConstructionBox = styled.div`
   position: relative;
-  background: var(--dark-900-50);
+  background: var(--dark-900-75);
   width: 380px;
   height: 200px;
-  border: 2px solid var(--dar-700);
+  border: 2px solid var(--dark-700);
   border-radius: 10px;
   display: flex;
   flex-direction: row;
