@@ -62,8 +62,8 @@ export function ProfileEdit() {
 	return (
 		<div>
 			<CirclesBackground />
-			<Link to='/dashboard//Profile'>
-				<TopNav backIcon active={location.pathname === '/dashboard//Profile'} />
+			<Link to='/dashboard/Profile'>
+				<TopNav backIcon active={location.pathname === '/dashboard/Profile'} />
 			</Link>
 
 			<div className='profile__edit-containter'>
@@ -161,7 +161,8 @@ export function ProfileEdit() {
 							<div className='profile__edit-current-filters'>
 								<h4>
 									{' '}
-									Current genres &nbsp; <Settings className='profile__edit-settings-icon' />
+									Current genres &nbsp;
+									<Settings size='5px' />
 								</h4>
 								<div className='profile__edit-span-container'>
 									<span>1970s</span>
