@@ -59,15 +59,21 @@ export function Profile(size) {
 					</Link>
 				</div>
 
-				<p className='profile__logout'>
-					{' '}
-					<Link to='/'> Logout </Link>
-				</p>
+				<Link to='/'>
+					<p className='profile__logout' active={location.pathname === '/' ? 'true' : 'false'}>
+						{' '}
+						Logout
+					</p>
+				</Link>
 			</div>
 
 			<div className='profile__avatar-container'>
 				<Avatar />
 			</div>
+
+			{/* <div>
+				<ul>{posts.map((post) => <li key={post.id}>{post.title}</li>)}</ul>
+			</div> */}
 
 			<div className='profile__name-box'>
 				<h2>Linda Bear</h2>
@@ -100,7 +106,10 @@ export function Profile(size) {
 					<p className='profile__show-all'>Show All </p>
 
 					<Link to='/dashboard/LikedMovies'>
-						<ChevronRight size={15} active={location.pathname === '/dashboard/LikedMovies'} />
+						<ChevronRight
+							size={15}
+							active={location.pathname === '/dashboard/LikedMovies' ? 'true' : 'false'}
+						/>
 					</Link>
 				</div>
 
@@ -116,7 +125,10 @@ export function Profile(size) {
 					<span>Top Matches</span>
 					<p className='profile__show-all'>Show All </p>
 					<Link to='/dashboard/TopMatches'>
-						<ChevronRight size={15} active={location.pathname === '/dashboard/TopMatches'} />
+						<ChevronRight
+							size={15}
+							active={location.pathname === '/dashboard/TopMatches' ? 'true' : 'false'}
+						/>
 					</Link>
 				</div>
 				<div className='profile__likes-container'>
@@ -133,7 +145,7 @@ export function Profile(size) {
 
 			<div className='profile__footer'>
 				<Link to='/dashboard/users'>
-					<div active={location.pathname === '/users'} className='profile__footer-text'>
+					<div active={location.pathname === '/users' ? 'true' : 'false'} className='profile__footer-text'>
 						<h1>Friends </h1> <ChevronRight />
 					</div>
 				</Link>

@@ -1,17 +1,17 @@
-import React from "react";
-import "./button.css";
+import React from 'react';
+import './button.css';
 
 /* css className variables for STYLE and SIZE can be set in probs */
 
 const STYLES = [
-  "btn--primary--solid",
-  "btn--primary--outline",
-  "btn--secondary--solid",
-  "btn--secondary--outline",
-  "btn--stealth",
+  'btn--primary--solid',
+  'btn--primary--outline',
+  'btn--secondary--solid',
+  'btn--secondary--outline',
+  'btn--stealth',
 ];
 
-const SIZES = ["btn--medium", "btn--large"];
+const SIZES = ['btn--medium', 'btn--large', 'btn--wide'];
 
 export const Button = ({
   children,
