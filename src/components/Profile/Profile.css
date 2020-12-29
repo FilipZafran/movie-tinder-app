@@ -360,10 +360,6 @@ span {
   color: #FFCB1F!important;
 }
 
-
-
-
-
 .profile__edit-label-input {
   display: flex;
   padding: 10px;
@@ -372,6 +368,12 @@ span {
   margin-bottom: 15px;
   background: rgba(5, 5, 5, 0.25);
   border-radius: 10px;
+}
+
+.profile__edit-settings-icon
+{
+  width: 14px;
+  height: 14px;
 }
 
 .profile__bttn{

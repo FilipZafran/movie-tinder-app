@@ -140,9 +140,11 @@ export function Profile(size) {
 
 				<hr className='profile__horizontal-line' />
 
-				<div className='profile__footer-text'>
-					<h1>My Black List </h1> <ChevronRight />
-				</div>
+				<Link to='/dashboard/chat'>
+					<div className='profile__footer-text'>
+						<h1>My Black List </h1> <ChevronRight />
+					</div>
+				</Link>
 			</div>
 		</div>
 	);

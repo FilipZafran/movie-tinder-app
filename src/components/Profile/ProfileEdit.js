@@ -161,7 +161,7 @@ export function ProfileEdit() {
 							<div className='profile__edit-current-filters'>
 								<h4>
 									{' '}
-									Current filters: &nbsp; <Settings />
+									Current genres &nbsp; <Settings className='profile__edit-settings-icon' />
 								</h4>
 								<div className='profile__edit-span-container'>
 									<span>1970s</span>
