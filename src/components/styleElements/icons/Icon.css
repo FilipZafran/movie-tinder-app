@@ -30,3 +30,7 @@
 .light300 {
   stroke: var(--light-300);
 }
+
+.light700 {
+  stroke: var(--light-700);
+}

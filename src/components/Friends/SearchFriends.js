@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
+import { SearchField } from '../styleElements/searchField';
 import {
   selectAllFriends,
   deleteFriend,
@@ -17,6 +18,7 @@ import { fetchSearchResults } from '../../Redux/userSlice';
 export const SearchFriends = () => {
   const [search, setSearch] = useState('');
   const [people, setPeople] = useState([]);
+  const [viewSearch, setViewSearch] = useState(false);
 
   const dispatch = useDispatch();
   const friends = useSelector(selectAllFriends) || [];
@@ -35,6 +37,10 @@ export const SearchFriends = () => {
         console.log(err);
       }
     }
+  };
+
+  const clearSearch = () => {
+    setSearch('');
   };
 
   const friendsList = friends.map((x) => (
@@ -123,14 +129,15 @@ export const SearchFriends = () => {
 
   return (
     <div>
-      <input
+      <SearchField
+        placeholder="Search for friends"
         type="text"
-        name="searchPeople"
         onChange={(e) => setSearch(e.target.value)}
         value={search}
+        clearSearch={clearSearch}
+        changeViewSearch={(x) => setViewSearch(x)}
       />
-      <div>Users: {peopleList}</div>
-      <div>Friends: {friendsList}</div>
+      {viewSearch ? peopleList : friendsList}
     </div>
   );
 };
