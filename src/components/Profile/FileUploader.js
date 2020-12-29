@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Settings } from '../styleElements/icons/Settings';
+import { UploadIcon } from '../styleElements/icons/UploadIcon';
 
 function FileUploader(props) {
 	const [ image, setImage ] = useState('');
@@ -28,7 +28,7 @@ function FileUploader(props) {
 		<div className='profile__upload-div'>
 			<div className='profile__upload_symbol_position'>
 				<label className='profile__upload-label'>
-					<Settings />
+					<UploadIcon />
 					<input type='file' name='file' onChange={uploadImage} />
 				</label>
 			</div>

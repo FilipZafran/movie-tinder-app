@@ -8,7 +8,7 @@ import { Toggle } from '../styleElements/controls/Toggle';
 import Avatar from '../styleElements/avatar/Avatar.js';
 import { Check } from '../styleElements/icons/Check.js';
 import FileUploader from './FileUploader';
-import { Settings } from '../styleElements/icons/Settings';
+import { UploadIcon } from '../styleElements/icons/UploadIcon';
 
 const useStyles = makeStyles((theme) => ({
 	formControl: {
@@ -63,13 +63,13 @@ export function ProfileEdit() {
 		<div>
 			<CirclesBackground />
 			<Link to='/dashboard/Profile'>
-				<TopNav backIcon active={location.pathname === '/dashboard/Profile'} />
+				<TopNav title='Profile Settings' backIcon active={location.pathname === '/dashboard/Profile'} />
 			</Link>
 
 			<div className='profile__edit-containter'>
-				<div className='profile__edit-footer'>
+				{/* <div className='profile__edit-footer'>
 					<h1>Profile Settings </h1>
-				</div>
+				</div> */}
 
 				<Formik
 					initialValues={{ picture: '', username: '', age: '', city: '', email: '', password: '' }}
@@ -162,7 +162,7 @@ export function ProfileEdit() {
 								<h4>
 									{' '}
 									Current genres &nbsp;
-									<Settings size='5px' />
+									<UploadIcon size='20px' />
 								</h4>
 								<div className='profile__edit-span-container'>
 									<span>1970s</span>

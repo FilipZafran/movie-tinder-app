@@ -571,17 +571,26 @@ grid-template-columns: 70px 100px;
 
 .profile__upload_symbol_position {
   position: relative;
-   top: -40px;
-   left: 130px;
+  /* display:flex;
+  align-items: center;
+  justify-content: center; */
+   /* top: -40px;
+   left: 130px; */
    z-index: 4;
+     background-color: rgb(77, 65, 65);
+     border-radius: 50px;
+     opacity: 0.5;
+     width: 50px;
 }
 
 .profile__upload_symbol_position 
 input {
 z-index: 5!important;
 visibility: hidden; 
+
 }
 
 .profile__upload-label {
   cursor: pointer;
 }   
+
