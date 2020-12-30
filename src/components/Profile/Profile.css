@@ -304,11 +304,9 @@ span {
  top: 20px;
 }
 
-.profile__edit-containter{
-  display: absolute;
-  align-items: left;
+.profile__edit-containter,
+.profile__edit-likes-friends {
   padding-left: 20px;
-  width: 320px
   }
 
 .profile__edit-containter 

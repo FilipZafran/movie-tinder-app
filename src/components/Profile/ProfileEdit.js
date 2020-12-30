@@ -66,11 +66,7 @@ export function ProfileEdit() {
 				<TopNav title='Profile Settings' backIcon active={location.pathname === '/dashboard/Profile'} />
 			</Link>
 
-			<div className='profile__edit-containter'>
-				{/* <div className='profile__edit-footer'>
-					<h1>Profile Settings </h1>
-				</div> */}
-
+			<div className='profile__edit-formik-containter'>
 				<Formik
 					initialValues={{ picture: '', username: '', age: '', city: '', email: '', password: '' }}
 					validate={(values) => {
@@ -97,93 +93,95 @@ export function ProfileEdit() {
 
 							<FileUploader picture={setPictureCallback} />
 
-							<div className='profile__edit-label-input'>
-								<label> Username:</label>
-								<input
-									type='text'
-									name='username'
-									onChange={handleChange}
-									onBlur={handleBlur}
-									value={values.username}
-								/>
-							</div>
-							<div className='profile__edit-label-input profile__edit__age-select-wrapper'>
-								<FormControl
-									className={`${classes.formControl} profile__edit__age-select`}
-									id='profile__edit-formcontrol'
-								>
-									<InputLabel id='profile__edit-inputlabel'>Age range:</InputLabel>
-									<Select id='profile__edit-select' onChange={handleChange}>
-										<MenuItem value={'Newb'}> Younger than 18yo</MenuItem>
-										<MenuItem value={'Generation Z'}>Between 22 - 30yo</MenuItem>
-										<MenuItem value={'Midlife Crisis'}> Between 30 - 40yo</MenuItem>
-										<MenuItem value={'Golden Age'}> Between 40 - 50yo </MenuItem>
-										<MenuItem value={'Veteran'}>Over 50yo </MenuItem>
-									</Select>
-								</FormControl>
-							</div>
-
-							<div className='profile__edit-label-input'>
-								<label> City: </label>
-								<input
-									type='text'
-									name='city'
-									onChange={handleChange}
-									onBlur={handleBlur}
-									value={values.city}
-								/>
-							</div>
-
-							<div className='profile__edit-label-input'>
-								<label> Email: </label>
-								<input
-									type='email'
-									name='email'
-									onChange={handleChange}
-									onBlur={handleBlur}
-									value={values.email}
-								/>
-								{errors.email && touched.email && errors.email}
-							</div>
-
-							<div className='profile__edit-label-input'>
-								<label> Password: </label>
-								<input
-									type='password'
-									name='password'
-									onChange={handleChange}
-									onBlur={handleBlur}
-									value={values.password}
-								/>
-								{errors.password && touched.password && errors.password}
-							</div>
-
-							<div className='profile__edit-current-filters'>
-								<h4>
-									{' '}
-									Current genres &nbsp;
-									<UploadIcon size='20px' />
-								</h4>
-								<div className='profile__edit-span-container'>
-									<span>1970s</span>
-									<span>1980s</span>
-									<span>Art</span>
-									<span>Indy</span>
-									<span>Si-Fi</span>
-									<span>Western</span>
-									<span>Si-Fi</span>
-									<span>Western</span>
+							<div className='profile__edit-containter'>
+								<div className='profile__edit-label-input'>
+									<label> Username:</label>
+									<input
+										type='text'
+										name='username'
+										onChange={handleChange}
+										onBlur={handleBlur}
+										value={values.username}
+									/>
 								</div>
-							</div>
+								<div className='profile__edit-label-input profile__edit__age-select-wrapper'>
+									<FormControl
+										className={`${classes.formControl} profile__edit__age-select`}
+										id='profile__edit-formcontrol'
+									>
+										<InputLabel id='profile__edit-inputlabel'>Age range:</InputLabel>
+										<Select id='profile__edit-select' onChange={handleChange}>
+											<MenuItem value={'Newb'}> Younger than 18yo</MenuItem>
+											<MenuItem value={'Generation Z'}>Between 22 - 30yo</MenuItem>
+											<MenuItem value={'Midlife Crisis'}> Between 30 - 40yo</MenuItem>
+											<MenuItem value={'Golden Age'}> Between 40 - 50yo </MenuItem>
+											<MenuItem value={'Veteran'}>Over 50yo </MenuItem>
+										</Select>
+									</FormControl>
+								</div>
 
-							<button
-								className='profile__bttn'
-								// active={location.pathname === '/dashboard/Profile'}
-								type='submit'
-								disabled={isSubmitting}
-							>
-								<Check /> &nbsp; Save
-							</button>
+								<div className='profile__edit-label-input'>
+									<label> City: </label>
+									<input
+										type='text'
+										name='city'
+										onChange={handleChange}
+										onBlur={handleBlur}
+										value={values.city}
+									/>
+								</div>
+
+								<div className='profile__edit-label-input'>
+									<label> Email: </label>
+									<input
+										type='email'
+										name='email'
+										onChange={handleChange}
+										onBlur={handleBlur}
+										value={values.email}
+									/>
+									{errors.email && touched.email && errors.email}
+								</div>
+
+								<div className='profile__edit-label-input'>
+									<label> Password: </label>
+									<input
+										type='password'
+										name='password'
+										onChange={handleChange}
+										onBlur={handleBlur}
+										value={values.password}
+									/>
+									{errors.password && touched.password && errors.password}
+								</div>
+
+								<div className='profile__edit-current-filters'>
+									<h4>
+										{' '}
+										Current genres &nbsp;
+										<UploadIcon size='20px' />
+									</h4>
+									<div className='profile__edit-span-container'>
+										<span>1970s</span>
+										<span>1980s</span>
+										<span>Art</span>
+										<span>Indy</span>
+										<span>Si-Fi</span>
+										<span>Western</span>
+										<span>Si-Fi</span>
+										<span>Western</span>
+									</div>
+								</div>
+
+								<button
+									className='profile__bttn'
+									// active={location.pathname === '/dashboard/Profile'}
+									type='submit'
+									disabled={isSubmitting}
+								>
+									<Check /> &nbsp; Save
+								</button>
+							</div>
 						</form>
 					)}
 				</Formik>

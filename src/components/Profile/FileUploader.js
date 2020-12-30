@@ -32,6 +32,7 @@ function FileUploader(props) {
 					<input type='file' name='file' onChange={uploadImage} />
 				</label>
 			</div>
+
 			<div className='profile__image-cropper'>
 				<img id='profile__circle_image' src={image} />
 			</div>

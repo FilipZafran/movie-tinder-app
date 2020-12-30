@@ -7,7 +7,7 @@ import { LogoActive } from '../styleElements/icons';
 import { ChevronRight } from '../styleElements/icons';
 import { dummyData } from '../MatchPage/MatchCard/dummyData';
 import Avatar from '../styleElements/avatar/Avatar.js';
-// import axios from 'axios';
+import axios from 'axios';
 
 export function Profile(size) {
 	const location = useLocation();
@@ -24,17 +24,7 @@ export function Profile(size) {
 
 	const [ posts, setPosts ] = useState([]);
 
-	// useEffect(() => {
-	// 	axios
-	// 		.get('https://jsonplaceholder.typicode.com/posts')
-	// 		.then((res) => {
-	// 			console.log(res);
-	// 			setPosts(res.data);
-	// 		})
-	// 		.catch((err) => {
-	// 			console.log(err);
-	// 		});
-	// }, []);
+	const serverURL = process.env.REACT_APP_SERVER;
 
 	// 	useEffect(() => {
 	// 		const response = await axios({
