@@ -15,7 +15,7 @@ export const FetchInvitations = () => {
   const [invitations, setInvitations] = useState([]);
   const [requests, setRequests] = useState([]);
 
-  const pendingInvitations = invitations.map((x) => (
+  const pendingInvitations = invitations?.map((x) => (
     <div key={x.id}>
       {x.username}
       <div
@@ -32,7 +32,7 @@ export const FetchInvitations = () => {
       </div>
     </div>
   ));
-  const pendingRequests = requests.map((x) => (
+  const pendingRequests = requests?.map((x) => (
     <div key={x.id}>
       {x.username}
       <div

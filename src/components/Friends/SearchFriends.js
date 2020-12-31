@@ -122,9 +122,6 @@ export const SearchFriends = () => {
     );
 
   useEffect(() => {
-    dispatch(fetchAllFriends());
-    dispatch(fetchFriendsRequests());
-    dispatch(fetchFriendsInvitations());
     getPeople();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
