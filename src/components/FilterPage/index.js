@@ -13,7 +13,7 @@ import {
 import './FilterPage.css';
 import { fetchToSwipe } from '../../Redux/moviesSlice';
 
-export const FilterPage = ({ toggle, seeFilters, hidden, okayLink }) => {
+export const FilterPage = ({ toggle, seeFilters, hidden }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
