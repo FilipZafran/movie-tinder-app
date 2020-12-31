@@ -538,3 +538,12 @@ grid-template-columns: 70px 100px;
   z-index: 5 !important;
   visibility: hidden;
 }
+
+.profile__filterPage {
+  position: relative;
+  overflow: hidden;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -13,7 +13,7 @@ import {
 import './FilterPage.css';
 import { fetchToSwipe } from '../../Redux/moviesSlice';
 
-export const FilterPage = ({ toggle, seeFilters, hidden }) => {
+export const FilterPage = ({ toggle, seeFilters, hidden, okayLink }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
@@ -95,7 +95,10 @@ export const FilterPage = ({ toggle, seeFilters, hidden }) => {
         window.location.reload(false);
       }
       dispatch(fetchToSwipe());
-      if (location.pathname === '/dashboard/matchPage') {
+      if (
+        location.pathname === '/dashboard/matchPage' ||
+        location.pathname === '/dashboard/ProfileEdit'
+      ) {
         toggle();
       } else {
         history.push('/dashboard/matchPage');
