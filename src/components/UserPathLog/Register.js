@@ -1,110 +1,120 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { useHistory, Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { registerUser } from '../../Redux/userSlice';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { InputField } from '../styleElements/inputField';
+import { LogoActive } from '../styleElements/icons';
+import { Button } from '../styleElements/buttons/Button';
+import styled from 'styled-components';
+
+const StyledRegistration = styled.div`
+  height: 90vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  h1 {
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--light-300);
+    margin-bottom: 21px;
+    margin-top: 29px;
+  }
+  .error {
+    height: 20px;
+    font-size: 13px;
+    color: var(--error-500);
+    margin-bottom: 8px;
+  }
+  .subtitle {
+    font-size: 15px;
+    color: var(--light-900);
+    width: 280px;
+    margin-bottom: 30px;
+  }
+  Button {
+    margin-bottom: 5px;
+  }
+`;
 
 function Registration() {
-	const [values, setInput] = useState('');
-	const [error, setError] = useState();
-	const serverUrl = process.env.REACT_APP_SERVER;
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
 
-	// const [values, setInput] = useState('')
-	// const [error, setError] = useState();
+  const dispatch = useDispatch();
+  const history = useHistory();
 
-	// func expression to post the data gathered in the inputfield
-	const submit = () => {
-		//post route to backend
-		axios
-			.post(`${serverUrl}/authenticate/register`, {
-				// first: values.first,
-				// last: values.last,
-				username: values.email,
-				// username: values.username,
-				password: values.pw
-			})
-			.then(({ data }) => {
-				// console.log(data)
-				//data is the response from backend
-				if ({ data }) {
-					//should send user to its account
-					console.log(data)
-					window.location.replace('/dashboard')
-				} else {
-					setError(true)
-				}
-			})
-		return [submit, error];
-	}
+  // func expression to post the data gathered in the inputfield
+  const submit = async () => {
+    try {
+      const register = await dispatch(
+        registerUser({
+          username: username,
+          password: password,
+          email: email,
+        })
+      );
+      unwrapResult(register);
+      if (register.payload?.msg === 'User successfully created and logged in') {
+        history.replace('/dashboard');
+      }
+      if (register.payload?.err) {
+        setError(register.payload.msg);
+      }
+    } catch (err) {
+      setError(err);
+      console.log(err);
+    }
+  };
 
-	// func expression to post the data gathered in the inputfield
-	// const submit = () => {
-	// 	//post route to backend
-	// 	axios
-	// 		.post('/register', {
-	// 			first: values.first,
-	// 			last: values.last,
-	// 			email: values.email,
-	// 			pw: values.pw
-	// 		})
-	// 		.then(({ data }) => {
-	// 			//data is the response from backend
-	// 			if (data.success) {
-	// 				//should send user to its account
-	// 				window.location.replace('/');
-	// 			} else {
-	// 				setError(true);
-	// 			}
-	// 		});
-	// 	return [ submit, error ];
-	// };
-
-	//will handle the fact that many letters can be written and update to the lastest version
-	const handleChange = (e) => {
-		//with set input, update the state of name and value together
-		setInput({
-			...values,
-			[e.target.name]: e.target.value
-		});
-		return [values, handleChange];
-	};
-
-	return (
-		<React.Fragment>
-			<div>
-				{error && <div>Something went wrong!</div>}
-				<input
-					type="text"
-					name="first"
-					placeholder="First Name"
-					onInput={(e) => setInput(e.target.value)}
-					onChange={handleChange}
-				/>
-				<input
-					type="text"
-					name="last"
-					placeholder="Last Name"
-					onInput={(e) => setInput(e.target.value)}
-					onChange={handleChange}
-				/>
-				<input
-					type="email"
-					name="email"
-					placeholder="Email"
-					onInput={(e) => setInput(e.target.value)}
-					onChange={handleChange}
-				/>
-				<input
-					type="password"
-					name="pw"
-					placeholder="Password"
-					onInput={(e) => setInput(e.target.value)}
-					onChange={handleChange}
-				/>
-				<button onClick={submit}> Register </button>
-				<Link to="/login"> Log In</Link>
-				<Link to="/resetpw">Reset PW</Link>
-			</div>
-		</React.Fragment>
-	);
+  return (
+    <StyledRegistration>
+      <LogoActive size="42" />
+      <h1>Welcome</h1>
+      <p className="subtitle">
+        Create an account and start directly with the movie matcher
+      </p>
+      <div>
+        <InputField
+          type="text"
+          value={username}
+          placeholder="Username"
+          onChange={(e) => setUsername(e.target.value)}
+          msg={{ err: true, msg: '' }}
+        />
+        <InputField
+          type="password"
+          value={password}
+          placeholder="Password"
+          onChange={(e) => setPassword(e.target.value)}
+          msg={{ err: true, msg: '' }}
+        />
+        <InputField
+          type="email"
+          value={email}
+          placeholder="E-Mail"
+          onChange={(e) => setEmail(e.target.value)}
+          msg={{ err: true, msg: '' }}
+        />
+      </div>
+      <Button
+        children="Register"
+        buttonStyle="btn--primary--solid"
+        buttonSize="btn--wide"
+        onClick={submit}
+      />
+      <p className="error">{error}</p>
+      <Link to="/login">
+        <Button type="button" buttonStyle="btn--stealth">
+          Go to Login
+        </Button>
+      </Link>
+    </StyledRegistration>
+  );
 }
 
 export default Registration;

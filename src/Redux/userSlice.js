@@ -5,14 +5,33 @@ const initialState = { entities: [], loading: 'idle' };
 
 const serverURL = process.env.REACT_APP_SERVER;
 
-export const fetchUser = createAsyncThunk('user/fetchUser', async () => {
+export const fetchSearchResults = createAsyncThunk(
+  'user/fetchSearchResults',
+  async (username) => {
+    try {
+      const response = await axios({
+        method: 'POST',
+        url: `${serverURL}/profiles/findFriend`,
+        headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
+        data: { username: username },
+      });
+      console.log(response.data);
+      return response.data;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
+
+export const fetchUser = createAsyncThunk('user/fetchUser', async (userId) => {
   try {
     const response = await axios({
       method: 'GET',
-      url: `${serverURL}/authenticate/user`,
+      url: `${serverURL}/profiles/user`,
       headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
+      data: userId,
     });
-    return response.data;
+    return { err: false, msg: response.data.msg };
   } catch (err) {
     console.log(err);
   }
@@ -29,9 +48,10 @@ export const loginUser = createAsyncThunk('user/loginUser', async (user) => {
       localStorage.setItem('isAuthenticated', 'true');
       localStorage.setItem('x-auth-token', response.data.token);
     }
-    return response.data;
+    return { err: false, msg: response.data.msg };
   } catch (err) {
     console.log(err);
+    return { err: true, msg: err.response.data.msg };
   }
 });
 
@@ -44,9 +64,14 @@ export const registerUser = createAsyncThunk(
         url: `${serverURL}/authenticate/register`,
         data: user,
       });
-      return response.data;
+      if (response.data.msg === 'User successfully created and logged in') {
+        localStorage.setItem('isAuthenticated', 'true');
+        localStorage.setItem('x-auth-token', response.data.token);
+      }
+      return { err: false, msg: response.data.msg };
     } catch (err) {
       console.log(err);
+      return { err: true, msg: err.response.data.msg };
     }
   }
 );

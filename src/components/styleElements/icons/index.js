@@ -28,4 +28,10 @@ export { Edit } from "./Edit";
 
 //IS NOT A SQUARE ICON
 //To change default size: accepts "width" and "height" props (NUMBER)
-export { Check } from "./Check";
+
+export { Check } from './Check';
+
+export { Bell } from './Bell';
+
+export { Unlock } from './Unlock';
+

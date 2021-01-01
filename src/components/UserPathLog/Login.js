@@ -1,72 +1,91 @@
-import Axios from "axios";
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-// import Registration from '../UserPathLog/Register';
-// import Resetpw from '../UserPathLog/Resetpw';
-import { Link } from "react-router-dom";
-import "./Login.css";
-
-import { UnderConstruction } from "../UnderConstruction";
+import React, { useState } from 'react';
+import { useHistory, Link } from 'react-router-dom';
+import './Login.css';
+import { LogoActive, Unlock } from '../styleElements/icons';
+import { Button } from '../styleElements/buttons/Button';
+import { InputField } from '../styleElements/inputField';
+import { loginUser } from '../../Redux/userSlice';
+import { useDispatch } from 'react-redux';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 export default function Login() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const serverUrl = process.env.REACT_APP_SERVER;
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const history = useHistory();
+  const dispatch = useDispatch();
 
-  //this could be changed to an async function
-  //this verification route will work if you run the server from index.js on your local machine
-  //currently the credentials username:Admin password:password will work
-  //a registration route is set up under POST "http://localhost:5000/authentication/register" (also accepts username and pw)
-  function login() {
-    Axios({
-      method: "POST",
-      data: {
-        username: username,
-        password: password,
-      },
-      withCredentials: true,
-      url: `${serverUrl}/authenticate/login`,
-    }).then((res) => {
-      if (res.data.message === "Successfully Authenticated") {
-        setUsername("");
-        setPassword("");
-        localStorage.setItem("isAuthenticated", true);
-        history.replace("/dashboard");
+  const login = async () => {
+    try {
+      const authenticate = await dispatch(
+        loginUser({ username: username, password: password })
+      );
+      unwrapResult(authenticate);
+      if (authenticate.payload?.msg === 'User successfully logged in') {
+        setUsername('');
+        setPassword('');
+        history.replace('/dashboard');
       }
-    });
-  }
-
-  // const hide = () => {
-  // 	if (!'http://localhost:3000/') {
-  // 		console.log("url changed")
-
-  // 	}
-  // }
+      if (authenticate.payload?.err) {
+        setError(authenticate.payload.msg);
+      }
+    } catch (err) {
+      setError(err);
+      if (err) console.log(err);
+    }
+  };
 
   return (
-    <React.Fragment>
-      <div className="login">
-        <h1>Login Page</h1>
-        <label> user name </label>
-        <input
-          className="input-field"
-          type="text"
-          placeholder="username"
-          onChange={(e) => setUsername(e.target.value)}
-          value={username}
-        />
-        <label> password </label>
-        <input
-          type="password"
-          onChange={(e) => setPassword(e.target.value)}
-          value={password}
-        />
-        <button onClick={login}> Login </button>
+    <div className="login">
+      <LogoActive size="42" />
+      <h1 className="login__welcome">Filmably</h1>
+      <InputField
+        type="text"
+        msg={{ err: true, msg: '' }}
+        placeholder="Username"
+        onChange={(e) => setUsername(e.target.value)}
+        value={username}
+      />
+      <InputField
+        placeholder="Password"
+        msg={{ err: true, msg: '' }}
+        type="password"
+        onChange={(e) => setPassword(e.target.value)}
+        value={password}
+      />
+      <div className="login__button">
+        <Link to="/requestReset">
+          <Button type="button" buttonStyle="btn--stealth">
+            <div className="login__unlockButton">
+              <Unlock size="25" />
+              <p className="login__unlockBtnLbl">Forgot password</p>
+            </div>
+          </Button>
+        </Link>
       </div>
-      <Link to="/register">Register</Link>
-      <Link to="/resetpw"> Reset PW</Link>
-    </React.Fragment>
+      <div className="login__button">
+        <Button
+          onClick={login}
+          type="button"
+          buttonStyle="btn--primary--solid"
+          buttonSize="btn--wide"
+        >
+          Login
+        </Button>
+        <p className="login__error">{error}</p>
+      </div>
+      <div className="login__button">
+        <Link to="/register">
+          <Button
+            type="button"
+            buttonStyle="btn--stealth"
+            buttonSize="btn--large"
+          >
+            Create an account
+          </Button>
+        </Link>
+      </div>
+    </div>
   );
 }

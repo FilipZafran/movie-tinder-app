@@ -1,4 +1,46 @@
-.input-field {
-  border-radius: 4px;
-  background-color: "red";
+.login {
+  width: 100vw;
+  height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 0;
+}
+
+.links-container {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  flex-direction: column;
+}
+
+.login__welcome {
+  font-size: 32px;
+  font-weight: 500;
+  color: var(--light-300);
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+.login__button {
+  margin: 10px;
+}
+
+.login__unlockButton {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.login__unlockBtnLbl {
+  margin-left: 10px;
+}
+
+.login__error {
+  height: 20px;
+  font-size: 13px;
+  color: var(--error-500);
+  margin-top: 5px;
 }

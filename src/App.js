@@ -25,24 +25,17 @@ const App = (props) => {
           <Dashboard />
         </PrivateRoute>
 
-        <Route path="/dashboard/users">
-          <FindPeople
-            onChange={handleProfileID}
-            setOtherProfileID={setOtherProfileID}
-          />
-        </Route>
-        <Route exact path="/dashboard/user/:id">
-          <OtherProfile
-            onChange={handleProfileID}
-            setOtherProfileID={setOtherProfileID}
-          />
-        </Route>
-
         <Route exact path="/register">
+          <CirclesBackground />
           <Registration />
         </Route>
-        <Route exact path="/resetpw">
-          <Resetpw />
+        <Route exact path="/requestReset">
+          <CirclesBackground />
+          <RequestReset />
+        </Route>
+        <Route exact path="/resetPassword/:token">
+          <CirclesBackground />
+          <ResetPassword />
         </Route>
 
         <Route path="/">
