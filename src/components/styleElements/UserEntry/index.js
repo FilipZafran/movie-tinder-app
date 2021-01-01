@@ -8,7 +8,9 @@ const StyledUserEntry = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-
+  border-bottom: 1px solid var(--dark-300);
+  margin-left: 10px;
+  padding: 2px;
   .userEntry__data {
     padding-left: 10px;
   }
@@ -16,7 +18,6 @@ const StyledUserEntry = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin: 5px;
   }
   .userEntry__icon {
     padding: 20px;
