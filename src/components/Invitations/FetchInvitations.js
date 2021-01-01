@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
+import { UserEntry } from '../styleElements/UserEntry';
+import { Heart } from '../styleElements/icons';
 import {
   fetchFriendsInvitations,
   fetchFriendsRequests,
@@ -9,46 +11,75 @@ import {
   deleteFriend,
 } from '../../Redux/friendsSlice';
 import { TopNav } from '../TopNav';
+import { ReceivedButton } from './ReceivedButton';
+import { CirclesBackground } from '../styleElements/CirclesBackground';
+import styled from 'styled-components';
+
+const StyledButtons = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  justify-content: center;
+`;
+
+const Text = styled.div`
+  margin-top: 20vh;
+`;
 
 export const FetchInvitations = () => {
   const dispatch = useDispatch();
   const [invitations, setInvitations] = useState([]);
   const [requests, setRequests] = useState([]);
+  const [displayReceived, setDisplayReceived] = useState(true);
 
-  const pendingInvitations = invitations?.map((x) => (
-    <div key={x.id}>
-      {x.username}
-      <div
-        onClick={async () => {
-          try {
-            await dispatch(acceptFriendRequest(x.id));
-            fetchData();
-          } catch (err) {
-            console.log(err);
-          }
-        }}
-      >
-        Accept
+  const pendingInvitations =
+    invitations && invitations.length > 0 ? (
+      invitations.map((x) => (
+        <div key={x.id}>
+          <UserEntry
+            icon={<Heart size="24" />}
+            clickHandler={async () => {
+              try {
+                await dispatch(acceptFriendRequest(x.id));
+                fetchData();
+              } catch (err) {
+                console.log(err);
+              }
+            }}
+            user={x}
+          />
+        </div>
+      ))
+    ) : (
+      <div>
+        <CirclesBackground />
+        <Text>No pending invitations!!</Text>
       </div>
-    </div>
-  ));
-  const pendingRequests = requests?.map((x) => (
-    <div key={x.id}>
-      {x.username}
-      <div
-        onClick={async () => {
-          try {
-            await dispatch(deleteFriend(x.id));
-            fetchData();
-          } catch (err) {
-            console.log(err);
-          }
-        }}
-      >
-        Cancel
+    );
+  const pendingRequests =
+    requests && requests.length > 0 ? (
+      requests.map((x) => (
+        <div key={x.id}>
+          <UserEntry
+            icon={<Heart size="24" />}
+            clickHandler={async () => {
+              try {
+                await dispatch(deleteFriend(x.id));
+                fetchData();
+              } catch (err) {
+                console.log(err);
+              }
+            }}
+            user={x}
+          />
+        </div>
+      ))
+    ) : (
+      <div>
+        <CirclesBackground />
+        <Text>No pending requests!!</Text>
       </div>
-    </div>
-  ));
+    );
 
   const fetchData = async () => {
     try {
@@ -71,14 +102,19 @@ export const FetchInvitations = () => {
   return (
     <div>
       <TopNav backIcon bellIcon title="Invitations" />
-      <div>
-        Invitations:
-        {pendingInvitations}
-      </div>
-      <div>
-        Requests:
-        {pendingRequests}
-      </div>
+      <StyledButtons>
+        <ReceivedButton
+          clickHandler={() => setDisplayReceived(true)}
+          label="Received"
+          state={displayReceived}
+        />
+        <ReceivedButton
+          clickHandler={() => setDisplayReceived(false)}
+          label="Sent"
+          state={displayReceived}
+        />
+      </StyledButtons>
+      {displayReceived ? pendingInvitations : pendingRequests}
     </div>
   );
 };

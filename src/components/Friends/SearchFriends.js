@@ -13,6 +13,8 @@ import {
   fetchFriendsRequests,
   fetchFriendsInvitations,
 } from '../../Redux/friendsSlice';
+import { Heart } from '../styleElements/icons';
+import { UserEntry } from '../styleElements/UserEntry';
 import { fetchSearchResults } from '../../Redux/userSlice';
 
 export const SearchFriends = () => {
@@ -45,18 +47,28 @@ export const SearchFriends = () => {
 
   const friendsList = friends.map((x) => (
     <div key={x.id}>
-      {x.username}
-      <div onClick={() => dispatch(deleteFriend(x.id))}>Unfriend</div>
+      <UserEntry
+        icon={<Heart active size="24" />}
+        clickHandler={async () => {
+          try {
+            await dispatch(deleteFriend(x.id));
+            dispatch(fetchAllFriends());
+          } catch (err) {
+            console.log(err);
+          }
+        }}
+        user={x}
+      />
     </div>
   ));
 
   const peopleList =
     people?.length > 0 ? (
       people.map((x) => {
-        const button =
+        const entry =
           friends.find((element) => element.id === x.id) !== undefined ? (
-            <div
-              onClick={async () => {
+            <UserEntry
+              clickHandler={async () => {
                 try {
                   await dispatch(deleteFriend(x.id));
                   dispatch(fetchAllFriends());
@@ -64,26 +76,19 @@ export const SearchFriends = () => {
                   console.log(err);
                 }
               }}
-            >
-              Unfriend
-            </div>
+              icon={<Heart active size="24" />}
+              user={x}
+            />
           ) : request.find((element) => element.id === x.id) !== undefined ? (
-            <div
-              onClick={async () => {
-                try {
-                  await dispatch(deleteFriend(x.id));
-                  dispatch(fetchFriendsRequests());
-                } catch (err) {
-                  console.log(err);
-                }
-              }}
-            >
-              Cancel
-            </div>
+            <UserEntry
+              icon={<Heart size="24" />}
+              user={x}
+              clickHandler={() => {}}
+            />
           ) : invitations.find((element) => element.id === x.id) !==
             undefined ? (
-            <div
-              onClick={async () => {
+            <UserEntry
+              clickHandler={async () => {
                 try {
                   await dispatch(acceptFriendRequest(x.id));
                   dispatch(fetchFriendsInvitations());
@@ -92,12 +97,12 @@ export const SearchFriends = () => {
                   console.log(err);
                 }
               }}
-            >
-              Accept
-            </div>
+              icon={<Heart size="24" />}
+              user={x}
+            />
           ) : (
-            <div
-              onClick={async () => {
+            <UserEntry
+              clickHandler={async () => {
                 try {
                   await dispatch(sendFriendRequest({ id: x.id }));
                   dispatch(fetchFriendsRequests());
@@ -105,17 +110,12 @@ export const SearchFriends = () => {
                   console.log(err);
                 }
               }}
-            >
-              Friend Request
-            </div>
+              icon={<Heart size="24" />}
+              user={x}
+            />
           );
 
-        return (
-          <div key={x.id}>
-            {x.username}
-            {button}
-          </div>
-        );
+        return <div key={x.id}>{entry}</div>;
       })
     ) : (
       <></>
