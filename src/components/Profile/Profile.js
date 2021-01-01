@@ -7,10 +7,13 @@ import { LogoActive } from '../styleElements/icons';
 import { ChevronRight } from '../styleElements/icons';
 import { dummyData } from '../MatchPage/MatchCard/dummyData';
 import Avatar from '../styleElements/avatar/Avatar.js';
+import { useDispatch } from 'react-redux';
+import { logoutUser } from '../../Redux/userSlice';
 // import axios from 'axios';
 
 export function Profile(size) {
   const location = useLocation();
+  const dispatch = useDispatch();
 
   const likedFilms = [];
   for (let i = 0; i < 3; i++) {
@@ -65,15 +68,16 @@ export function Profile(size) {
           </Link>
         </div>
 
-        <Link to="/">
-          <p
-            className="profile__logout"
-            active={location.pathname === '/' ? 'true' : 'false'}
-          >
-            {' '}
-            Logout
-          </p>
-        </Link>
+        <p
+          className="profile__logout"
+          onClick={(x) => {
+            dispatch(logoutUser());
+            window.location.reload(false);
+          }}
+        >
+          {' '}
+          Logout
+        </p>
       </div>
 
       <div className="profile__avatar-container">
