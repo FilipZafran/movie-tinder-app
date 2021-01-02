@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import { Friends } from '../Friends';
 import { Invitations } from '../Invitations';
@@ -11,8 +12,21 @@ import { Start } from '../Start/Start';
 import { BottomNav } from '../BottomNav';
 import { ChatPage } from '../ChatPage';
 import OtherProfile from '../Friends/OtherProfile';
+import {
+  fetchAllFriends,
+  fetchFriendsInvitations,
+  fetchFriendsRequests,
+} from '../../Redux/friendsSlice';
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchAllFriends());
+    dispatch(fetchFriendsRequests());
+    dispatch(fetchFriendsInvitations());
+  });
+
   return (
     <div className="dashboard">
       <Router>

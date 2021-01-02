@@ -7,6 +7,8 @@ import { LogoActive } from '../styleElements/icons';
 import { ChevronRight } from '../styleElements/icons';
 import { dummyData } from '../MatchPage/MatchCard/dummyData';
 import Avatar from '../styleElements/avatar/Avatar.js';
+import { useDispatch } from 'react-redux';
+import { logoutUser } from '../../Redux/userSlice';
 // import axios from 'axios';
 
 export function Profile(size) {
