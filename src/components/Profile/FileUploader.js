@@ -28,7 +28,7 @@ function FileUploader(props) {
 		<div className='profile__upload-div'>
 			<div className='profile__upload_symbol_position'>
 				<label className='profile__upload-label'>
-					<UploadIcon />
+					<UploadIcon id='profile__upload-icon' />
 					<input type='file' name='file' onChange={uploadImage} />
 				</label>
 			</div>
@@ -38,6 +38,8 @@ function FileUploader(props) {
 			</div>
 		</div>
 	);
+
+	// take image and pass it up to Profile or to redux + save to BE
 }
 
 export default FileUploader;

@@ -523,28 +523,6 @@ div {
    text-align: start;
 }
 
-.liked_movies__circle {
-  display: flex;
-  align-items: center;
-}
-/* 
-.liked_movies__year-match {
-display: grid;
-grid-template-columns: 70px 100px;
-}
-
-.canvas {
-  background: #fff;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
-  display: block;
-  margin: 0 auto;
-}
-
-.single-image {
-  width: 50px;
-} */
-
-
 .profile__upload-div {
   height: 30px;
 }
@@ -552,7 +530,7 @@ grid-template-columns: 70px 100px;
 .profile__image-cropper {
   position: relative;
   top: -250px;
-  left: 70px;
+  left: 90px;
   z-index: 3;
   width: 180px;
   height: 180px;
@@ -567,13 +545,21 @@ grid-template-columns: 70px 100px;
   width: auto;
 }
 
+.profile__edit-file-uploader {
+   position: relative;
+}
+
+#profile__upload-icon {
+  
+}
+
 .profile__upload_symbol_position {
   position: relative;
-  /* display:flex;
+  display:flex;
   align-items: center;
-  justify-content: center; */
-   /* top: -40px;
-   left: 130px; */
+  justify-content: center; 
+  top: -40px;
+   left: 130px;
    z-index: 4;
      background-color: rgb(77, 65, 65);
      border-radius: 50px;

@@ -22,23 +22,27 @@ export function Profile(size) {
 		topMatches.push(dummyData[i]);
 	}
 
-	const [ posts, setPosts ] = useState([]);
+	// CHECK TELEGRAM
+	const [ filmArray, setFilmArray ] = useState([]);
 
 	const serverURL = process.env.REACT_APP_SERVER;
 
-	// 	useEffect(() => {
-	// 		const response = await axios({
-	// 			method: 'PUT',
-	// 			withCredentials: true,
-	// 			url: `${serverURL}/likeTracker/like`,
-	// 			data: { film: filmArray[0] },
-	// 		});
-	// 		console.log(response.data);
-	// 		return response.data;
-	// 	} catch (err) {
-	// 		return err;
-	// 	}
-	// }
+	useEffect(
+		() => {
+			const response = axios({
+				method: 'GET',
+				withCredentials: true,
+				url: `${serverURL}/likeTracker/like`,
+				data: { film: filmArray }
+			});
+			console.log(response.data);
+			return response.data;
+		},
+		[]
+		// catch (err) {
+		// 	return err;
+		// }
+	);
 
 	return (
 		<div className='profile__container'>

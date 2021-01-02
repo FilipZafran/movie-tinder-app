@@ -91,7 +91,7 @@ export function ProfileEdit() {
 								<Avatar className='profile__avatar' />
 							</div>
 
-							<FileUploader picture={setPictureCallback} />
+							<FileUploader className='profile__edit-file-uploader' picture={setPictureCallback} />
 
 							<div className='profile__edit-containter'>
 								<div className='profile__edit-label-input'>
