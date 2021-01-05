@@ -280,6 +280,10 @@
   top: 20px;
 }
 
+.profile__edit-likes-friends {
+  padding-left: 20px;
+}
+
 .profile__edit-containter {
   display: absolute;
   align-items: left;
@@ -345,6 +349,7 @@
 
 .profile__bttn {
   background: #ee6258;
+
   border-radius: 8px;
   width: 245px;
   height: 56px;
@@ -512,7 +517,7 @@ grid-template-columns: 70px 100px;
 .profile__image-cropper {
   position: relative;
   top: -250px;
-  left: 70px;
+  left: 90px;
   z-index: 3;
   width: 180px;
   height: 180px;
@@ -527,16 +532,43 @@ grid-template-columns: 70px 100px;
   width: auto;
 }
 
+.profile__edit-file-uploader {
+  position: relative;
+}
+
 .profile__upload_symbol_position {
   position: relative;
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
   top: -40px;
   left: 130px;
   z-index: 4;
+  border: red 3px solid;
+  background-color: rgb(77, 65, 65);
+  border-radius: 50px;
+  opacity: 0.5;
+  width: 50px;
+}
+
+.profile__upload-label {
+  border: blue 3px solid;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+#profile__upload-icon {
+  position: fixed;
+  left: 20px;
+  background-color: grey;
+  border: green 3px solid;
 }
 
 .profile__upload_symbol_position input {
   z-index: 5 !important;
   visibility: hidden;
+  border: yellow 3px solid;
 }
 
 .profile__filterPage {

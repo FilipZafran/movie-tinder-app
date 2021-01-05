@@ -1,0 +1,55 @@
+.resetPw__container{
+   
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+   
+}
+
+.resetPw__container h1 {
+    margin: 30px;
+    text-align: center;
+    font-size: 15px;
+}
+
+.resetPw__link {
+    color: #282bdd;
+}
+
+.resetPw__container p {
+    font-size: 32px;
+       margin: 30px;
+        color: #FFFFFF
+}
+
+ .resetPw__logo {
+     margin-top: 6em;
+   }
+
+h1:nth-child(2)
+ {
+    margin-top: 60px;
+}
+
+.resetPw__input {
+    display: inline-block; 
+    padding: 10px;
+    margin-bottom: 15px;
+    background: rgba(5, 5, 5, 0.25);
+    border-radius: 10px;
+    width: 245px;
+    text-align: center;
+}
+
+.login__bttn {
+    background: #F5BC00;
+    border-radius: 8px;
+    width: 245px;
+    height: 56px;
+    color: var(--dark-900);
+    font-size: 26px;
+    font-weight: bold;
+    margin-top: 40px;
+}
+
+

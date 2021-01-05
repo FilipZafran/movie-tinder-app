@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Settings } from '../styleElements/icons/Settings';
+import { UploadIcon } from '../styleElements/icons/UploadIcon';
 
 function FileUploader(props) {
 	const [ image, setImage ] = useState('');
@@ -27,17 +27,19 @@ function FileUploader(props) {
 	return (
 		<div className='profile__upload-div'>
 			<div className='profile__upload_symbol_position'>
-				<label>
-					<Settings />
+				<label className='profile__upload-label'>
+					<UploadIcon id='profile__upload-icon' />
 					<input type='file' name='file' onChange={uploadImage} />
 				</label>
 			</div>
+
 			<div className='profile__image-cropper'>
 				<img id='profile__circle_image' src={image} />
 			</div>
 		</div>
 	);
-	// var profile_picture_url = {file.secure_url}
+
+	// take image and pass it up to Profile or to redux + save to BE
 }
 
 export default FileUploader;
