@@ -282,7 +282,7 @@
 
 .profile__edit-likes-friends {
   padding-left: 20px;
-  }
+}
 
 .profile__edit-containter {
   display: absolute;
@@ -347,8 +347,8 @@
   border-radius: 10px;
 }
 
-.profile__bttn{
-  background: #EE6258;
+.profile__bttn {
+  background: #ee6258;
 
   border-radius: 8px;
   width: 245px;
@@ -489,7 +489,6 @@
   text-align: start;
 }
 
-
 .liked_movies__circle {
   display: flex;
   align-items: center;
@@ -534,26 +533,26 @@ grid-template-columns: 70px 100px;
 }
 
 .profile__edit-file-uploader {
-   position: relative;
+  position: relative;
 }
 
 .profile__upload_symbol_position {
   position: relative;
-  display:flex;
+  display: flex;
   /* align-items: center; */
   justify-content: center;
   top: -40px;
-   left: 130px;
-   z-index: 4;
-   border: red 3px solid;
-     background-color: rgb(77, 65, 65);
-     border-radius: 50px;
-     opacity: 0.5;
-     width: 50px;
+  left: 130px;
+  z-index: 4;
+  border: red 3px solid;
+  background-color: rgb(77, 65, 65);
+  border-radius: 50px;
+  opacity: 0.5;
+  width: 50px;
 }
 
 .profile__upload-label {
-   border: blue 3px solid;
+  border: blue 3px solid;
   cursor: pointer;
   display: flex;
   flex-direction: row-reverse;
@@ -563,15 +562,14 @@ grid-template-columns: 70px 100px;
   position: fixed;
   left: 20px;
   background-color: grey;
-   border: green 3px solid;
+  border: green 3px solid;
 }
 
-.profile__upload_symbol_position 
-input {
-z-index: 5!important;
-visibility: hidden; 
- border: yellow 3px solid;
-
+.profile__upload_symbol_position input {
+  z-index: 5 !important;
+  visibility: hidden;
+  border: yellow 3px solid;
+}
 
 .profile__filterPage {
   position: relative;
@@ -581,5 +579,3 @@ visibility: hidden;
   align-items: center;
   justify-content: center;
 }
-
-
