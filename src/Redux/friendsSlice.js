@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const serverURL = process.env.REACT_APP_SERVER;
-const token = localStorage.getItem('x-auth-token');
 
 const initialState = { entities: {}, loading: 'idle' };
 
@@ -13,7 +12,7 @@ export const fetchFriendsInvitations = createAsyncThunk(
       const response = await axios({
         method: 'GET',
         url: `${serverURL}/friends/invitations`,
-        headers: { 'x-auth-token': token },
+        headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
       });
       console.log(response.data);
       return response.data.pendingInvitations;
@@ -30,7 +29,7 @@ export const fetchFriendsRequests = createAsyncThunk(
       const response = await axios({
         method: 'GET',
         url: `${serverURL}/friends/requests`,
-        headers: { 'x-auth-token': token },
+        headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
       });
       console.log(response.data);
       return response.data.pendingRequests;
@@ -47,7 +46,7 @@ export const fetchAllFriends = createAsyncThunk(
       const response = await axios({
         method: 'GET',
         url: `${serverURL}/friends/allFriends`,
-        headers: { 'x-auth-token': token },
+        headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
       });
       console.log(response.data);
       return response.data.friends;
@@ -64,7 +63,7 @@ export const sendFriendRequest = createAsyncThunk(
       const response = await axios({
         method: 'POST',
         url: `${serverURL}/friends/sendRequest`,
-        headers: { 'x-auth-token': token },
+        headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
         data: otherId,
       });
       console.log(response);
@@ -82,7 +81,7 @@ export const acceptFriendRequest = createAsyncThunk(
       const response = await axios({
         method: 'PATCH',
         url: `${serverURL}/friends/acceptRequest/${otherId}`,
-        headers: { 'x-auth-token': token },
+        headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
       });
       console.log(response);
       return response.data;
@@ -99,7 +98,7 @@ export const deleteFriend = createAsyncThunk(
       const response = await axios({
         method: 'DELETE',
         url: `${serverURL}/friends/removeFriend/${otherId}`,
-        headers: { 'x-auth-token': token },
+        headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
       });
       console.log(response);
       return response.data;

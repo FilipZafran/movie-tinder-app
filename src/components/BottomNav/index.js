@@ -12,11 +12,19 @@ export function BottomNav() {
       <Link to="/dashboard/profile">
         <RippleButton>
           <Star
-            active={location.pathname === '/dashboard/profile' ? true : false}
+            active={
+              location.pathname === '/dashboard/profile' ||
+              location.pathname === '/dashboard/users' ||
+              location.pathname === '/dashboard/invitations'
+                ? true
+                : false
+            }
           />
           <p
             className={
-              location.pathname === '/dashboard/profile'
+              location.pathname === '/dashboard/profile' ||
+              location.pathname === '/dashboard/users' ||
+              location.pathname === '/dashboard/invitations'
                 ? 'bottomNav__activeLabel'
                 : 'bottomNav__label'
             }

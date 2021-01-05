@@ -95,7 +95,10 @@ export const FilterPage = ({ toggle, seeFilters, hidden }) => {
         window.location.reload(false);
       }
       dispatch(fetchToSwipe());
-      if (location.pathname === '/dashboard/matchPage') {
+      if (
+        location.pathname === '/dashboard/matchPage' ||
+        location.pathname === '/dashboard/ProfileEdit'
+      ) {
         toggle();
       } else {
         history.push('/dashboard/matchPage');
