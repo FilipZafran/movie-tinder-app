@@ -12,8 +12,17 @@
   border-radius: 0;
 }
 
+.avatar__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  width: 90px;
+  height: 90px;
+}
+
 .SvgCircle {
-  position: absolute;
+  /* position: absolute; */
   z-index: 1;
   height: 400px;
   width: 400px;
@@ -33,4 +42,10 @@
 
 .initials {
   z-index: 3;
+  position: absolute;
+  font-size: 35px;
+}
+
+.avatar__circle {
+  transform: scale(0.2);
 }

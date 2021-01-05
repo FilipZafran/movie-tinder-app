@@ -1,5 +1,11 @@
 import React, { useState, setState } from 'react';
-import { Select, MenuItem, FormControl, InputLabel, makeStyles } from '@material-ui/core';
+import {
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  makeStyles,
+} from '@material-ui/core';
 import { Link, useLocation } from 'react-router-dom';
 import { Formik } from 'formik';
 import { CirclesBackground } from '../styleElements/CirclesBackground';
@@ -10,40 +16,42 @@ import { Check } from '../styleElements/icons/Check.js';
 import FileUploader from './FileUploader';
 import { UploadIcon } from '../styleElements/icons/UploadIcon';
 
+
 const useStyles = makeStyles((theme) => ({
-	formControl: {
-		minWidth: 100
-	}
+  formControl: {
+    minWidth: 100,
+  },
 }));
 
 const ranges = [
-	{
-		value: 'none',
-		label: 'none'
-	},
-	{
-		value: 'Newb',
-		label: 'Younger than 18yo'
-	},
-	{
-		value: 'Generation Z',
-		label: 'Between 22 - 30yo'
-	},
-	{
-		value: 'Midlife Crisis',
-		label: 'Between 30 - 40yo'
-	},
-	{
-		value: 'Golden Age',
-		label: 'Between 40 - 50yo'
-	},
-	{
-		value: 'Veteran',
-		label: 'Over 50yo '
-	}
+  {
+    value: 'none',
+    label: 'none',
+  },
+  {
+    value: 'Newb',
+    label: 'Younger than 18yo',
+  },
+  {
+    value: 'Generation Z',
+    label: 'Between 22 - 30yo',
+  },
+  {
+    value: 'Midlife Crisis',
+    label: 'Between 30 - 40yo',
+  },
+  {
+    value: 'Golden Age',
+    label: 'Between 40 - 50yo',
+  },
+  {
+    value: 'Veteran',
+    label: 'Over 50yo ',
+  },
 ];
 
 export function ProfileEdit() {
+
 	const location = useLocation();
 
 	const classes = useStyles();

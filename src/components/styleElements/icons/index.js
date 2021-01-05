@@ -32,3 +32,5 @@ export { Check } from './Check';
 export { Bell } from './Bell';
 
 export { Unlock } from './Unlock';
+
+export { Search } from './Search';
