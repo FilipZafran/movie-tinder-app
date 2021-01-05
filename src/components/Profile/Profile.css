@@ -534,12 +534,7 @@ grid-template-columns: 70px 100px;
   z-index: 4;
 }
 
-<<<<<<< HEAD
-.profile__upload_symbol_position 
-input {
-z-index: 5!important;
-visibility: hidden; 
-=======
+
 .profile__upload_symbol_position input {
   z-index: 5 !important;
   visibility: hidden;
@@ -552,7 +547,6 @@ visibility: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
->>>>>>> 522532e661fbdc12728e7eeb66127ec8fb247540
 }
 
 .profile__upload-label {
