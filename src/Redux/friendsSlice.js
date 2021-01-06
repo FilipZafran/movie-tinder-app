@@ -14,7 +14,6 @@ export const fetchFriendsInvitations = createAsyncThunk(
         url: `${serverURL}/friends/invitations`,
         headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
       });
-      console.log(response.data);
       return response.data.pendingInvitations;
     } catch (err) {
       console.log(err);
@@ -31,7 +30,6 @@ export const fetchFriendsRequests = createAsyncThunk(
         url: `${serverURL}/friends/requests`,
         headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
       });
-      console.log(response.data);
       return response.data.pendingRequests;
     } catch (err) {
       console.log(err);
@@ -48,7 +46,6 @@ export const fetchAllFriends = createAsyncThunk(
         url: `${serverURL}/friends/allFriends`,
         headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
       });
-      console.log(response.data);
       return response.data.friends;
     } catch (err) {
       console.log(err);
@@ -66,7 +63,6 @@ export const sendFriendRequest = createAsyncThunk(
         headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
         data: otherId,
       });
-      console.log(response);
       return response.data;
     } catch (err) {
       console.log(err);
@@ -83,7 +79,6 @@ export const acceptFriendRequest = createAsyncThunk(
         url: `${serverURL}/friends/acceptRequest/${otherId}`,
         headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
       });
-      console.log(response);
       return response.data;
     } catch (err) {
       console.log(err);
@@ -100,7 +95,6 @@ export const deleteFriend = createAsyncThunk(
         url: `${serverURL}/friends/removeFriend/${otherId}`,
         headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
       });
-      console.log(response);
       return response.data;
     } catch (err) {
       console.log(err);

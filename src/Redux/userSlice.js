@@ -15,7 +15,6 @@ export const fetchSearchResults = createAsyncThunk(
         headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
         data: { username: username },
       });
-      console.log(response.data);
       return response.data;
     } catch (err) {
       console.log(err);
