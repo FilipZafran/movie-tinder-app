@@ -439,6 +439,9 @@
 }
 
 .profile__edit-current-filters h4 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding-bottom: 15px;
 }
 
@@ -540,37 +543,31 @@ grid-template-columns: 70px 100px;
 .profile__upload_symbol_position {
   position: relative;
   display: flex;
-  /* align-items: center; */
   justify-content: center;
   top: -40px;
-  left: 130px;
+  left: 250px;
   z-index: 4;
-  border: red 3px solid;
   background-color: rgb(77, 65, 65);
   border-radius: 50px;
   opacity: 0.5;
-  width: 50px;
+  width: 30px;
+  height: 30px;
 }
 
 .profile__upload-label {
-  border: blue 3px solid;
   cursor: pointer;
   display: flex;
   flex-direction: row-reverse;
 }
 
 #profile__upload-icon {
-  position: fixed;
-  left: 20px;
   background-color: grey;
-  border: green 3px solid;
 }
 
 .profile__upload_symbol_position input {
   z-index: 5 !important;
   visibility: hidden;
-  border: yellow 3px solid;
-}
+ }
 
 .profile__filterPage {
   position: relative;
