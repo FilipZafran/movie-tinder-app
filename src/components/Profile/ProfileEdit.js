@@ -1,4 +1,4 @@
-import React, { useState, setState } from 'react';
+import React, { useState } from 'react';
 import {
   Select,
   MenuItem,
@@ -17,50 +17,20 @@ import FileUploader from './FileUploader';
 import { Settings } from '../styleElements/icons/Settings';
 import { FilterPage } from '../FilterPage';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   formControl: {
     minWidth: 100,
   },
 }));
 
-const ranges = [
-  {
-    value: 'none',
-    label: 'none',
-  },
-  {
-    value: 'Newb',
-    label: 'Younger than 18yo',
-  },
-  {
-    value: 'Generation Z',
-    label: 'Between 22 - 30yo',
-  },
-  {
-    value: 'Midlife Crisis',
-    label: 'Between 30 - 40yo',
-  },
-  {
-    value: 'Golden Age',
-    label: 'Between 40 - 50yo',
-  },
-  {
-    value: 'Veteran',
-    label: 'Over 50yo ',
-  },
-];
-
 export function ProfileEdit() {
   const location = useLocation();
 
   const classes = useStyles();
-  const [value, setValue] = useState('');
   const [displayFilters, setDisplayFilters] = useState(false);
 
-  const handleChange = (e) => setValue(e.target.value);
-
   // FileUploader > ProfileEdit
-  const [picture, setPicture] = useState('');
+  const [setPicture] = useState('');
 
   // callback function
   function setPictureCallback(url) {
@@ -73,7 +43,7 @@ export function ProfileEdit() {
 
       <FilterPage
         seeFilters={displayFilters}
-        toggle={(x) => setDisplayFilters(!displayFilters)}
+        toggle={() => setDisplayFilters(!displayFilters)}
         hidden={!displayFilters}
       />
 
@@ -204,7 +174,7 @@ export function ProfileEdit() {
                 <h4>
                   {' '}
                   Current filters: &nbsp;{' '}
-                  <div onClick={(x) => setDisplayFilters(!displayFilters)}>
+                  <div onClick={() => setDisplayFilters(!displayFilters)}>
                     <Settings />
                   </div>
                 </h4>

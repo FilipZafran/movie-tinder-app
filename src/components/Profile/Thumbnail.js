@@ -4,10 +4,6 @@ const Thumbnail = (props) => {
   const [image, setImage] = useState(null);
   const canvas = useRef(null);
 
-  const [currentFilm, setCurrentFilm] = useState({
-    image: '',
-  });
-
   useEffect(() => {
     const image = new Image();
     // image.src = `serverURL(${currentFilm['image']})`;

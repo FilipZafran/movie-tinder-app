@@ -1,5 +1,6 @@
 {
   "env": {
+    "node": true,
     "browser": true,
     "es6": true
   },
@@ -12,6 +13,7 @@
       "modules": true
     }
   },
+  "ignorePatterns": ["**/__tests__/*.js"],
   "plugins": ["prettier", "react"],
   "extends": ["eslint:recommended", "plugin:react/recommended"],
   "rules": {

@@ -3,7 +3,7 @@ import { UploadIcon } from '../styleElements/icons/UploadIcon';
 
 function FileUploader(props) {
   const [image, setImage] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [setLoading] = useState(false);
 
   const uploadImage = async (e) => {
     const files = e.target.files;

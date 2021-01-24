@@ -10,7 +10,7 @@ import { RequestReset } from './components/ResetPassword/RequestReset';
 import { UnderConstruction } from './components/UnderConstruction';
 import { CirclesBackground } from './components/styleElements/CirclesBackground';
 
-const App = (props) => {
+const App = () => {
   return (
     <Router>
       <Switch>
