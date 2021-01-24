@@ -4,44 +4,96 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import { fetchMatches } from '../../Redux/matchSlice';
 import styled from 'styled-components';
 
-const StyledContainer = styled.div``;
+const StyledContainer = styled.div`
+  display: ${(props) => (props.display === 'true' ? 'flex' : 'none')};
+  flex-direction: column;
+  z-index: 10;
+  background: var(--dark-900);
+  width: 200px;
+  height: 350px;
+  border-radius: 10px;
+  padding: 20px;
+`;
+const Close = styled.div`
+  position: relative;
+  bottom: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: 2px solid var(--dark-300);
+  border-radius: 5px;
+  padding: 10px;
+  :hover {
+    border: 1px solid var(--light-300);
+  }
+`;
 
-const StyledTitle = styled.div``;
+const StyledTitle = styled.div`
+  font-size: 30px;
+  margin: 20px 0px;
+  color: var(--light-100);
+`;
 
-const SubTitle = styled.div``;
+const SubTitle = styled.div`
+  span {
+    font-weight: 500;
+    color: var(--prime-900);
+  }
+  .title {
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: 500;
+  }
+`;
 
-const List = styled.ul``;
+const List = styled.ul`
+  height: 160px;
+`;
 
 //TODO: make only appear on positive match
 
 export const MatchNotification = ({ movie }) => {
   const [friends, setFriends] = useState([]);
+  const [display, setDisplay] = useState('true');
 
   const dispatch = useDispatch();
-  const friendsList = friends.map((x) => <li key={x}>{x}</li>);
+  const friendsList = friends ? friends.map((x) => <li key={x}>{x}</li>) : null;
 
   const getMatches = async () => {
     try {
-      const matchList = await dispatch(fetchMatches(movie.id));
+      const matchList = await dispatch(fetchMatches(movie));
       unwrapResult(matchList);
-      console.log(matchList.payload);
-      setFriends(matchList.payload);
+      setFriends(matchList.payload.matches);
     } catch (err) {
       console.log(err);
     }
   };
 
+  const toggleDisplay = () => {
+    setDisplay('false');
+  };
+
   useEffect(() => {
     getMatches();
-  }, []);
+  }, [movie]);
+
+  useEffect(() => {
+    if (friends && friends.length > 0) {
+      setDisplay('true');
+    }
+  }, [friends]);
 
   return (
-    <StyledContainer>
+    <StyledContainer display={display}>
       <StyledTitle>You have a match!</StyledTitle>
       <SubTitle>
-        {friends.length} of your friends also liked this movie!
+        <span>{friends ? friends.length : 'None'}</span> of your friends also
+        liked
+        <div className="title">{movie.title}</div>
       </SubTitle>
       <List>{friendsList}</List>
+      <Close onClick={toggleDisplay}>CLOSE</Close>
     </StyledContainer>
   );
 };

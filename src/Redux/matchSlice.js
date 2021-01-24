@@ -1,16 +1,19 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const serverURL = process.env.REACT_APP_SERVER;
+
 const initialState = { entities: {}, loading: 'idle' };
 
 export const fetchMatches = createAsyncThunk(
   'match/fetchMatches',
-  async (filmId) => {
+  async (film) => {
     try {
       const response = await axios({
-        method: 'GET',
+        method: 'POST',
         headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
-        url: `/matches/oneFilm/${filmId}`,
+        url: `${serverURL}/matches/oneFilm`,
+        data: { film },
       });
       return response.data;
     } catch (err) {

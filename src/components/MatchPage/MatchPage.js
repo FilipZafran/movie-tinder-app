@@ -5,6 +5,7 @@ import { ShotsButton } from '../styleElements/buttons';
 import { TopNav } from '../TopNav';
 import { CirclesBackground } from '../styleElements/CirclesBackground';
 import { FilterPage } from '../FilterPage';
+import { MatchNotification } from '../MatchNotification';
 
 export function MatchPage() {
   //verdict indicates which button is active
@@ -15,6 +16,9 @@ export function MatchPage() {
 
   //whether filterMenu is displayed or not
   const [displayFilters, setDisplayFilters] = useState(false);
+
+  //when a movie is liked it is saved here
+  const [movie, setMovie] = useState({});
 
   const toggleDisplayFilters = () => setDisplayFilters(!displayFilters);
 
@@ -46,6 +50,11 @@ export function MatchPage() {
     };
   }, []);
 
+  const checkMatches = (film) => {
+    console.log(film);
+    setMovie(film);
+  };
+
   //create useEffect that finds the location of the buttons on mount
   //when the mouse or touch is no longer over the button, the verdict changes to 'neutral'
   //decision is only set when a mouseUp or touchEnd event happens while over a button
@@ -58,9 +67,14 @@ export function MatchPage() {
         seeFilters={displayFilters}
         toggle={toggleDisplayFilters}
       />
+      <MatchNotification movie={movie} />
       <TopNav backIcon dark filterIcon displayFilters={toggleDisplayFilters} />
       <div className="matchPage__content">
-        <MatchCard reset={reset} decision={decision} />
+        <MatchCard
+          reset={reset}
+          decision={decision}
+          checkMatches={checkMatches}
+        />
         <div className="matchPage__buttons">
           <ShotsButton
             inactive={likeActive}

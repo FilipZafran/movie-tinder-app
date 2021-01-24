@@ -11,7 +11,7 @@ import {
 } from '../../../Redux/moviesSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
 
-export const MatchCard = ({ decision, reset }) => {
+export const MatchCard = ({ decision, reset, checkMatches }) => {
   const [showInfo, setShowInfo] = useState(false);
   const dispatch = useDispatch();
 
@@ -55,6 +55,7 @@ export const MatchCard = ({ decision, reset }) => {
 
   useEffect(() => {
     if (decision === 'like') {
+      checkMatches(preLoadArray[0]);
       const updateLikes = async () => {
         try {
           const newLike = await dispatch(addLike(preLoadArray[0]));
