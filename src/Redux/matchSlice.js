@@ -7,13 +7,13 @@ const initialState = { entities: {}, loading: 'idle' };
 
 export const fetchMatches = createAsyncThunk(
   'match/fetchMatches',
-  async (film) => {
+  async (data) => {
     try {
       const response = await axios({
         method: 'POST',
         headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
         url: `${serverURL}/matches/oneFilm`,
-        data: { film },
+        data: data,
       });
       return response.data;
     } catch (err) {

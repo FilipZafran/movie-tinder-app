@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { fetchMatches } from '../../Redux/matchSlice';
+import { selectAllFriends } from '../../Redux/friendsSlice';
 import styled from 'styled-components';
 
 const StyledContainer = styled.div`
@@ -56,13 +57,16 @@ const List = styled.ul`
 export const MatchNotification = ({ movie }) => {
   const [friends, setFriends] = useState([]);
   const [display, setDisplay] = useState('true');
+  const allFriends = useSelector(selectAllFriends);
 
   const dispatch = useDispatch();
   const friendsList = friends ? friends.map((x) => <li key={x}>{x}</li>) : null;
 
   const getMatches = async () => {
     try {
-      const matchList = await dispatch(fetchMatches(movie));
+      const matchList = await dispatch(
+        fetchMatches({ film: movie, allFriends: allFriends })
+      );
       unwrapResult(matchList);
       setFriends(matchList.payload.matches);
     } catch (err) {
