@@ -15,10 +15,10 @@ export const requestReset = createAsyncThunk(
         data: { email: email },
       });
       console.log(response.data);
-      return {err: false, msg: response.data.msg};
+      return { err: false, msg: response.data.msg };
     } catch (err) {
       console.log(err.response.data);
-      return {err: true, msg: err.response.data.msg};
+      return { err: true, msg: err.response.data.msg };
     }
   }
 );
@@ -33,10 +33,10 @@ export const resetPassword = createAsyncThunk(
         data: data,
       });
       console.log(response.data);
-      return {err: false, msg: response.data.msg};
+      return { err: false, msg: response.data.msg };
     } catch (err) {
       console.log(err);
-      return {err: true, msg: err.response.data.msg};
+      return { err: true, msg: err.response.data.msg };
     }
   }
 );
