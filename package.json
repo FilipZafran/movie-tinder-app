@@ -28,11 +28,12 @@
     "eject": "react-scripts eject",
     "eslint": "eslint src --fix",
     "prettier": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc.json",
-    "format": "npm run prettier && npm run eslint"
+    "format": "npm run prettier && npm run eslint",
+    "fast-format": "prettier --write $(git diff --name-only HEAD | xargs) --config ./.prettierrc.json && eslint --fix $(git diff --name-only HEAD  **/*.js | xargs)"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run format"
+      "pre-commit": "npm run fast-format"
     }
   },
   "eslintConfig": {
