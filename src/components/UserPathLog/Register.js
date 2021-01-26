@@ -102,11 +102,12 @@ function Registration() {
         />
       </div>
       <Button
-        children="Register"
         buttonStyle="btn--primary--solid"
         buttonSize="btn--wide"
         onClick={submit}
-      />
+      >
+        Register
+      </Button>
       <p className="error">{error}</p>
       <Link to="/login">
         <Button type="button" buttonStyle="btn--stealth">

@@ -14,9 +14,9 @@ export const Start = () => {
   return (
     <div className="start">
       <div className={seeFilters ? 'start__hide' : 'start__textBox'}>
-        <div className="start__quote">"{quote}"</div>
+        <div className="start__quote">&quot;{quote}&quot;</div>
         <div className="start__space"></div>
-        <div className="start__noDisplay">"{quote}"</div>
+        <div className="start__noDisplay">&quot;{quote}&quot;</div>
       </div>
       <FilterPage toggle={toggleSeeFilters} seeFilters={seeFilters} />
       <CirclesBackground />

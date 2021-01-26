@@ -12,7 +12,7 @@ import Avatar from '../styleElements/avatar/Avatar.js';
 
 import axios from 'axios';
 
-export function Profile(size) {
+export function Profile() {
   const location = useLocation();
   const dispatch = useDispatch();
 
@@ -27,7 +27,7 @@ export function Profile(size) {
   }
 
   // CHECK TELEGRAM
-  const [filmArray, setFilmArray] = useState([]);
+  const [filmArray] = useState([]);
 
   const serverURL = process.env.REACT_APP_SERVER;
 

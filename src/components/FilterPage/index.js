@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from 'react';
 import { FilterGroup } from './FilterGroup';
 import { motion } from 'framer-motion';
@@ -116,7 +115,6 @@ export const FilterPage = ({ toggle, seeFilters, hidden }) => {
 
   useEffect(() => {
     getFilters();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

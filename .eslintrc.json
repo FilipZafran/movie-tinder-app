@@ -1,0 +1,29 @@
+{
+  "env": {
+    "node": true,
+    "browser": true,
+    "es6": true
+  },
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 8,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true
+    }
+  },
+  "ignorePatterns": ["**/__tests__/*.js"],
+  "plugins": ["prettier", "react"],
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "rules": {
+    "quotes": ["error", "single"],
+    "jsx-quotes": ["error", "prefer-double"],
+    "react/prop-types": "off"
+  },
+  "settings": {
+    "react": {
+      "version": "detetect"
+    }
+  }
+}

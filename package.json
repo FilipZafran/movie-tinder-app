@@ -25,7 +25,16 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "eslint": "eslint src --fix",
+    "prettier": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc.json",
+    "format": "npm run prettier && npm run eslint",
+    "fast-format": "prettier --write $(git diff --name-only HEAD | xargs) --config ./.prettierrc.json && eslint --fix $(git diff --name-only HEAD  **/*.js | xargs)"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run fast-format"
+    }
   },
   "eslintConfig": {
     "extends": [
@@ -47,6 +56,10 @@
   },
   "devDependencies": {
     "@babel/preset-react": "^7.12.5",
-    "framer-motion": "^2.9.4"
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.21.5",
+    "framer-motion": "^2.9.4",
+    "husky": "^4.3.8",
+    "prettier": "^2.2.1"
   }
 }

@@ -35,7 +35,7 @@ export function MatchPage() {
   };
 
   //sets the verdict to 'neutral' when the click is released
-  const onMouseUp = (e) => {
+  const onMouseUp = () => {
     setVerdict('neutral');
   };
 

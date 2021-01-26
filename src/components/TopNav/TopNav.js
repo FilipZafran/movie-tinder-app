@@ -47,7 +47,9 @@ export const TopNav = ({
         <Link to={textLink}>
           <div className="topNav__text">{text}</div>
         </Link>
-      ) : text ? ( <div className="topNav__text">{text}</div>): (
+      ) : text ? (
+        <div className="topNav__text">{text}</div>
+      ) : (
         <div className="topNav__none" />
       )}
     </div>

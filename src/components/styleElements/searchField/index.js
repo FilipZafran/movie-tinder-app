@@ -67,7 +67,7 @@ export const SearchField = ({
     <StyledSearchFieldContainer>
       <StyledSearchField
         active={active}
-        onClick={(x) => {
+        onClick={() => {
           if (!active) {
             setActive(!active);
             changeViewSearch(!active);
@@ -76,7 +76,7 @@ export const SearchField = ({
       >
         {active ? (
           <div
-            onClick={(x) => {
+            onClick={() => {
               setActive(!active);
               changeViewSearch(!active);
               clearSearch();
@@ -95,7 +95,7 @@ export const SearchField = ({
         ></input>
         {active ? (
           <div
-            onClick={(x) => {
+            onClick={() => {
               setActive(!active);
               changeViewSearch(!active);
               clearSearch();

@@ -46,7 +46,7 @@ export const ResetPassword = () => {
   const dispatch = useDispatch();
   const { token } = useParams();
 
-  const submitHandler = async (e) => {
+  const submitHandler = async () => {
     if (password === '' || password !== confirmPassword) {
       setResMsg({ err: true, msg: 'invalid password' });
     } else {
@@ -90,11 +90,12 @@ export const ResetPassword = () => {
         onChange={(e) => setConfirmPassword(e.target.value)}
       />
       <Button
-        children="Submit"
         buttonStyle="btn--primary--solid"
         buttonSize="btn--wide"
         onClick={submitHandler}
-      />
+      >
+        Submit
+      </Button>
       <p className={resMsg.err ? 'inputErr' : 'inputMsg'}>{resMsg.msg}</p>
       <Link to="/login">
         <Button type="button" buttonStyle="btn--stealth">
