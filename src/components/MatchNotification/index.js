@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { fetchMatches } from '../../Redux/matchSlice';
 import { selectAllFriends } from '../../Redux/friendsSlice';
+import { selectCurrent } from '../../Redux/moviesSlice';
 import styled from 'styled-components';
 
 const StyledContainer = styled.div`
@@ -49,26 +50,30 @@ const SubTitle = styled.div`
 `;
 
 const List = styled.ul`
+  margin-top: 20px;
   height: 160px;
 `;
 
 //TODO: make only appear on positive match
 
-export const MatchNotification = ({ movie }) => {
-  const [friends, setFriends] = useState([]);
+export const MatchNotification = ({ decision }) => {
+  const [friends, setFriends] = useState({ movie: { title: '' }, matches: [] });
   const [display, setDisplay] = useState('true');
   const allFriends = useSelector(selectAllFriends);
+  const currentMovie = useSelector(selectCurrent);
 
   const dispatch = useDispatch();
-  const friendsList = friends ? friends.map((x) => <li key={x}>{x}</li>) : null;
+  const friendsList = friends
+    ? friends.matches.map((x) => <li key={x.id}>{x.username}</li>)
+    : null;
 
   const getMatches = async () => {
     try {
       const matchList = await dispatch(
-        fetchMatches({ film: movie, allFriends: allFriends })
+        fetchMatches({ film: currentMovie, allFriends: allFriends })
       );
       unwrapResult(matchList);
-      setFriends(matchList.payload.matches);
+      setFriends(matchList.payload);
     } catch (err) {
       console.log(err);
     }
@@ -79,11 +84,13 @@ export const MatchNotification = ({ movie }) => {
   };
 
   useEffect(() => {
-    getMatches();
-  }, [movie]);
+    if (decision === 'like') {
+      getMatches();
+    }
+  }, [decision]);
 
   useEffect(() => {
-    if (friends && friends.length > 0) {
+    if (friends && friends.matches.length > 0) {
       setDisplay('true');
     }
   }, [friends]);
@@ -92,9 +99,9 @@ export const MatchNotification = ({ movie }) => {
     <StyledContainer display={display}>
       <StyledTitle>You have a match!</StyledTitle>
       <SubTitle>
-        <span>{friends ? friends.length : 'None'}</span> of your friends also
-        liked
-        <div className="title">{movie.title}</div>
+        <span>{friends ? friends.matches.length : 'None'}</span> of your friends
+        also liked
+        <div className="title">{friends ? friends.movie.title : ''}</div>
       </SubTitle>
       <List>{friendsList}</List>
       <Close onClick={toggleDisplay}>CLOSE</Close>

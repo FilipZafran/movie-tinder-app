@@ -17,9 +17,6 @@ export function MatchPage() {
   //whether filterMenu is displayed or not
   const [displayFilters, setDisplayFilters] = useState(false);
 
-  //when a movie is liked it is saved here
-  const [movie, setMovie] = useState({});
-
   const toggleDisplayFilters = () => setDisplayFilters(!displayFilters);
 
   //sets buttons from neutral to inactive based on if the opposite button is selected
@@ -50,11 +47,6 @@ export function MatchPage() {
     };
   }, []);
 
-  const checkMatches = (film) => {
-    console.log(film);
-    setMovie(film);
-  };
-
   //create useEffect that finds the location of the buttons on mount
   //when the mouse or touch is no longer over the button, the verdict changes to 'neutral'
   //decision is only set when a mouseUp or touchEnd event happens while over a button
@@ -67,14 +59,10 @@ export function MatchPage() {
         seeFilters={displayFilters}
         toggle={toggleDisplayFilters}
       />
-      <MatchNotification movie={movie} />
+      <MatchNotification decision={decision} />
       <TopNav backIcon dark filterIcon displayFilters={toggleDisplayFilters} />
       <div className="matchPage__content">
-        <MatchCard
-          reset={reset}
-          decision={decision}
-          checkMatches={checkMatches}
-        />
+        <MatchCard reset={reset} decision={decision} />
         <div className="matchPage__buttons">
           <ShotsButton
             inactive={likeActive}
