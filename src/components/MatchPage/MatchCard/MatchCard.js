@@ -114,7 +114,7 @@ export const MatchCard = ({ decision, reset, checkMatches }) => {
         </div>
         <div
           className="matchCard__info"
-          style={showInfo ? null : { display: `none` }}
+          style={showInfo ? null : { display: 'none' }}
         >
           <div className="matchCard__title">{currentFilm['title']}</div>
           <div className="matchCard__details">

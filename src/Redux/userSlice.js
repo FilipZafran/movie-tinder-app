@@ -80,7 +80,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    logoutUser(state) {
+    logoutUser() {
       localStorage.removeItem('isAuthenticated');
       localStorage.removeItem('x-auth-token');
     },

@@ -38,7 +38,7 @@ export const RequestReset = () => {
   const [message, setMessage] = useState('');
   const dispatch = useDispatch();
 
-  const onSubmit = async (e) => {
+  const onSubmit = async () => {
     const msg = await dispatch(requestReset(email));
     unwrapResult(msg);
     setMessage(msg.payload);
@@ -59,11 +59,12 @@ export const RequestReset = () => {
         msg={message}
       ></InputField>
       <Button
-        children="Send E-mail"
         buttonStyle="btn--primary--solid"
         buttonSize="btn--wide"
         onClick={onSubmit}
-      />
+      >
+        Send E-mail
+      </Button>
       <Link to="/login">
         <Button type="button" buttonStyle="btn--stealth">
           Go to Login
