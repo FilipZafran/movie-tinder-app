@@ -5,6 +5,7 @@ import { ShotsButton } from '../styleElements/buttons';
 import { TopNav } from '../TopNav';
 import { CirclesBackground } from '../styleElements/CirclesBackground';
 import { FilterPage } from '../FilterPage';
+import { MatchNotification } from '../MatchNotification';
 
 export function MatchPage() {
   //verdict indicates which button is active
@@ -58,6 +59,7 @@ export function MatchPage() {
         seeFilters={displayFilters}
         toggle={toggleDisplayFilters}
       />
+      <MatchNotification decision={decision} />
       <TopNav backIcon dark filterIcon displayFilters={toggleDisplayFilters} />
       <div className="matchPage__content">
         <MatchCard reset={reset} decision={decision} />
