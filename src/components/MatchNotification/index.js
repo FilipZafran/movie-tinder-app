@@ -58,7 +58,7 @@ const List = styled.ul`
 
 export const MatchNotification = ({ decision }) => {
   const [friends, setFriends] = useState({ movie: { title: '' }, matches: [] });
-  const [display, setDisplay] = useState('true');
+  const [display, setDisplay] = useState('false');
   const allFriends = useSelector(selectAllFriends);
   const currentMovie = useSelector(selectCurrent);
 
