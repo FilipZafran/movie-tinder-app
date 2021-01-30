@@ -13,8 +13,8 @@ const Container = styled.div`
 const Circles = styled.div`
   .SvgCircle {
     z-index: 1;
-    height: 400px;
-    width: 400px;
+    height: 500px;
+    width: 500px;
   }
   .circleBig {
     fill: var(--prime-700);

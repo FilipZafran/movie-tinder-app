@@ -4,12 +4,8 @@ import Background from './background';
 
 const MovieDetailTileContainer = styled.div`
   width: 360px;
-  height: 240px;
-  /* width: 100px;
-  height: 100px; */
-  /* background: green; */
-  margin-left: auto;
-  margin-right: auto;
+  height: 300px;
+  position: absolute;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -21,22 +17,28 @@ const Title = styled.div`
   color: var(--dark-900);
   font-size: 24px;
   font-weight: 500;
+  padding: 10px;
 `;
 const Crew = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  padding: 10px;
   .title {
+    padding-bottom: 10px;
     color: var(--dark-900);
     font-size: 18px;
   }
 `;
-const GeneralInfo = styled.div``;
+const GeneralInfo = styled.div`
+  padding: 10px;
+`;
 const Tile = styled.div`
   margin: 4px;
   display: inline-block;
   padding: 8px 16px;
+  font-weight: 300;
   border-radius: 8px;
   background: ${(props) =>
     props.type === 'gold' ? 'var(--dark-100)' : 'var(--dark-300)'};
@@ -44,11 +46,14 @@ const Tile = styled.div`
     props.type === 'gold' ? 'var(--prime-500)' : 'var(--light-500)'};
 `;
 const TopLayer = styled.div`
-  position: relative;
+  position: absolute;
   z-index: 5;
 `;
 const BackgroundLayer = styled.div`
-  position: relative;
+  display: flex;
+  flex-direction: center;
+  justify-content: center;
+  position: absolute;
   z-index: 0;
 `;
 

@@ -16,7 +16,14 @@ const dummyData = {
   imDbRatingCount: '2269138',
 };
 
-const MovieDetailContainer = styled.div``;
+const MovieDetailContainer = styled.div`
+  height: 90vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
 export const MovieDetail = () => {
   return (
