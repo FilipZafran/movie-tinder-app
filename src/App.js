@@ -3,12 +3,14 @@ import './App.css';
 import Dashboard from './components/Dashboard/Dashboard';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute';
-import Login from './components/UserPathLog/Login';
+// import Login from './components/UserPathLog/Login';
 import Registration from './components/UserPathLog/Register';
 import { ResetPassword } from './components/ResetPassword';
 import { RequestReset } from './components/ResetPassword/RequestReset';
-import { UnderConstruction } from './components/UnderConstruction';
+// import { UnderConstruction } from './components/UnderConstruction';
 import { CirclesBackground } from './components/styleElements/CirclesBackground';
+import { MovieDetail } from './components/MovieDetail';
+import { BottomNav } from './components/BottomNav';
 
 const App = () => {
   return (
@@ -32,9 +34,11 @@ const App = () => {
         </Route>
 
         <Route path="/">
-          <Login />
+          <MovieDetail />
+          <BottomNav />
+          {/* <Login />
           <CirclesBackground />
-          <UnderConstruction />
+          <UnderConstruction /> */}
         </Route>
       </Switch>
     </Router>
