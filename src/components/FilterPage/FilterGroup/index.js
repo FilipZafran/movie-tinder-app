@@ -37,6 +37,11 @@ export const FilterGroup = ({ name, filters, clickHandler }) => {
   return (
     <StyledFilterGroup>
       <div className="filterGroup__name">{name}</div>
+      <FilterChip
+        clickHandler={() => clickHandler(name)}
+        filters={filters}
+        filterKey={name === 'Time' ? 'All time' : 'All genres'}
+      />
       {options}
     </StyledFilterGroup>
   );

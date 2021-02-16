@@ -20,6 +20,9 @@ export const FilterPage = ({ toggle, seeFilters, hidden }) => {
   const [timeFilters, setTimeFilters] = useState({});
   const [genreFilters, setGenreFilters] = useState({});
 
+  // const [allTime, setAllTime] = useState(true);
+  // const [allGenres, setAllGenres] = useState(true);
+
   //toggles the filters from active to inactive in the state
   const toggleActive = (getter, setter) => (filter) =>
     setter({ ...getter, [filter]: !getter[filter] });
@@ -116,6 +119,21 @@ export const FilterPage = ({ toggle, seeFilters, hidden }) => {
   useEffect(() => {
     getFilters();
   }, []);
+
+  //if all timeFilters/genreFilters or no timeFilter/genreFilters are selected
+  //automatically selects "all Time" or "all genres"
+  // useEffect(() => {
+  //   if ([...new Set(Object.values(timeFilters))].length === 1) {
+  //     setAllTime(true);
+  //   } else {
+  //     setAllTime(false);
+  //   }
+  //   if ([...new Set(Object.values(genreFilters))].length === 1) {
+  //     setAllGenres(true);
+  //   } else {
+  //     setAllGenres(false);
+  //   }
+  // }, [timeFilters, genreFilters]);
 
   return (
     <div
