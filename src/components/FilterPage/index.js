@@ -20,8 +20,9 @@ export const FilterPage = ({ toggle, seeFilters, hidden }) => {
   const [timeFilters, setTimeFilters] = useState({});
   const [genreFilters, setGenreFilters] = useState({});
 
-  // const [allTime, setAllTime] = useState(true);
-  // const [allGenres, setAllGenres] = useState(true);
+  //handel the 'All time' and 'All genres' buttons
+  const [allTime, setAllTime] = useState(true);
+  const [allGenres, setAllGenres] = useState(true);
 
   //toggles the filters from active to inactive in the state
   const toggleActive = (getter, setter) => (filter) =>
@@ -120,20 +121,26 @@ export const FilterPage = ({ toggle, seeFilters, hidden }) => {
     getFilters();
   }, []);
 
-  //if all timeFilters/genreFilters or no timeFilter/genreFilters are selected
-  //automatically selects "all Time" or "all genres"
-  // useEffect(() => {
-  //   if ([...new Set(Object.values(timeFilters))].length === 1) {
-  //     setAllTime(true);
-  //   } else {
-  //     setAllTime(false);
-  //   }
-  //   if ([...new Set(Object.values(genreFilters))].length === 1) {
-  //     setAllGenres(true);
-  //   } else {
-  //     setAllGenres(false);
-  //   }
-  // }, [timeFilters, genreFilters]);
+  // if all timeFilters/genreFilters or no timeFilter/genreFilters are selected
+  // automatically selects "all Time" or "all genres"
+  useEffect(() => {
+    if (
+      [...new Set(Object.values(timeFilters))].length === 1 &&
+      !timeFilters[0]
+    ) {
+      setAllTime(true);
+    } else {
+      setAllTime(false);
+    }
+    if (
+      [...new Set(Object.values(genreFilters))].length === 1 &&
+      !genreFilters[0]
+    ) {
+      setAllGenres(true);
+    } else {
+      setAllGenres(false);
+    }
+  }, [timeFilters, genreFilters]);
 
   return (
     <div
@@ -151,11 +158,17 @@ export const FilterPage = ({ toggle, seeFilters, hidden }) => {
           <motion.div layout className="letsStart__content">
             <FilterGroup
               clickHandler={toggleActive(timeFilters, setTimeFilters)}
+              allTime={allTime}
+              allGenres={allGenres}
+              toggleAllTime={setAllTime(!allTime)}
+              toggleAllGenres={setAllGenres(!allGenres)}
               name="Time"
               filters={timeFilters}
             />
             <FilterGroup
               clickHandler={toggleActive(genreFilters, setGenreFilters)}
+              allTime={allTime}
+              allGenres={allGenres}
               name="Genre"
               filters={genreFilters}
             />
