@@ -54,18 +54,26 @@ export const FilterPage = ({ toggle, seeFilters, hidden }) => {
         window.location.reload(false);
       }
       if (Object.keys(activeFilters.payload).length > 0) {
-        setGenreFilters(
-          mapOver(
-            activeFilters.payload.genreFilters,
-            allFilters.payload.genreFilters
-          )
-        );
         setTimeFilters(
           mapOver(
             activeFilters.payload.timeFilters,
             allFilters.payload.timeFilters
           )
         );
+        if (
+          activeFilters.payload.genreFilters.length ===
+          allFilters.payload.genreFilters.length
+        ) {
+          setGenreFilters(mapOver([], allFilters.payload.genreFilters));
+          setAllGenres(true);
+        } else {
+          setGenreFilters(
+            mapOver(
+              activeFilters.payload.genreFilters,
+              allFilters.payload.genreFilters
+            )
+          );
+        }
       } else {
         setGenreFilters(mapOver([], allFilters.payload.genreFilters));
         setTimeFilters(mapOver([], allFilters.payload.timeFilters));
@@ -89,7 +97,9 @@ export const FilterPage = ({ toggle, seeFilters, hidden }) => {
     try {
       const newFilters = await dispatch(
         submitActiveFilters({
-          genreFilters: reverseMapOver(genreFilters),
+          genreFilters: allGenres
+            ? Object.keys(genreFilters)
+            : reverseMapOver(genreFilters),
           timeFilters: reverseMapOver(timeFilters),
         })
       );
