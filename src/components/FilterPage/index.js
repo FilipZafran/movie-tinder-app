@@ -121,26 +121,29 @@ export const FilterPage = ({ toggle, seeFilters, hidden }) => {
     getFilters();
   }, []);
 
-  // if all timeFilters/genreFilters or no timeFilter/genreFilters are selected
+  // if no timeFilter/genreFilters are selected
   // automatically selects "all Time" or "all genres"
   useEffect(() => {
-    if (
-      [...new Set(Object.values(timeFilters))].length === 1 &&
-      !timeFilters[0]
-    ) {
-      setAllTime(true);
-    } else {
-      setAllTime(false);
-    }
-    if (
-      [...new Set(Object.values(genreFilters))].length === 1 &&
-      !genreFilters[0]
-    ) {
-      setAllGenres(true);
-    } else {
-      setAllGenres(false);
-    }
+    [...new Set(Object.values(timeFilters))].length < 2 &&
+    !Object.values(timeFilters)[0]
+      ? setAllTime(true)
+      : setAllTime(false);
+    [...new Set(Object.values(genreFilters))].length === 1 &&
+    !Object.values(genreFilters)[0]
+      ? setAllGenres(true)
+      : setAllGenres(false);
   }, [timeFilters, genreFilters]);
+
+  //if 'all Time' or 'all Genres' is selected any active timeFilter and/or genreFilter
+  //is automatically deselected
+  useEffect(() => {
+    if (allTime) {
+      setTimeFilters(mapOver([], Object.keys(timeFilters)));
+    }
+    if (allGenres) {
+      setGenreFilters(mapOver([], Object.keys(genreFilters)));
+    }
+  }, [allTime, allGenres]);
 
   return (
     <div
@@ -158,17 +161,15 @@ export const FilterPage = ({ toggle, seeFilters, hidden }) => {
           <motion.div layout className="letsStart__content">
             <FilterGroup
               clickHandler={toggleActive(timeFilters, setTimeFilters)}
-              allTime={allTime}
-              allGenres={allGenres}
-              toggleAllTime={setAllTime(!allTime)}
-              toggleAllGenres={setAllGenres(!allGenres)}
+              all={allTime}
+              toggleAll={() => setAllTime(!allTime)}
               name="Time"
               filters={timeFilters}
             />
             <FilterGroup
               clickHandler={toggleActive(genreFilters, setGenreFilters)}
-              allTime={allTime}
-              allGenres={allGenres}
+              all={allGenres}
+              toggleAll={() => setAllGenres(!allGenres)}
               name="Genre"
               filters={genreFilters}
             />

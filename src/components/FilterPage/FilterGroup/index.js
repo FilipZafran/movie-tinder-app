@@ -21,10 +21,8 @@ export const FilterGroup = ({
   name,
   filters,
   clickHandler,
-  allTime,
-  allGenres,
-  toggleAllTime,
-  toggleAllGenres,
+  all,
+  toggleAll,
 }) => {
   const keys = Object.keys(filters);
 
@@ -46,12 +44,8 @@ export const FilterGroup = ({
     <StyledFilterGroup>
       <div className="filterGroup__name">{name}</div>
       <FilterChip
-        clickHandler={name === 'Time' ? toggleAllTime : toggleAllGenres}
-        filters={
-          name === 'Time'
-            ? { 'All time': allTime }
-            : { 'All genres': allGenres }
-        }
+        clickHandler={toggleAll}
+        filters={name === 'Time' ? { 'All time': all } : { 'All genres': all }}
         filterKey={name === 'Time' ? 'All time' : 'All genres'}
       />
       {options}

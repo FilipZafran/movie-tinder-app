@@ -34,7 +34,7 @@
 }
 
 .letsStart__border[data-isopen='true'] {
-  height: 418px;
+  height: 458px;
   width: 348px;
 }
 
@@ -51,7 +51,7 @@
 }
 
 .letsStart__card[data-isopen='true'] {
-  height: 370px;
+  height: 410px;
   width: 300px;
   padding: 12px;
 }
