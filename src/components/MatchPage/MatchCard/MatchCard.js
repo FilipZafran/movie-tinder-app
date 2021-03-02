@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Flip } from '../../styleElements/icons';
 import './MatchCard.css';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,22 +8,21 @@ import {
   selectPreload,
   preloadAdded,
   preloadRemoveOne,
+  selectToSwipe,
 } from '../../../Redux/moviesSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
 
 export const MatchCard = ({ decision, reset }) => {
   const [showInfo, setShowInfo] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const dispatch = useDispatch();
 
+  const toSwipe = useSelector(selectToSwipe);
   const preLoadArray = useSelector(selectPreload);
   const currentFilm = useSelector(selectCurrent);
 
   //show movie info or show movie poster (default is show poster)
   const toggleInfo = () => setShowInfo(!showInfo);
-
-  //isMounted makes sure that the setCurrentFilm only runs after
-  //the filmArray has loaded (and not on mount)
-  const isMounted = useRef(false);
 
   //maps over crew and makes a div for every crew member
 
@@ -42,16 +41,18 @@ export const MatchCard = ({ decision, reset }) => {
     ));
 
   useEffect(() => {
-    if (isMounted.current && preLoadArray.length < 5) {
+    console.log('useEffect1');
+    if (isMounted && preLoadArray.length < 5 && toSwipe.length > 0) {
       dispatch(preloadAdded());
     } else {
-      isMounted.current = true;
+      setIsMounted(true);
     }
   }, [preLoadArray]);
 
   //when a decision is made it triggers an axios call
 
   useEffect(() => {
+    console.log('useEffect2');
     if (decision === 'like') {
       const updateLikes = async () => {
         try {
@@ -96,7 +97,7 @@ export const MatchCard = ({ decision, reset }) => {
         reset();
       }
     }
-  }, [decision, reset, preLoadArray]);
+  }, [decision]);
 
   return (
     <div className="matchCard">
