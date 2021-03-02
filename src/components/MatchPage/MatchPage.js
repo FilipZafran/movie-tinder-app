@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import './MatchPage.css';
 import { MatchCard } from './MatchCard';
-import { ShotsButton } from '../styleElements/buttons';
+import { ShotsButton, SkipButton } from '../styleElements/buttons';
 import { TopNav } from '../TopNav';
 import { CirclesBackground } from '../styleElements/CirclesBackground';
 import { FilterPage } from '../FilterPage';
@@ -60,6 +60,9 @@ export function MatchPage() {
         clickHandler={clickHandler}
         otherClickHandler={otherClickHandler}
       />
+      <div className="matchPage__skipButton">
+        <SkipButton inactive={!currentFilm['title']} />
+      </div>
       <ShotsButton
         like
         active={likeActive}
@@ -76,6 +79,9 @@ export function MatchPage() {
         clickHandler={() => {}}
         otherClickHandler={() => {}}
       />
+      <div className="matchPage__skipButton">
+        <SkipButton inactive={!currentFilm['title']} />
+      </div>
       <ShotsButton
         like
         active={false}
@@ -102,7 +108,6 @@ export function MatchPage() {
       <TopNav backIcon dark filterIcon displayFilters={toggleDisplayFilters} />
       <div className="matchPage__content">
         <MatchCard reset={reset} decision={decision} />
-
         {selectButtons}
       </div>
     </div>

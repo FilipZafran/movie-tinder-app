@@ -4,3 +4,5 @@
 //takes prop: 'clickHandler' for mouseDown function (to activate the choice)
 //takes prop: 'otherHandler' for mouseUp function (to finalize the choice)
 export { ShotsButton } from './ShotsButton';
+
+export { SkipButton } from './SkipButton';
