@@ -34,3 +34,6 @@ export { Bell } from './Bell';
 export { Unlock } from './Unlock';
 
 export { Search } from './Search';
+
+export { Arrow } from './Arrow';
+export { CirclesBg } from './CirclesBg';

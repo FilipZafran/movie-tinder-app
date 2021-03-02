@@ -47,11 +47,9 @@ export const MatchCard = ({ decision, reset }) => {
     } else {
       isMounted.current = true;
     }
-  }, [preLoadArray, dispatch]);
+  }, [preLoadArray]);
 
   //when a decision is made it triggers an axios call
-
-  const serverURL = process.env.REACT_APP_SERVER;
 
   useEffect(() => {
     if (decision === 'like') {
@@ -98,7 +96,7 @@ export const MatchCard = ({ decision, reset }) => {
         reset();
       }
     }
-  }, [decision, reset, preLoadArray, serverURL, dispatch]);
+  }, [decision, reset, preLoadArray]);
 
   return (
     <div className="matchCard">

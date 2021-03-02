@@ -4,7 +4,7 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import { fetchMatches } from '../../Redux/matchSlice';
 import { selectAllFriends } from '../../Redux/friendsSlice';
 import { selectCurrent } from '../../Redux/moviesSlice';
-import { CirclesBg } from '../styleElements/icons/CirclesBg';
+import { Arrow, CirclesBg } from '../styleElements/icons';
 import styled from 'styled-components';
 
 const StyledContainer = styled.div`
@@ -75,6 +75,7 @@ const Matches = styled.div`
 const SeeMore = styled.div`
   width: 20px;
   height: 20px;
+  padding-left: 0.5px;
   margin-left: 10px;
   border-radius: 8px;
   border: 1px solid var(--dark-900);
@@ -83,8 +84,20 @@ const SeeMore = styled.div`
   justify-content: center;
 `;
 
-const UserIconList = styled.ul`
-  height: 20px;
+const UserIcon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4px;
+  background: var(--warm-900);
+  width: 22px;
+  height: 22px;
+  border-radius: 15px;
+`;
+
+const UserIconList = styled.div`
+  display: flex;
+  flex-direction: row;
 `;
 
 //TODO: make only appear on positive match
@@ -97,7 +110,14 @@ export const MatchNotification = ({ decision }) => {
 
   const dispatch = useDispatch();
   const friendsList = friends
-    ? friends.matches.map((x) => <li key={x.id}>{x.username}</li>)
+    ? friends.matches.map((x) => (
+        <UserIcon key={x.id}>
+          {x.username
+            .split(' ')
+            .map((x) => x[0])
+            .join('')}
+        </UserIcon>
+      ))
     : null;
 
   const getMatches = async () => {
@@ -136,8 +156,10 @@ export const MatchNotification = ({ decision }) => {
         </CirclesBackground>
         <StyledTitle>It matched!</StyledTitle>
         <Matches>
-          <UserIconList>{friendsList}</UserIconList>
-          <SeeMore></SeeMore>
+          <UserIconList>{friendsList.slice(0, 3)}</UserIconList>
+          <SeeMore>
+            <Arrow />
+          </SeeMore>
         </Matches>
         <Close onClick={toggleDisplay}>Close</Close>
       </StyledContent>
