@@ -41,7 +41,6 @@ export const MatchCard = ({ decision, reset }) => {
     ));
 
   useEffect(() => {
-    console.log('useEffect1');
     if (isMounted && preLoadArray.length < 5 && toSwipe.length > 0) {
       dispatch(preloadAdded());
     } else {
@@ -52,7 +51,6 @@ export const MatchCard = ({ decision, reset }) => {
   //when a decision is made it triggers an axios call
 
   useEffect(() => {
-    console.log('useEffect2');
     if (decision === 'like') {
       const updateLikes = async () => {
         try {
