@@ -4,67 +4,120 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import { fetchMatches } from '../../Redux/matchSlice';
 import { selectAllFriends } from '../../Redux/friendsSlice';
 import { selectCurrent } from '../../Redux/moviesSlice';
+import { Arrow, CirclesBg } from '../styleElements/icons';
 import styled from 'styled-components';
 
 const StyledContainer = styled.div`
+  z-index: -2;
   display: ${(props) => (props.display === 'true' ? 'flex' : 'none')};
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   z-index: 10;
-  background: var(--dark-900);
   width: 200px;
-  height: 350px;
-  border-radius: 10px;
-  padding: 20px;
+  height: 160px;
+  border-radius: 20px;
+  padding: 10px;
+  background: var(--prime-500-25);
 `;
+
+const StyledContent = styled.div`
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+  padding: 20px;
+  display: flex;
+  width: 200px;
+  height: 120px;
+  flex-direction: column;
+  align-items: center;
+`;
+
 const Close = styled.div`
   position: relative;
+  width: 60px;
+  font-size: 14px;
+  background: var(--dark-100);
   bottom: 0px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  border: 2px solid var(--dark-300);
-  border-radius: 5px;
-  padding: 10px;
-  :hover {
-    border: 1px solid var(--light-300);
-  }
+  border-radius: 8px;
+  padding: 8px;
+  margin: 5px;
 `;
 
 const StyledTitle = styled.div`
-  font-size: 30px;
-  margin: 20px 0px;
-  color: var(--light-100);
+  font-size: 22px;
+  font-weight: 600;
+  margin: 15px 0px 10px 0px;
+  color: var(--dark-900);
 `;
 
-const SubTitle = styled.div`
-  span {
-    font-weight: 500;
-    color: var(--prime-900);
-  }
-  .title {
-    margin-top: 10px;
-    font-size: 20px;
-    font-weight: 500;
-  }
+const CirclesBackground = styled.div`
+  z-index: -1;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 120px;
 `;
 
-const List = styled.ul`
-  margin-top: 20px;
-  height: 160px;
+const Matches = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+`;
+
+const SeeMore = styled.div`
+  width: 20px;
+  height: 20px;
+  padding-left: 0.5px;
+  margin-left: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--dark-900);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const UserIcon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4px;
+  background: var(--warm-900);
+  width: 22px;
+  height: 22px;
+  border-radius: 15px;
+`;
+
+const UserIconList = styled.div`
+  display: flex;
+  flex-direction: row;
 `;
 
 //TODO: make only appear on positive match
 
 export const MatchNotification = ({ decision }) => {
   const [friends, setFriends] = useState({ movie: { title: '' }, matches: [] });
-  const [display, setDisplay] = useState('true');
+  const [display, setDisplay] = useState('false');
   const allFriends = useSelector(selectAllFriends);
   const currentMovie = useSelector(selectCurrent);
 
   const dispatch = useDispatch();
   const friendsList = friends
-    ? friends.matches.map((x) => <li key={x.id}>{x.username}</li>)
+    ? friends.matches.map((x) => (
+        <UserIcon key={x.id}>
+          {x.username
+            .split(' ')
+            .map((x) => x[0])
+            .join('')}
+        </UserIcon>
+      ))
     : null;
 
   const getMatches = async () => {
@@ -97,14 +150,19 @@ export const MatchNotification = ({ decision }) => {
 
   return (
     <StyledContainer display={display}>
-      <StyledTitle>You have a match!</StyledTitle>
-      <SubTitle>
-        <span>{friends ? friends.matches.length : 'None'}</span> of your friends
-        also liked
-        <div className="title">{friends ? friends.movie.title : ''}</div>
-      </SubTitle>
-      <List>{friendsList}</List>
-      <Close onClick={toggleDisplay}>CLOSE</Close>
+      <StyledContent>
+        <CirclesBackground>
+          <CirclesBg color="gold" />
+        </CirclesBackground>
+        <StyledTitle>It matched!</StyledTitle>
+        <Matches>
+          <UserIconList>{friendsList.slice(0, 3)}</UserIconList>
+          <SeeMore>
+            <Arrow />
+          </SeeMore>
+        </Matches>
+        <Close onClick={toggleDisplay}>Close</Close>
+      </StyledContent>
     </StyledContainer>
   );
 };

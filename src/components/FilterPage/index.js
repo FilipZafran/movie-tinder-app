@@ -20,6 +20,10 @@ export const FilterPage = ({ toggle, seeFilters, hidden }) => {
   const [timeFilters, setTimeFilters] = useState({});
   const [genreFilters, setGenreFilters] = useState({});
 
+  //handel the 'All time' and 'All genres' buttons
+  const [allTime, setAllTime] = useState(true);
+  const [allGenres, setAllGenres] = useState(true);
+
   //toggles the filters from active to inactive in the state
   const toggleActive = (getter, setter) => (filter) =>
     setter({ ...getter, [filter]: !getter[filter] });
@@ -50,18 +54,26 @@ export const FilterPage = ({ toggle, seeFilters, hidden }) => {
         window.location.reload(false);
       }
       if (Object.keys(activeFilters.payload).length > 0) {
-        setGenreFilters(
-          mapOver(
-            activeFilters.payload.genreFilters,
-            allFilters.payload.genreFilters
-          )
-        );
         setTimeFilters(
           mapOver(
             activeFilters.payload.timeFilters,
             allFilters.payload.timeFilters
           )
         );
+        if (
+          activeFilters.payload.genreFilters.length ===
+          allFilters.payload.genreFilters.length
+        ) {
+          setGenreFilters(mapOver([], allFilters.payload.genreFilters));
+          setAllGenres(true);
+        } else {
+          setGenreFilters(
+            mapOver(
+              activeFilters.payload.genreFilters,
+              allFilters.payload.genreFilters
+            )
+          );
+        }
       } else {
         setGenreFilters(mapOver([], allFilters.payload.genreFilters));
         setTimeFilters(mapOver([], allFilters.payload.timeFilters));
@@ -85,7 +97,9 @@ export const FilterPage = ({ toggle, seeFilters, hidden }) => {
     try {
       const newFilters = await dispatch(
         submitActiveFilters({
-          genreFilters: reverseMapOver(genreFilters),
+          genreFilters: allGenres
+            ? Object.keys(genreFilters)
+            : reverseMapOver(genreFilters),
           timeFilters: reverseMapOver(timeFilters),
         })
       );
@@ -117,6 +131,30 @@ export const FilterPage = ({ toggle, seeFilters, hidden }) => {
     getFilters();
   }, []);
 
+  // if no timeFilter/genreFilters are selected
+  // automatically selects "all Time" or "all genres"
+  useEffect(() => {
+    [...new Set(Object.values(timeFilters))].length < 2 &&
+    !Object.values(timeFilters)[0]
+      ? setAllTime(true)
+      : setAllTime(false);
+    [...new Set(Object.values(genreFilters))].length === 1 &&
+    !Object.values(genreFilters)[0]
+      ? setAllGenres(true)
+      : setAllGenres(false);
+  }, [timeFilters, genreFilters]);
+
+  //if 'all Time' or 'all Genres' is selected any active timeFilter and/or genreFilter
+  //is automatically deselected
+  useEffect(() => {
+    if (allTime) {
+      setTimeFilters(mapOver([], Object.keys(timeFilters)));
+    }
+    if (allGenres) {
+      setGenreFilters(mapOver([], Object.keys(genreFilters)));
+    }
+  }, [allTime, allGenres]);
+
   return (
     <div
       className={
@@ -133,11 +171,15 @@ export const FilterPage = ({ toggle, seeFilters, hidden }) => {
           <motion.div layout className="letsStart__content">
             <FilterGroup
               clickHandler={toggleActive(timeFilters, setTimeFilters)}
+              all={allTime}
+              toggleAll={() => setAllTime(!allTime)}
               name="Time"
               filters={timeFilters}
             />
             <FilterGroup
               clickHandler={toggleActive(genreFilters, setGenreFilters)}
+              all={allGenres}
+              toggleAll={() => setAllGenres(!allGenres)}
               name="Genre"
               filters={genreFilters}
             />

@@ -17,7 +17,13 @@ const StyledFilterGroup = styled.div`
   }
 `;
 
-export const FilterGroup = ({ name, filters, clickHandler }) => {
+export const FilterGroup = ({
+  name,
+  filters,
+  clickHandler,
+  all,
+  toggleAll,
+}) => {
   const keys = Object.keys(filters);
 
   const options = keys.map((key) => {
@@ -37,6 +43,11 @@ export const FilterGroup = ({ name, filters, clickHandler }) => {
   return (
     <StyledFilterGroup>
       <div className="filterGroup__name">{name}</div>
+      <FilterChip
+        clickHandler={toggleAll}
+        filters={name === 'Time' ? { 'All time': all } : { 'All genres': all }}
+        filterKey={name === 'Time' ? 'All time' : 'All genres'}
+      />
       {options}
     </StyledFilterGroup>
   );
