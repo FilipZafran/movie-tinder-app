@@ -11,6 +11,7 @@ import {
   selectToSwipe,
 } from '../../../Redux/moviesSlice';
 import { unwrapResult } from '@reduxjs/toolkit';
+import { CirclesBg } from '../../styleElements/icons';
 
 export const MatchCard = ({ decision, reset }) => {
   const [showInfo, setShowInfo] = useState(false);
@@ -97,38 +98,57 @@ export const MatchCard = ({ decision, reset }) => {
     }
   }, [decision]);
 
-  return (
-    <div className="matchCard">
-      <div
-        className="matchCard__current"
-        style={
-          showInfo ? null : { backgroundImage: `url(${currentFilm['image']})` }
-        }
-      >
-        <div className="matchCard__button" onClick={toggleInfo}>
-          <Flip className="light300" />
-        </div>
+  if (currentFilm['title']) {
+    return (
+      <div className="matchCard">
         <div
-          className="matchCard__info"
-          style={showInfo ? null : { display: 'none' }}
+          className="matchCard__current"
+          style={
+            showInfo
+              ? null
+              : { backgroundImage: `url(${currentFilm['image']})` }
+          }
         >
-          <div className="matchCard__title">{currentFilm['title']}</div>
-          <div className="matchCard__details">
-            <div>
-              <div className="matchCard__bubble">
-                Release: {currentFilm['year']}
+          <div className="matchCard__button" onClick={toggleInfo}>
+            <Flip className="light300" />
+          </div>
+          <div
+            className="matchCard__info"
+            style={showInfo ? null : { display: 'none' }}
+          >
+            <div className="matchCard__title">{currentFilm['title']}</div>
+            <div className="matchCard__details">
+              <div>
+                <div className="matchCard__bubble">
+                  Release: {currentFilm['year']}
+                </div>
+                <div className="matchCard__bubble">
+                  ImDb rating: {currentFilm['imDbRating']}
+                </div>
               </div>
-              <div className="matchCard__bubble">
-                ImDb rating: {currentFilm['imDbRating']}
-              </div>
+              <p>Crew</p>
+              <div>{crewMembers}</div>
             </div>
-            <p>Crew</p>
-            <div>{crewMembers}</div>
           </div>
         </div>
+        <div className="matchCard__bg1"></div>
+        <div className="matchCard__bg2"></div>
       </div>
-      <div className="matchCard__bg1"></div>
-      <div className="matchCard__bg2"></div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div className="matchCard">
+        <div className="matchCard__empty">
+          <div className="matchCard__emptyBg">
+            <CirclesBg color="grey" size="middle" />
+          </div>
+          <div className="matchCard__emptyText">
+            Select more catagories to keep going!!
+          </div>
+        </div>
+        <div className="matchCard__bg1"></div>
+        <div className="matchCard__bg2"></div>
+      </div>
+    );
+  }
 };

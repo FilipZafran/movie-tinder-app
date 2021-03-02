@@ -90,3 +90,30 @@
   border-radius: 12px;
   background: var(--dark-36);
 }
+
+.matchCard__empty {
+  position: relative;
+  margin-top: 26px;
+  width: 295px;
+  height: 364px;
+  border-radius: 12px;
+  border: 2px solid var(--dark-18);
+  z-index: 1;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.matchCard__emptyBg {
+  position: absolute;
+  z-index: -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.matchCard__emptyText {
+  margin: 30px;
+  line-height: 20px;
+}
