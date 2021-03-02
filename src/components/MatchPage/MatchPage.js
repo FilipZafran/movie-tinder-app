@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import './MatchPage.css';
 import { MatchCard } from './MatchCard';
 import { ShotsButton } from '../styleElements/buttons';
@@ -6,6 +7,7 @@ import { TopNav } from '../TopNav';
 import { CirclesBackground } from '../styleElements/CirclesBackground';
 import { FilterPage } from '../FilterPage';
 import { MatchNotification } from '../MatchNotification';
+import { selectCurrent } from '../../Redux/moviesSlice';
 
 export function MatchPage() {
   //verdict indicates which button is active
@@ -47,6 +49,43 @@ export function MatchPage() {
     };
   }, []);
 
+  //check if currentFilm is empty
+  const currentFilm = useSelector(selectCurrent);
+
+  const selectButtons = currentFilm['title'] ? (
+    <div className="matchPage__buttons">
+      <ShotsButton
+        inactive={likeActive}
+        active={dislikeActive}
+        clickHandler={clickHandler}
+        otherClickHandler={otherClickHandler}
+      />
+      <ShotsButton
+        like
+        active={likeActive}
+        inactive={dislikeActive}
+        clickHandler={clickHandler}
+        otherClickHandler={otherClickHandler}
+      />
+    </div>
+  ) : (
+    <div className="matchPage__buttons">
+      <ShotsButton
+        active={false}
+        inactive={true}
+        clickHandler={() => {}}
+        otherClickHandler={() => {}}
+      />
+      <ShotsButton
+        like
+        active={false}
+        inactive={true}
+        clickHandler={() => {}}
+        otherClickHandler={() => {}}
+      />
+    </div>
+  );
+
   //create useEffect that finds the location of the buttons on mount
   //when the mouse or touch is no longer over the button, the verdict changes to 'neutral'
   //decision is only set when a mouseUp or touchEnd event happens while over a button
@@ -63,21 +102,8 @@ export function MatchPage() {
       <TopNav backIcon dark filterIcon displayFilters={toggleDisplayFilters} />
       <div className="matchPage__content">
         <MatchCard reset={reset} decision={decision} />
-        <div className="matchPage__buttons">
-          <ShotsButton
-            inactive={likeActive}
-            active={dislikeActive}
-            clickHandler={clickHandler}
-            otherClickHandler={otherClickHandler}
-          />
-          <ShotsButton
-            like
-            active={likeActive}
-            inactive={dislikeActive}
-            clickHandler={clickHandler}
-            otherClickHandler={otherClickHandler}
-          />
-        </div>
+
+        {selectButtons}
       </div>
     </div>
   );

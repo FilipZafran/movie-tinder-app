@@ -6,7 +6,7 @@ import styled from 'styled-components';
 const ShotButton = styled.div`
   width: 92px;
   height: 92px;
-  cursor: pointer;
+  cursor: ${(props) => !props.inactive && 'pointer'};
 `;
 
 const ShotButtonBorder = styled.div`
@@ -50,7 +50,7 @@ export const ShotsButton = ({
   otherClickHandler,
 }) => {
   return (
-    <ShotButton>
+    <ShotButton inactive={inactive}>
       <ShotButtonBorder
         like={like}
         active={active}
