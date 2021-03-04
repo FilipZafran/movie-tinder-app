@@ -55,7 +55,7 @@ export const MatchCard = ({ decision, reset }) => {
     if (decision === 'like') {
       const updateLikes = async () => {
         try {
-          const newLike = await dispatch(addLike(preLoadArray[0]));
+          const newLike = await dispatch(addLike(currentFilm));
           unwrapResult(newLike);
           if (localStorage.getItem('isAuthenticated') !== 'true') {
             window.location.reload(false);
@@ -77,7 +77,7 @@ export const MatchCard = ({ decision, reset }) => {
     if (decision === 'dislike') {
       const updateDislikes = async () => {
         try {
-          const newDislike = await dispatch(addDislike(preLoadArray[0]));
+          const newDislike = await dispatch(addDislike(currentFilm));
           unwrapResult(newDislike);
           if (localStorage.getItem('isAuthenticated') !== 'true') {
             window.location.reload(false);
