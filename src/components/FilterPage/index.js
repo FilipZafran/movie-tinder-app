@@ -107,6 +107,7 @@ export const FilterPage = ({ toggle, seeFilters, hidden }) => {
       if (localStorage.getItem('isAuthenticated') !== 'true') {
         window.location.reload(false);
       }
+      dispatch(fetchActiveFilters());
       dispatch(fetchToSwipe());
       if (
         location.pathname === '/dashboard/matchPage' ||
