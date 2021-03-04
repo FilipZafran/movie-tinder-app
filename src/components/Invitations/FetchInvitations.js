@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { UserEntry } from '../styleElements/UserEntry';
-import { Heart } from '../styleElements/icons';
+import { Heart, ArrowHeart } from '../styleElements/icons';
 import {
+  selectAllFriends,
   fetchFriendsInvitations,
   fetchFriendsRequests,
   fetchAllFriends,
   acceptFriendRequest,
   deleteFriend,
 } from '../../Redux/friendsSlice';
-import { TopNav } from '../TopNav';
 import { ReceivedButton } from './ReceivedButton';
 import { CirclesBackground } from '../styleElements/CirclesBackground';
 import styled from 'styled-components';
@@ -23,21 +23,23 @@ const StyledButtons = styled.div`
 `;
 
 const Text = styled.div`
-  margin-top: 20vh;
+  margin-top: 15vh;
 `;
 
 export const FetchInvitations = () => {
   const dispatch = useDispatch();
   const [invitations, setInvitations] = useState([]);
   const [requests, setRequests] = useState([]);
-  const [displayReceived, setDisplayReceived] = useState(true);
+  const [display, setDisplay] = useState('friends');
+
+  const friends = useSelector(selectAllFriends) || [];
 
   const pendingInvitations =
     invitations && invitations.length > 0 ? (
       invitations.map((x) => (
         <div key={x.id}>
           <UserEntry
-            icon={<Heart size="24" />}
+            icon={<ArrowHeart size="24" />}
             clickHandler={async () => {
               try {
                 await dispatch(acceptFriendRequest(x.id));
@@ -53,7 +55,7 @@ export const FetchInvitations = () => {
     ) : (
       <div>
         <CirclesBackground />
-        <Text>No pending invitations!!</Text>
+        <Text>No pending requests received!!</Text>
       </div>
     );
   const pendingRequests =
@@ -61,7 +63,7 @@ export const FetchInvitations = () => {
       requests.map((x) => (
         <div key={x.id}>
           <UserEntry
-            icon={<Heart size="24" />}
+            icon={<ArrowHeart size="24" />}
             clickHandler={async () => {
               try {
                 await dispatch(deleteFriend(x.id));
@@ -77,7 +79,32 @@ export const FetchInvitations = () => {
     ) : (
       <div>
         <CirclesBackground />
-        <Text>No pending requests!!</Text>
+        <Text>No pending requests sent!!</Text>
+      </div>
+    );
+
+  const friendsList =
+    friends && friends.length > 0 ? (
+      friends.map((x) => (
+        <div key={x.id}>
+          <UserEntry
+            icon={<Heart active size="24" />}
+            clickHandler={async () => {
+              try {
+                await dispatch(deleteFriend(x.id));
+                dispatch(fetchAllFriends());
+              } catch (err) {
+                console.log(err);
+              }
+            }}
+            user={x}
+          />
+        </div>
+      ))
+    ) : (
+      <div>
+        <CirclesBackground />
+        <Text>Click the search bar to find friends!!</Text>
       </div>
     );
 
@@ -100,20 +127,31 @@ export const FetchInvitations = () => {
   }, []);
   return (
     <div>
-      <TopNav backIcon bellIcon title="Invitations" />
       <StyledButtons>
         <ReceivedButton
-          clickHandler={() => setDisplayReceived(true)}
-          label="Received"
-          state={displayReceived}
+          clickHandler={() => setDisplay('friends')}
+          label="Friends"
+          type="friends"
+          state={display}
         />
         <ReceivedButton
-          clickHandler={() => setDisplayReceived(false)}
+          clickHandler={() => setDisplay('received')}
+          label="Received"
+          type="received"
+          state={display}
+        />
+        <ReceivedButton
+          clickHandler={() => setDisplay('sent')}
           label="Sent"
-          state={displayReceived}
+          type="sent"
+          state={display}
         />
       </StyledButtons>
-      {displayReceived ? pendingInvitations : pendingRequests}
+      {display === 'received'
+        ? pendingInvitations
+        : display === 'sent'
+        ? pendingRequests
+        : friendsList}
     </div>
   );
 };

@@ -13,9 +13,11 @@ import {
   fetchFriendsRequests,
   fetchFriendsInvitations,
 } from '../../Redux/friendsSlice';
-import { Heart } from '../styleElements/icons';
+import { Heart, ArrowHeart } from '../styleElements/icons';
 import { UserEntry } from '../styleElements/UserEntry';
 import { fetchSearchResults } from '../../Redux/userSlice';
+import { FetchInvitations } from '../Invitations/FetchInvitations';
+import { CirclesBackground } from '../styleElements/CirclesBackground';
 
 export const SearchFriends = () => {
   const [search, setSearch] = useState('');
@@ -45,23 +47,6 @@ export const SearchFriends = () => {
     setSearch('');
   };
 
-  const friendsList = friends.map((x) => (
-    <div key={x.id}>
-      <UserEntry
-        icon={<Heart active size="24" />}
-        clickHandler={async () => {
-          try {
-            await dispatch(deleteFriend(x.id));
-            dispatch(fetchAllFriends());
-          } catch (err) {
-            console.log(err);
-          }
-        }}
-        user={x}
-      />
-    </div>
-  ));
-
   const peopleList =
     people?.length > 0 ? (
       people.map((x) => {
@@ -81,7 +66,7 @@ export const SearchFriends = () => {
             />
           ) : request.find((element) => element.id === x.id) !== undefined ? (
             <UserEntry
-              icon={<Heart size="24" />}
+              icon={<ArrowHeart size="24" />}
               user={x}
               clickHandler={() => {}}
             />
@@ -97,7 +82,7 @@ export const SearchFriends = () => {
                   console.log(err);
                 }
               }}
-              icon={<Heart size="24" />}
+              icon={<ArrowHeart size="24" />}
               user={x}
             />
           ) : (
@@ -118,7 +103,7 @@ export const SearchFriends = () => {
         return <div key={x.id}>{entry}</div>;
       })
     ) : (
-      <></>
+      <CirclesBackground />
     );
 
   useEffect(() => {
@@ -135,7 +120,7 @@ export const SearchFriends = () => {
         clearSearch={clearSearch}
         changeViewSearch={(x) => setViewSearch(x)}
       />
-      {viewSearch ? peopleList : friendsList}
+      {viewSearch ? peopleList : <FetchInvitations />}
     </div>
   );
 };

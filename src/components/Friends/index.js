@@ -11,7 +11,7 @@ const StyledFriends = styled.div`
 export const Friends = () => {
   return (
     <StyledFriends>
-      <TopNav bellIcon backIcon title="Friends" />
+      <TopNav text=" " backIcon title="Friends" />
       <SearchFriends />
     </StyledFriends>
   );
