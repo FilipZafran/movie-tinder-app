@@ -18,6 +18,22 @@ import { UserEntry } from '../styleElements/UserEntry';
 import { fetchSearchResults } from '../../Redux/userSlice';
 import { FetchInvitations } from '../Invitations/FetchInvitations';
 import { CirclesBackground } from '../styleElements/CirclesBackground';
+import styled from 'styled-components';
+
+const StyledSearchResults = styled.div`
+  width: 100vw;
+  height: 70vh;
+  overflow-y: auto;
+`;
+
+const StyledSearchFriends = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Placeholder = styled.div`
+  height: 80px;
+`;
 
 export const SearchFriends = () => {
   const [search, setSearch] = useState('');
@@ -30,17 +46,17 @@ export const SearchFriends = () => {
   const invitations = useSelector(selectFriendsInvitations) || [];
 
   const getPeople = async () => {
-    if (search === '') {
-      setPeople([]);
-    } else {
-      try {
-        const fetchPeople = await dispatch(fetchSearchResults(search));
-        unwrapResult(fetchPeople);
-        setPeople(fetchPeople.payload.users);
-      } catch (err) {
-        console.log(err);
-      }
+    // if (search === '') {
+    //   setPeople([]);
+    // } else {
+    try {
+      const fetchPeople = await dispatch(fetchSearchResults(search));
+      unwrapResult(fetchPeople);
+      setPeople(fetchPeople.payload.users);
+    } catch (err) {
+      console.log(err);
     }
+    // }
   };
 
   const clearSearch = () => {
@@ -107,7 +123,7 @@ export const SearchFriends = () => {
   }, [search]);
 
   return (
-    <div>
+    <StyledSearchFriends>
       <SearchField
         placeholder="Search for friends"
         type="text"
@@ -116,7 +132,14 @@ export const SearchFriends = () => {
         clearSearch={clearSearch}
         changeViewSearch={(x) => setViewSearch(x)}
       />
-      {viewSearch ? peopleList : <FetchInvitations />}
-    </div>
+      {viewSearch ? (
+        <StyledSearchResults>
+          {peopleList}
+          <Placeholder />
+        </StyledSearchResults>
+      ) : (
+        <FetchInvitations />
+      )}
+    </StyledSearchFriends>
   );
 };

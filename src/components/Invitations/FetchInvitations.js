@@ -26,6 +26,20 @@ const Text = styled.div`
   margin-top: 15vh;
 `;
 
+const StyledPeopleList = styled.div`
+  height: 65vh;
+  width: 100vw;
+  overflow-y: auto;
+`;
+
+const StyledFetchInvitations = styled.div`
+  width: 100vw;
+`;
+
+const Placeholder = styled.div`
+  height: 80px;
+`;
+
 export const FetchInvitations = () => {
   const dispatch = useDispatch();
   const [invitations, setInvitations] = useState([]);
@@ -126,7 +140,7 @@ export const FetchInvitations = () => {
     fetchData();
   }, []);
   return (
-    <div>
+    <StyledFetchInvitations>
       <StyledButtons>
         <ReceivedButton
           clickHandler={() => setDisplay('friends')}
@@ -147,11 +161,14 @@ export const FetchInvitations = () => {
           state={display}
         />
       </StyledButtons>
-      {display === 'received'
-        ? pendingInvitations
-        : display === 'sent'
-        ? pendingRequests
-        : friendsList}
-    </div>
+      <StyledPeopleList>
+        {display === 'received'
+          ? pendingInvitations
+          : display === 'sent'
+          ? pendingRequests
+          : friendsList}
+        <Placeholder />
+      </StyledPeopleList>
+    </StyledFetchInvitations>
   );
 };

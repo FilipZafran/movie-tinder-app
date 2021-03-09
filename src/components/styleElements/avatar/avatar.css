@@ -16,6 +16,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
   z-index: 10;
   width: 90px;
   height: 90px;
@@ -41,11 +42,16 @@
 }
 
 .initials {
-  z-index: 3;
-  position: absolute;
+  display: absolute;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
   font-size: 35px;
 }
 
 .avatar__circle {
   transform: scale(0.2);
+  align-items: center;
+  justify-content: center;
+  position: absolute;
 }
