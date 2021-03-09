@@ -3,12 +3,12 @@ import styled from 'styled-components';
 
 interface Props {
   show: boolean;
-  updateFriend: ()=> void;
+  updateFriend: () => void;
   text: string;
 }
 
 // eslint-disable-next-line no-undef
-const StyledConfirmPopUp = styled.div<{display: string}>`
+const StyledConfirmPopUp = styled.div<{ display: string }>`
   display: ${(props) => (props.display === 'true' ? 'flex' : 'none')};
   position: fixed;
   background: var(--dark-900-50);
@@ -28,7 +28,8 @@ const PopUpContainer = styled.div`
   border-radius: 20px;
   padding: 10px;
   background: var(--prime-500-25);
-  margin-top: 10vh;`;
+  margin-top: 10vh;
+`;
 
 const PopUp = styled.div`
   width: 180px;
@@ -40,58 +41,61 @@ const PopUp = styled.div`
 `;
 
 const Text = styled.div`
-padding: 10px;
-font-size: 30px;
-font-weight: 600;`;
+  padding: 10px;
+  font-size: 30px;
+  font-weight: 600;
+`;
 
 const SubText = styled.div`
-display: flex;
-justify-content: center;
-align-items: center;
-height: 50px;`;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+`;
 
 const Button = styled.div`
-display: flex;
-justify-content: center;
-align-items: center;
-border-radius: 5px;
-padding: 5px;
-background: var(--dark-300);
-width: 60px;
-cursor: pointer;`;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  padding: 5px;
+  background: var(--dark-300);
+  width: 60px;
+  cursor: pointer;
+`;
 
 const ButtonChoices = styled.div`
-margin-top: 20px;
-display: flex;
-flex-direction: row;
-justify-content: space-evenly;`;
-
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+`;
 
 export const ConfirmPopUp = (props: Props) => {
   const [display, setDisplay] = React.useState('false');
 
   const confirmHandler = () => {
-   props.updateFriend;
-    setDisplay('false');}
+    props.updateFriend;
+    setDisplay('false');
+  };
 
-  
-React.useEffect(() => {
-  if(props.show) {
-    setDisplay('true');
-  }
-}, [props.show])
+  React.useEffect(() => {
+    if (props.show) {
+      setDisplay('true');
+    }
+  }, [props.show]);
 
   return (
     <StyledConfirmPopUp display={display}>
       <PopUpContainer>
-      <PopUp>
-        <Text>Confirm</Text>
-        <SubText>{props.text}</SubText>
-        <ButtonChoices>
-          <Button onClick={confirmHandler}>Yes</Button>
-          <Button onClick={() => setDisplay('false')}>Cancel</Button>
-        </ButtonChoices>
-      </PopUp>
+        <PopUp>
+          <Text>Confirm</Text>
+          <SubText>{props.text}</SubText>
+          <ButtonChoices>
+            <Button onClick={confirmHandler}>Yes</Button>
+            <Button onClick={() => setDisplay('false')}>Cancel</Button>
+          </ButtonChoices>
+        </PopUp>
       </PopUpContainer>
     </StyledConfirmPopUp>
   );
