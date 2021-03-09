@@ -13,7 +13,7 @@ import {
   fetchFriendsRequests,
   fetchFriendsInvitations,
 } from '../../Redux/friendsSlice';
-import { Heart, ArrowHeart } from '../styleElements/icons';
+import { Heart, Clock } from '../styleElements/icons';
 import { UserEntry } from '../styleElements/UserEntry';
 import { fetchSearchResults } from '../../Redux/userSlice';
 import { FetchInvitations } from '../Invitations/FetchInvitations';
@@ -65,11 +65,7 @@ export const SearchFriends = () => {
               user={x}
             />
           ) : request.find((element) => element.id === x.id) !== undefined ? (
-            <UserEntry
-              icon={<ArrowHeart size="24" />}
-              user={x}
-              clickHandler={() => {}}
-            />
+            <UserEntry icon={<Clock />} user={x} clickHandler={() => {}} />
           ) : invitations.find((element) => element.id === x.id) !==
             undefined ? (
             <UserEntry
@@ -82,7 +78,7 @@ export const SearchFriends = () => {
                   console.log(err);
                 }
               }}
-              icon={<ArrowHeart size="24" />}
+              icon={<Clock />}
               user={x}
             />
           ) : (

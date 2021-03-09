@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { UserEntry } from '../styleElements/UserEntry';
-import { Heart, ArrowHeart } from '../styleElements/icons';
+import { Heart, Clock } from '../styleElements/icons';
 import {
   selectAllFriends,
   fetchFriendsInvitations,
@@ -39,7 +39,7 @@ export const FetchInvitations = () => {
       invitations.map((x) => (
         <div key={x.id}>
           <UserEntry
-            icon={<ArrowHeart size="24" />}
+            icon={<Clock />}
             clickHandler={async () => {
               try {
                 await dispatch(acceptFriendRequest(x.id));
@@ -63,7 +63,7 @@ export const FetchInvitations = () => {
       requests.map((x) => (
         <div key={x.id}>
           <UserEntry
-            icon={<ArrowHeart size="24" />}
+            icon={<Clock />}
             clickHandler={async () => {
               try {
                 await dispatch(deleteFriend(x.id));
