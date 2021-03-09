@@ -41,6 +41,10 @@ export const SearchFriends = () => {
   const [people, setPeople] = useState([]);
   const [viewSearch, setViewSearch] = useState(false);
 
+  const [show, setShow] = useState(false);
+  const [text, setText] = useState('');
+  const [UpdateFriend, setUpdateFriend] = useState(() => {});
+
   const dispatch = useDispatch();
   const friends = useSelector(selectAllFriends) || [];
   const request = useSelector(selectFriendsRequests) || [];
@@ -103,7 +107,11 @@ export const SearchFriends = () => {
               clickHandler={async () => {
                 try {
                   await dispatch(sendFriendRequest({ id: x.id }));
+                  setShow(true);
+                  setText('send friend request');
+                  setUpdateFriend(() => {});
                   dispatch(fetchFriendsRequests());
+                  setShow(false);
                 } catch (err) {
                   console.log(err);
                 }
@@ -125,7 +133,7 @@ export const SearchFriends = () => {
 
   return (
     <StyledSearchFriends>
-      <ConfirmPopUp display="true" />
+      <ConfirmPopUp show={show} UpdateFriend={UpdateFriend} text={text} />
       <SearchField
         placeholder="Search for friends"
         type="text"
