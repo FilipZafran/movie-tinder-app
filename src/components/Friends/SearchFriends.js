@@ -19,6 +19,7 @@ import { fetchSearchResults } from '../../Redux/userSlice';
 import { FetchInvitations } from '../Invitations/FetchInvitations';
 import { CirclesBackground } from '../styleElements/CirclesBackground';
 import styled from 'styled-components';
+import { ConfirmPopUp } from '../styleElements/ConfirmPopUp';
 
 const StyledSearchResults = styled.div`
   width: 100vw;
@@ -124,6 +125,7 @@ export const SearchFriends = () => {
 
   return (
     <StyledSearchFriends>
+      <ConfirmPopUp display="true" />
       <SearchField
         placeholder="Search for friends"
         type="text"
