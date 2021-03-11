@@ -11,8 +11,7 @@ import {
   fetchFriendsRequests,
   acceptFriendRequest,
   fetchFriendsInvitations,
-  // sendFriendRequest,
-  // fetchFriendsRequests,
+  sendFriendRequest,
 } from '../../Redux/friendsSlice';
 import { Heart, Clock } from '../styleElements/icons';
 import { UserEntry } from '../styleElements/UserEntry';
@@ -44,7 +43,7 @@ export const SearchFriends = () => {
 
   const [show, setShow] = useState(false);
   const [text, setText] = useState('');
-  // const [statusChange, setStatusChange] = useState(() => {});
+  const [statusChange, setStatusChange] = useState(false);
   const [friendId, setFriendId] = useState('');
 
   const dispatch = useDispatch();
@@ -52,33 +51,46 @@ export const SearchFriends = () => {
   const request = useSelector(selectFriendsRequests) || [];
   const invitations = useSelector(selectFriendsInvitations) || [];
 
-  // const unfriend = async (id) => {
-  //   try {
-  //     await dispatch(deleteFriend(id));
-  //     dispatch(fetchAllFriends());
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+  const unfriend = async (id) => {
+    try {
+      await dispatch(deleteFriend(id));
+      dispatch(fetchAllFriends());
+      setStatusChange(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-  // const acceptFriend = async (id) => {
-  //   try {
-  //     await dispatch(acceptFriendRequest(id));
-  //     dispatch(fetchFriendsInvitations());
-  //     dispatch(fetchAllFriends());
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+  const acceptFriend = async (id) => {
+    try {
+      await dispatch(acceptFriendRequest(id));
+      dispatch(fetchFriendsInvitations());
+      dispatch(fetchAllFriends());
+      setStatusChange(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-  // const sendFriend = async (id) => {
-  //   try {
-  //     await dispatch(sendFriendRequest({ id: id }));
-  //     dispatch(fetchFriendsRequests());
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+  const sendFriend = async (id) => {
+    try {
+      await dispatch(sendFriendRequest({ id: id }));
+      dispatch(fetchFriendsRequests());
+      setStatusChange(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const cancelFriend = async (id) => {
+    try {
+      await dispatch(deleteFriend(id));
+      dispatch(fetchFriendsRequests());
+      setStatusChange(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const getPeople = async () => {
     // if (search === '') {
@@ -104,13 +116,10 @@ export const SearchFriends = () => {
         const entry =
           friends.find((element) => element.id === x.id) !== undefined ? (
             <UserEntry
-              clickHandler={async () => {
-                try {
-                  await dispatch(deleteFriend(x.id));
-                  dispatch(fetchAllFriends());
-                } catch (err) {
-                  console.log(err);
-                }
+              clickHandler={() => {
+                setShow(true);
+                setFriendId(x);
+                setText('unfriend');
               }}
               icon={<Heart active size="24" />}
               user={x}
@@ -119,26 +128,19 @@ export const SearchFriends = () => {
             <UserEntry
               icon={<Clock />}
               user={x}
-              clickHandler={async () => {
-                try {
-                  await dispatch(deleteFriend(x.id));
-                  dispatch(fetchFriendsRequests());
-                } catch (err) {
-                  console.log(err);
-                }
+              clickHandler={() => {
+                setShow(true);
+                setFriendId(x);
+                setText('cancel friend request');
               }}
             />
           ) : invitations.find((element) => element.id === x.id) !==
             undefined ? (
             <UserEntry
-              clickHandler={async () => {
-                try {
-                  await dispatch(acceptFriendRequest(x.id));
-                  dispatch(fetchFriendsInvitations());
-                  dispatch(fetchAllFriends());
-                } catch (err) {
-                  console.log(err);
-                }
+              clickHandler={() => {
+                setShow(true);
+                setFriendId(x);
+                setText('accept friend request');
               }}
               icon={<Clock />}
               user={x}
@@ -146,11 +148,9 @@ export const SearchFriends = () => {
           ) : (
             <UserEntry
               clickHandler={() => {
-                console.log('success');
                 setShow(true);
-                setFriendId(x.id);
+                setFriendId(x);
                 setText('send friend request');
-                // setStatusChange(sendFriend);
               }}
               icon={<Heart size="24" />}
               user={x}
@@ -167,11 +167,28 @@ export const SearchFriends = () => {
     getPeople();
   }, [search]);
 
+  useEffect(() => {
+    if (statusChange) {
+      if (text === 'send friend request') {
+        sendFriend(friendId.id);
+      }
+      if (text === 'accept friend request') {
+        acceptFriend(friendId.id);
+      }
+      if (text === 'unfriend') {
+        unfriend(friendId.id);
+      }
+      if (text === 'cancel friend request') {
+        cancelFriend(friendId.id);
+      }
+    }
+  }, [statusChange]);
+
   return (
     <StyledSearchFriends>
       <ConfirmPopUp
         show={show}
-        // statusChange={statusChange}
+        statusChange={(boolean) => setStatusChange(boolean)}
         text={text}
         friendId={friendId}
         closePopUp={(boolean) => setShow(boolean)}

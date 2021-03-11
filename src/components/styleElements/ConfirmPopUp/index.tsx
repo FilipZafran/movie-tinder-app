@@ -3,9 +3,9 @@ import styled from 'styled-components';
 
 interface Props {
   show: boolean;
-  // statusChange: (id: string) => void;
+  statusChange: (confirm: boolean) => void;
   text: string;
-  friendId: string;
+  friendId: {id: string, username: string};
   closePopUp: (open: boolean) => void;
 }
 
@@ -77,13 +77,11 @@ export const ConfirmPopUp = (props: Props) => {
   const [display, setDisplay] = React.useState('false');
 
   const confirmHandler = () => {
-    console.log('friend id: ',props.friendId);
-    // props.statusChange(props.friendId);
+    console.log('friend: ', props.friendId.username);
+    props.statusChange(true);
     props.closePopUp(false);
     setDisplay('false');
   };
-
-
 
   React.useEffect(() => {
     if (props.show) {
@@ -99,7 +97,14 @@ export const ConfirmPopUp = (props: Props) => {
           <SubText>{props.text}</SubText>
           <ButtonChoices>
             <Button onClick={confirmHandler}>Yes</Button>
-            <Button onClick={() => {setDisplay('false'); props.closePopUp(false);}}>Cancel</Button>
+            <Button
+              onClick={() => {
+                setDisplay('false');
+                props.closePopUp(false);
+              }}
+            >
+              Cancel
+            </Button>
           </ButtonChoices>
         </PopUp>
       </PopUpContainer>
