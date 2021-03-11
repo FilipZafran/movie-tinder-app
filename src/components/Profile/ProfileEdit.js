@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import {
   Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
-  makeStyles,
+  // MenuItem,
+  // FormControl,
+  // InputLabel,
+  // makeStyles,
 } from '@material-ui/core';
 import { Link, useLocation } from 'react-router-dom';
 import { Formik } from 'formik';
@@ -21,11 +21,11 @@ import { updateUser } from '../../Redux/userSlice';
 import { selectActiveFilters } from '../../Redux/filtersSlice';
 import { selectCurrentUser } from '../../Redux/userSlice';
 
-const useStyles = makeStyles(() => ({
-  formControl: {
-    minWidth: 100,
-  },
-}));
+// const useStyles = makeStyles(() => ({
+//   formControl: {
+//     minWidth: 100,
+//   },
+// }));
 
 export function ProfileEdit() {
   const location = useLocation();
@@ -33,7 +33,7 @@ export function ProfileEdit() {
   const activeFilters = useSelector(selectActiveFilters);
   const currentUser = useSelector(selectCurrentUser);
 
-  const classes = useStyles();
+  // const classes = useStyles();
   const [displayFilters, setDisplayFilters] = useState(false);
 
   // FileUploader > ProfileEdit
@@ -67,7 +67,7 @@ export function ProfileEdit() {
           initialValues={{
             picture: '',
             username: currentUser.username,
-            age: '',
+            age: currentUser.age || '',
             city: currentUser.city || '',
             email: currentUser.email,
             password: '',
@@ -118,7 +118,44 @@ export function ProfileEdit() {
                 />
               </div>
               <div className="profile__edit-label-input profile__edit__age-select-wrapper">
-                <FormControl
+                <label> Age range:</label>
+                <Select
+                  name="age"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.age}
+                  className="profile__edit__age-select"
+                >
+                  <option className="profile__edit__age-option" value="">
+                    no answer
+                  </option>
+                  <option className="profile__edit__age-option" value="NewB">
+                    Younger than 18yo
+                  </option>
+                  <option
+                    className="profile__edit__age-option"
+                    value="Generation Z"
+                  >
+                    Between 22 - 30yo
+                  </option>
+                  <option
+                    className="profile__edit__age-option"
+                    value="Midlife Crisis"
+                  >
+                    Between 30 - 40yo
+                  </option>
+                  <option
+                    className="profile__edit__age-option"
+                    value="Golden Age"
+                  >
+                    Between 40 - 50yo
+                  </option>
+                  <option className="profile__edit__age-option" value="Veteran">
+                    Over 50yo
+                  </option>
+                </Select>
+
+                {/* <FormControl
                   className={`${classes.formControl} profile__edit__age-select`}
                   id="profile__edit-formcontrol"
                 >
@@ -140,7 +177,7 @@ export function ProfileEdit() {
                     </MenuItem>
                     <MenuItem value={'Veteran'}>Over 50yo </MenuItem>
                   </Select>
-                </FormControl>
+                </FormControl> */}
               </div>
 
               <div className="profile__edit-label-input">

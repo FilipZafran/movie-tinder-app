@@ -77,7 +77,7 @@ export function Profile() {
         </h3>
 
         <div className="profile__span-container">
-          <span> ?? </span>
+          {currentUser.age && <span> {currentUser.age} </span>}
           {currentUser.city && <span> {currentUser.city} </span>}
         </div>
 
