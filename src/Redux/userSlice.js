@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const initialState = { entities: [], loading: 'idle' };
+const initialState = { entities: {}, loading: 'idle' };
 
 const serverURL = process.env.REACT_APP_SERVER;
 
@@ -31,6 +31,19 @@ export const fetchUser = createAsyncThunk('user/fetchUser', async (userId) => {
       data: userId,
     });
     return { err: false, msg: response.data.msg };
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+export const fetchCurrentUser = createAsyncThunk('user/fetchUser', async () => {
+  try {
+    const response = await axios({
+      method: 'GET',
+      url: `${serverURL}/profiles/currentUser`,
+      headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
+    });
+    return response.data.profile;
   } catch (err) {
     console.log(err);
   }
@@ -75,6 +88,20 @@ export const registerUser = createAsyncThunk(
   }
 );
 
+export const updateUser = createAsyncThunk('user/updateUser', async (user) => {
+  try {
+    const response = await axios({
+      method: 'PATCH',
+      url: `${serverURL}/profiles/updateUserInfo`,
+      data: user,
+    });
+    return { err: false, msg: response.data.msg };
+  } catch (err) {
+    console.log(err.response.data);
+    return { err: true, msg: err.response.data.msg };
+  }
+});
+
 //creates a slice called "user" set to the initial state defined above
 const userSlice = createSlice({
   name: 'user',
@@ -85,9 +112,15 @@ const userSlice = createSlice({
       localStorage.removeItem('x-auth-token');
     },
   },
-  extraReducers: {},
+  extraReducers: {
+    [fetchCurrentUser.fulfilled]: (state, action) => {
+      state.entities.currentUser = action.payload;
+    },
+  },
 });
 
 export const { logoutUser } = userSlice.actions;
 
 export default userSlice.reducer;
+
+export const selectCurrentUser = (state) => state.user.entities.currentUser;

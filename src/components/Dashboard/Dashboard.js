@@ -17,6 +17,7 @@ import {
   fetchFriendsInvitations,
   fetchFriendsRequests,
 } from '../../Redux/friendsSlice';
+import { fetchCurrentUser } from '../../Redux/userSlice';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ const Dashboard = () => {
     dispatch(fetchAllFriends());
     dispatch(fetchFriendsRequests());
     dispatch(fetchFriendsInvitations());
+    dispatch(fetchCurrentUser());
   });
 
   return (

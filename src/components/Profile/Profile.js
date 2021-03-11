@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './Profile.css';
 import { Settings } from '../styleElements/icons/Settings';
 import { Link, useLocation } from 'react-router-dom';
@@ -6,15 +6,19 @@ import { Star } from '../styleElements/icons';
 import { LogoActive } from '../styleElements/icons';
 import { ChevronRight } from '../styleElements/icons';
 import { dummyData } from '../MatchPage/MatchCard/dummyData';
-import { useDispatch } from 'react-redux';
-import { logoutUser } from '../../Redux/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  logoutUser,
+  selectCurrentUser,
+  fetchCurrentUser,
+} from '../../Redux/userSlice';
 import Avatar from '../styleElements/avatar/Avatar.js';
-
-import axios from 'axios';
 
 export function Profile() {
   const location = useLocation();
   const dispatch = useDispatch();
+
+  const currentUser = useSelector(selectCurrentUser);
 
   const likedFilms = [];
   for (let i = 0; i < 3; i++) {
@@ -26,27 +30,9 @@ export function Profile() {
     topMatches.push(dummyData[i]);
   }
 
-  // CHECK TELEGRAM
-  const [filmArray] = useState([]);
-
-  const serverURL = process.env.REACT_APP_SERVER;
-
-  useEffect(
-    () => {
-      const response = axios({
-        method: 'GET',
-        withCredentials: true,
-        url: `${serverURL}/likeTracker/like`,
-        data: { film: filmArray },
-      });
-      console.log(response.data);
-      return response.data;
-    },
-    []
-    // catch (err) {
-    // 	return err;
-    // }
-  );
+  useEffect(() => {
+    dispatch(fetchCurrentUser());
+  }, []);
 
   return (
     <div className="profile__container">
@@ -83,7 +69,7 @@ export function Profile() {
 			</div> */}
 
       <div className="profile__name-box">
-        <h2>Linda Bear</h2>
+        <h2>{currentUser.username}</h2>
         <h3>
           <LogoActive size={13} />
           &nbsp;26 matches &nbsp; &nbsp;

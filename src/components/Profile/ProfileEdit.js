@@ -16,6 +16,8 @@ import { Check } from '../styleElements/icons/Check.js';
 import FileUploader from './FileUploader';
 import { Settings } from '../styleElements/icons/Settings';
 import { FilterPage } from '../FilterPage';
+import { useDispatch } from 'react-redux';
+import { updateUser } from '../../Redux/userSlice';
 
 const useStyles = makeStyles(() => ({
   formControl: {
@@ -25,6 +27,7 @@ const useStyles = makeStyles(() => ({
 
 export function ProfileEdit() {
   const location = useLocation();
+  const dispatch = useDispatch();
 
   const classes = useStyles();
   const [displayFilters, setDisplayFilters] = useState(false);
@@ -78,6 +81,7 @@ export function ProfileEdit() {
           }}
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
+              dispatch(updateUser(values));
               alert(JSON.stringify(values, null, 2));
               setSubmitting(false);
             }, 400);
