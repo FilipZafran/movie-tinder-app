@@ -3,8 +3,10 @@ import styled from 'styled-components';
 
 interface Props {
   show: boolean;
-  updateFriend: () => void;
+  // statusChange: (id: string) => void;
   text: string;
+  friendId: string;
+  closePopUp: (open: boolean) => void;
 }
 
 // eslint-disable-next-line no-undef
@@ -75,9 +77,13 @@ export const ConfirmPopUp = (props: Props) => {
   const [display, setDisplay] = React.useState('false');
 
   const confirmHandler = () => {
-    props.updateFriend;
+    console.log('friend id: ',props.friendId);
+    // props.statusChange(props.friendId);
+    props.closePopUp(false);
     setDisplay('false');
   };
+
+
 
   React.useEffect(() => {
     if (props.show) {
@@ -93,7 +99,7 @@ export const ConfirmPopUp = (props: Props) => {
           <SubText>{props.text}</SubText>
           <ButtonChoices>
             <Button onClick={confirmHandler}>Yes</Button>
-            <Button onClick={() => setDisplay('false')}>Cancel</Button>
+            <Button onClick={() => {setDisplay('false'); props.closePopUp(false);}}>Cancel</Button>
           </ButtonChoices>
         </PopUp>
       </PopUpContainer>
