@@ -12,6 +12,8 @@ import {
   selectCurrentUser,
   fetchCurrentUser,
 } from '../../Redux/userSlice';
+import { selectLikes } from '../../Redux/likeTrackerSlice';
+import { selectActiveFilters } from '../../Redux/filtersSlice';
 import Avatar from '../styleElements/avatar/Avatar.js';
 
 export function Profile() {
@@ -19,6 +21,8 @@ export function Profile() {
   const dispatch = useDispatch();
 
   const currentUser = useSelector(selectCurrentUser);
+  const likesArray = useSelector(selectLikes);
+  const activeFilters = useSelector(selectActiveFilters);
 
   const likedFilms = [];
   for (let i = 0; i < 3; i++) {
@@ -72,24 +76,24 @@ export function Profile() {
         <h2>{currentUser.username}</h2>
         <h3>
           <LogoActive size={13} />
-          &nbsp;26 matches &nbsp; &nbsp;
+          &nbsp;?? matches &nbsp; &nbsp;
           <Star size={13} />
-          &nbsp;103 likes
+          &nbsp;{likesArray.length} likes
         </h3>
 
         <div className="profile__span-container">
-          <span> “Midlife Crisis”</span>
-          <span> Berlin </span>
+          <span> ?? </span>
+          {currentUser.city && <span> {currentUser.city} </span>}
         </div>
 
         <h4> Search Catagories:</h4>
         <div className="profile__span-container-big">
-          <span>1970s</span>
-          <span>1980s</span>
-          <span>Art</span>
-          <span>Indy</span>
-          <span>Si-Fi</span>
-          <span>Western</span>
+          {activeFilters.genreFilters.map((x) => {
+            return <span key={x}>{x}</span>;
+          })}
+          {activeFilters.timeFilters.map((x) => {
+            return <span key={x}>{x}</span>;
+          })}
         </div>
       </div>
 
