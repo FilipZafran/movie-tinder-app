@@ -8,9 +8,7 @@ const Avatar = ({ initials, circle }) => {
       <div className={circle ? 'avatar__circle' : ''}>
         <AvatarCircles />
       </div>
-      <div className="initials">
-        <h3>{initials}</h3>
-      </div>
+      <div className="initials">{initials}</div>
     </div>
   );
 };

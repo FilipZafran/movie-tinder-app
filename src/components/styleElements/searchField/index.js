@@ -12,6 +12,7 @@ const StyledSearchField = styled.div`
   width: 295px;
   height: 40px;
   border-radius: 20px;
+  border: 1.5px solid var(--dark-900);
   padding: 0px 20px;
   input {
     background: transparent;
