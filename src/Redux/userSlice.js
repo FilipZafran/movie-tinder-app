@@ -93,6 +93,7 @@ export const updateUser = createAsyncThunk('user/updateUser', async (user) => {
     const response = await axios({
       method: 'PATCH',
       url: `${serverURL}/profiles/updateUserInfo`,
+      headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
       data: user,
     });
     return { err: false, msg: response.data.msg };
