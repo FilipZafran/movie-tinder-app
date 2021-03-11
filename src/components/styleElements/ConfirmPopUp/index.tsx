@@ -5,7 +5,7 @@ interface Props {
   show: boolean;
   statusChange: (confirm: boolean) => void;
   text: string;
-  friendId: {id: string, username: string};
+  friendId: { id: string; username: string };
   closePopUp: (open: boolean) => void;
 }
 
