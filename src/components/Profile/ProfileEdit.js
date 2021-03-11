@@ -16,8 +16,10 @@ import { Check } from '../styleElements/icons/Check.js';
 import FileUploader from './FileUploader';
 import { Settings } from '../styleElements/icons/Settings';
 import { FilterPage } from '../FilterPage';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from '../../Redux/userSlice';
+import { selectActiveFilters } from '../../Redux/filtersSlice';
+import { selectCurrentUser } from '../../Redux/userSlice';
 
 const useStyles = makeStyles(() => ({
   formControl: {
@@ -28,6 +30,8 @@ const useStyles = makeStyles(() => ({
 export function ProfileEdit() {
   const location = useLocation();
   const dispatch = useDispatch();
+  const activeFilters = useSelector(selectActiveFilters);
+  const currentUser = useSelector(selectCurrentUser);
 
   const classes = useStyles();
   const [displayFilters, setDisplayFilters] = useState(false);
@@ -62,10 +66,10 @@ export function ProfileEdit() {
         <Formik
           initialValues={{
             picture: '',
-            username: '',
+            username: currentUser.username,
             age: '',
-            city: '',
-            email: '',
+            city: currentUser.city || '',
+            email: currentUser.email,
             password: '',
           }}
           validate={(values) => {
@@ -167,6 +171,7 @@ export function ProfileEdit() {
                 <input
                   type="password"
                   name="password"
+                  placeholder="NOT FUNCTIONAL"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.password}
@@ -184,14 +189,12 @@ export function ProfileEdit() {
                 </h4>
 
                 <div className="profile__edit-span-container">
-                  <span>1970s</span>
-                  <span>1980s</span>
-                  <span>Art</span>
-                  <span>Indy</span>
-                  <span>Si-Fi</span>
-                  <span>Western</span>
-                  <span>Si-Fi</span>
-                  <span>Western</span>
+                  {activeFilters.genreFilters.map((x) => {
+                    return <span key={x}>{x}</span>;
+                  })}
+                  {activeFilters.timeFilters.map((x) => {
+                    return <span key={x}>{x}</span>;
+                  })}
                 </div>
               </div>
 

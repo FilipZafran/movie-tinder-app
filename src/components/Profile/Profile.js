@@ -24,11 +24,6 @@ export function Profile() {
   const likesArray = useSelector(selectLikes);
   const activeFilters = useSelector(selectActiveFilters);
 
-  const likedFilms = [];
-  for (let i = 0; i < 3; i++) {
-    likedFilms.push(dummyData[i]);
-  }
-
   const topMatches = [];
   for (let i = 4; i < 7; i++) {
     topMatches.push(dummyData[i]);
@@ -115,11 +110,11 @@ export function Profile() {
         </div>
 
         <div className="profile__likes-container">
-          {likedFilms.map((film) => (
+          {likesArray.slice(0, 3).map((entry) => (
             <img
               className="profile__likes-picture"
-              src={film.image}
-              key={film.id}
+              src={entry.film.image}
+              key={entry.film.id}
               alt="movie thumbnail"
             />
           ))}

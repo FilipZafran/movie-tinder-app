@@ -18,7 +18,7 @@ import {
   fetchFriendsRequests,
 } from '../../Redux/friendsSlice';
 import { fetchCurrentUser } from '../../Redux/userSlice';
-import { fetchLikes } from '../../Redux/likeTrackerSlice';
+import { fetchLikes, fetchDislikes } from '../../Redux/likeTrackerSlice';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -29,6 +29,7 @@ const Dashboard = () => {
     dispatch(fetchFriendsInvitations());
     dispatch(fetchCurrentUser());
     dispatch(fetchLikes());
+    dispatch(fetchDislikes());
   });
 
   return (
