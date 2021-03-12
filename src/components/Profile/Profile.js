@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import './Profile.css';
-import { Settings } from '../styleElements/icons/Settings';
 import { Link, useLocation } from 'react-router-dom';
 import { ChevronRight } from '../styleElements/icons';
 import { dummyData } from '../MatchPage/MatchCard/dummyData';
 import { useDispatch, useSelector } from 'react-redux';
-import { logoutUser, fetchCurrentUser } from '../../Redux/userSlice';
+import { fetchCurrentUser } from '../../Redux/userSlice';
 import { selectLikes } from '../../Redux/likeTrackerSlice';
 import Avatar from '../styleElements/avatar/Avatar.js';
 import { ProfileTile } from './ProfileTile';
+import { ProfileTopNav } from './ProfileTopNav';
 
 export function Profile() {
   const location = useLocation();
@@ -27,33 +27,10 @@ export function Profile() {
 
   return (
     <div className="profile__container">
-      <div className="profile__header">
-        <div className="profile__settings">
-          <Link to="/dashboard/ProfileEdit">
-            <Settings
-              className={
-                location.pathname === '/dashboard/ProfileEdit'
-                  ? 'activeLogo'
-                  : null
-              }
-            />
-          </Link>
-        </div>
+      <ProfileTopNav />
 
-        <p
-          className="profile__logout"
-          onClick={() => {
-            dispatch(logoutUser());
-            window.location.reload();
-          }}
-        >
-          Logout
-        </p>
-      </div>
+      <Avatar />
 
-      <div className="profile__avatar-container">
-        <Avatar />
-      </div>
       <ProfileTile />
 
       <div id="profile__likes-container">
