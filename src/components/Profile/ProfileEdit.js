@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Select,
-  // MenuItem,
-  // FormControl,
-  // InputLabel,
-  // makeStyles,
-} from '@material-ui/core';
+import { Select } from '@material-ui/core';
 import { Link, useLocation } from 'react-router-dom';
 import { Formik } from 'formik';
 import { CirclesBackground } from '../styleElements/CirclesBackground';
@@ -20,12 +14,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from '../../Redux/userSlice';
 import { selectActiveFilters } from '../../Redux/filtersSlice';
 import { selectCurrentUser } from '../../Redux/userSlice';
-
-// const useStyles = makeStyles(() => ({
-//   formControl: {
-//     minWidth: 100,
-//   },
-// }));
 
 export function ProfileEdit() {
   const location = useLocation();
@@ -154,30 +142,6 @@ export function ProfileEdit() {
                     Over 50yo
                   </option>
                 </Select>
-
-                {/* <FormControl
-                  className={`${classes.formControl} profile__edit__age-select`}
-                  id="profile__edit-formcontrol"
-                >
-                  <InputLabel id="profile__edit-inputlabel">
-                    Age range:
-                  </InputLabel>
-                  <Select id="profile__edit-select" onChange={handleChange}>
-                    <MenuItem value={'Newb'}> Younger than 18yo</MenuItem>
-                    <MenuItem value={'Generation Z'}>
-                      Between 22 - 30yo
-                    </MenuItem>
-                    <MenuItem value={'Midlife Crisis'}>
-                      {' '}
-                      Between 30 - 40yo
-                    </MenuItem>
-                    <MenuItem value={'Golden Age'}>
-                      {' '}
-                      Between 40 - 50yo{' '}
-                    </MenuItem>
-                    <MenuItem value={'Veteran'}>Over 50yo </MenuItem>
-                  </Select>
-                </FormControl> */}
               </div>
 
               <div className="profile__edit-label-input">

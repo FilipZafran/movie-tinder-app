@@ -2,27 +2,19 @@ import React, { useEffect } from 'react';
 import './Profile.css';
 import { Settings } from '../styleElements/icons/Settings';
 import { Link, useLocation } from 'react-router-dom';
-import { Star } from '../styleElements/icons';
-import { LogoActive } from '../styleElements/icons';
 import { ChevronRight } from '../styleElements/icons';
 import { dummyData } from '../MatchPage/MatchCard/dummyData';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  logoutUser,
-  selectCurrentUser,
-  fetchCurrentUser,
-} from '../../Redux/userSlice';
+import { logoutUser, fetchCurrentUser } from '../../Redux/userSlice';
 import { selectLikes } from '../../Redux/likeTrackerSlice';
-import { selectActiveFilters } from '../../Redux/filtersSlice';
 import Avatar from '../styleElements/avatar/Avatar.js';
+import { ProfileTile } from './ProfileTile';
 
 export function Profile() {
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const currentUser = useSelector(selectCurrentUser);
   const likesArray = useSelector(selectLikes);
-  const activeFilters = useSelector(selectActiveFilters);
 
   const topMatches = [];
   for (let i = 4; i < 7; i++) {
@@ -62,35 +54,7 @@ export function Profile() {
       <div className="profile__avatar-container">
         <Avatar />
       </div>
-
-      {/* <div>
-				<ul>{posts.map((post) => <li key={post.id}>{post.title}</li>)}</ul>
-			</div> */}
-
-      <div className="profile__name-box">
-        <h2>{currentUser.username}</h2>
-        <h3>
-          <LogoActive size={13} />
-          &nbsp;?? matches &nbsp; &nbsp;
-          <Star size={13} />
-          &nbsp;{likesArray.length} likes
-        </h3>
-
-        <div className="profile__span-container">
-          {currentUser.age && <span> {currentUser.age} </span>}
-          {currentUser.city && <span> {currentUser.city} </span>}
-        </div>
-
-        <h4> Search Catagories:</h4>
-        <div className="profile__span-container-big">
-          {activeFilters.genreFilters.map((x) => {
-            return <span key={x}>{x}</span>;
-          })}
-          {activeFilters.timeFilters.map((x) => {
-            return <span key={x}>{x}</span>;
-          })}
-        </div>
-      </div>
+      <ProfileTile />
 
       <div id="profile__likes-container">
         <div className="profile__text-container">
