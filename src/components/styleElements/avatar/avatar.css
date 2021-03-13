@@ -1,9 +1,9 @@
 .avatarBackground {
   /* margin-left: 200px; */
   height: 220px;
-  width: 360px;
+  width: 100vw;
   border-radius: 12px;
-  background-color: var(--warm-900);
+  background-color: var(--warm-500-25);
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -26,7 +26,11 @@
   /* position: absolute; */
   z-index: 1;
   height: 400px;
-  width: 400px;
+  /* width: 400px; */
+}
+
+.circleExtended {
+  fill: var(--warm-500-25);
 }
 
 .circleSmall {

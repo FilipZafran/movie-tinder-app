@@ -9,6 +9,7 @@ import { selectLikes } from '../../Redux/likeTrackerSlice';
 import Avatar from '../styleElements/avatar/Avatar.js';
 import { ProfileTile } from './ProfileTile';
 import { ProfileTopNav } from './ProfileTopNav';
+import { ProfileLists } from './ProfileLists';
 
 export function Profile() {
   const location = useLocation();
@@ -33,7 +34,10 @@ export function Profile() {
 
       <ProfileTile />
 
-      <div id="profile__likes-container">
+      <ProfileLists filmArray={likesArray} listTitle={'Likes'} />
+      <ProfileLists filmArray={topMatches} listTitle={'Top Matches'} />
+
+      {/* <div id="profile__likes-container">
         <div className="profile__text-container">
           <span>Likes</span>
           <p className="profile__show-all">Show All </p>
@@ -85,7 +89,7 @@ export function Profile() {
             />
           ))}
         </div>
-      </div>
+      </div> */}
 
       <div className="profile__footer">
         <Link to="/dashboard/users">
