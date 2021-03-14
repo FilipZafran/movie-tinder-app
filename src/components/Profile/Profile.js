@@ -16,7 +16,7 @@ export function Profile() {
   const dispatch = useDispatch();
 
   const likesArray = useSelector(selectLikes);
-
+  // console.log('likes array:', likesArray);
   const topMatches = [];
   for (let i = 4; i < 7; i++) {
     topMatches.push(dummyData[i]);
@@ -35,7 +35,7 @@ export function Profile() {
       <ProfileTile />
 
       <ProfileLists filmArray={likesArray} listTitle={'Likes'} />
-      <ProfileLists filmArray={topMatches} listTitle={'Top Matches'} />
+      {/* <ProfileLists filmArray={topMatches} listTitle={'Top Matches'} /> */}
 
       {/* <div id="profile__likes-container">
         <div className="profile__text-container">
