@@ -9,7 +9,13 @@ import { selectLikes } from '../../Redux/likeTrackerSlice';
 import { selectActiveFilters } from '../../Redux/filtersSlice';
 
 const Container = styled.div`
-  position: absolute;
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  margin-top: 80px;
+`;
+
+const StyledProfileTile = styled.div`
   background-color: var(--dark-500);
   width: 235px;
   align-items: center;
@@ -77,32 +83,34 @@ export const ProfileTile = () => {
 
   return (
     <Container>
-      <Title>{currentUser.username}</Title>
-      <LikesAndMatches>
-        <div>
-          <LogoActive size={24} />
-          <p>?? matches</p>
-        </div>
-        <div>
-          <Star size={24} active />
-          <p>{likesArray.length} likes</p>
-        </div>
-      </LikesAndMatches>
+      <StyledProfileTile>
+        <Title>{currentUser.username}</Title>
+        <LikesAndMatches>
+          <div>
+            <LogoActive size={24} />
+            <p>?? matches</p>
+          </div>
+          <div>
+            <Star size={24} active />
+            <p>{likesArray.length} likes</p>
+          </div>
+        </LikesAndMatches>
 
-      <TopGroup>
-        {currentUser.age && <Tile> {currentUser.age} </Tile>}
-        {currentUser.city && <Tile> {currentUser.city} </Tile>}
-      </TopGroup>
+        <TopGroup>
+          {currentUser.age && <Tile> {currentUser.age} </Tile>}
+          {currentUser.city && <Tile> {currentUser.city} </Tile>}
+        </TopGroup>
 
-      <FilterHeader>Current Catagories</FilterHeader>
-      <FilterGroup>
-        {activeFilters.genreFilters.map((x) => {
-          return <Tile key={x}>{x}</Tile>;
-        })}
-        {activeFilters.timeFilters.map((x) => {
-          return <Tile key={x}>{x}</Tile>;
-        })}
-      </FilterGroup>
+        <FilterHeader>Current Catagories</FilterHeader>
+        <FilterGroup>
+          {activeFilters.genreFilters.map((x) => {
+            return <Tile key={x}>{x}</Tile>;
+          })}
+          {activeFilters.timeFilters.map((x) => {
+            return <Tile key={x}>{x}</Tile>;
+          })}
+        </FilterGroup>
+      </StyledProfileTile>
     </Container>
   );
 };

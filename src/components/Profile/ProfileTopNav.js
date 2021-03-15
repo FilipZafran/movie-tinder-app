@@ -7,12 +7,8 @@ import { useDispatch } from 'react-redux';
 import { logoutUser } from '../../Redux/userSlice';
 
 const Logout = styled.div`
-  position: fixed !important;
-  top: 35px;
-  right: 3%;
-  z-index: 2;
   cursor: pointer;
-  background: #202020;
+  background: var(--dark-300);
   opacity: 0.5;
   display: flex;
   font-size: 14px;
@@ -21,14 +17,12 @@ const Logout = styled.div`
   height: 30px;
   width: 80px;
   border-radius: 30px;
+  margin-right: 20px;
 `;
 
 const SettingsLogo = styled.div`
-  position: fixed !important;
-  top: 30px;
-  left: 5%;
   z-index: 2;
-  background: #202020;
+  background: var(--dark-300);
   opacity: 0.5;
   display: flex;
   align-items: center;
@@ -36,13 +30,16 @@ const SettingsLogo = styled.div`
   height: 40px;
   width: 40px;
   border-radius: 30px;
+  margin-left: 20px;
 `;
 
 const Container = styled.div`
-  display: grid;
-  grid-template-columns: 30% 30% 30%;
-  grid-template-rows: 100px;
-  position: relative;
+  padding-top: 40px;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 export const ProfileTopNav = () => {

@@ -1,38 +1,79 @@
 import React from 'react';
-import './Profile.css';
 import { Link, useLocation } from 'react-router-dom';
 import { ChevronRight } from '../styleElements/icons';
-import { dummyData } from '../MatchPage/MatchCard/dummyData';
+import styled from 'styled-components';
+
+const Container = styled.div``;
+
+const Header = styled.div`
+  display: flex;
+  width: 100vw;
+  margin: 20px 0px;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+const Title = styled.div`
+  margin-left: 20px;
+  height: 24px;
+  font-size: 22px;
+  font-weight: 500;
+`;
+
+const ShowAll = styled.div`
+  margin-right: 20px;
+  height: 24px;
+  width: 110px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--light-900);
+`;
+
+const ImageTilesList = styled.div`
+  height: 150px;
+  display: flex;
+  justify-content: left;
+  overflow: hidden;
+`;
+
+const ImageTile = styled.img`
+  width: 100px;
+  border-radius: 10px;
+  margin: 0px 10px;
+`;
 
 export const ProfileLists = ({ filmArray, listTitle }) => {
   const location = useLocation();
-  const topMatches = [];
-  for (let i = 4; i < 7; i++) {
-    topMatches.push(dummyData[i]);
-  }
-  console.log(filmArray);
+
   return (
-    <div id="profile__likes-container">
-      <div className="profile__text-container">
-        <span>{listTitle}</span>
-        <p className="profile__show-all">Show All </p>
-
+    <Container>
+      <Header>
+        <Title>{listTitle}</Title>
         <Link to="/dashboard/LikedMovies">
-          <ChevronRight
-            size={15}
-            active={
-              location.pathname === '/dashboard/LikedMovies' ? 'true' : 'false'
-            }
-          />
+          <ShowAll>
+            Show all
+            <ChevronRight
+              size={24}
+              active={
+                location.pathname === '/dashboard/LikedMovies'
+                  ? 'true'
+                  : 'false'
+              }
+            />
+          </ShowAll>
         </Link>
-      </div>
+      </Header>
 
-      <div className="profile__likes-container">
+      <ImageTilesList>
         {filmArray
           .filter((x) => x.film)
+          .slice(0, 9)
           .map((entry) => {
             return (
-              <img
+              <ImageTile
                 className="profile__likes-picture"
                 src={entry.film.image}
                 key={entry.film.id}
@@ -40,7 +81,7 @@ export const ProfileLists = ({ filmArray, listTitle }) => {
               />
             );
           })}
-      </div>
-    </div>
+      </ImageTilesList>
+    </Container>
   );
 };

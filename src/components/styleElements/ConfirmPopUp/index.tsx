@@ -9,8 +9,6 @@ interface Props {
   closePopUp: (open: boolean) => void;
 }
 
-
-
 // eslint-disable-next-line no-undef
 const StyledConfirmPopUp = styled.div<{ display: string }>`
   display: ${(props) => (props.display === 'true' ? 'flex' : 'none')};
