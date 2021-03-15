@@ -1,26 +1,103 @@
 import React, { useState } from 'react';
-import { Select } from '@material-ui/core';
 import { Formik } from 'formik';
 import { CirclesBackground } from '../styleElements/CirclesBackground';
 import { TopNav } from '../TopNav';
 import { Toggle } from '../styleElements/controls/Toggle';
 import Avatar from '../styleElements/avatar/Avatar.js';
-import { Check } from '../styleElements/icons/Check.js';
+import { Save } from '../styleElements/icons';
 import FileUploader from './FileUploader';
 import { Settings } from '../styleElements/icons/Settings';
-// import { FilterPage } from '../FilterPage';
+import { FilterPage } from '../FilterPage';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from '../../Redux/userSlice';
 import { selectActiveFilters } from '../../Redux/filtersSlice';
 import { selectCurrentUser } from '../../Redux/userSlice';
 import styled from 'styled-components';
 
-const AvatarContainer = styled.div`
-  width: 180px;
-  height: 180px;
+const Container = styled.div`
+  position: relative;
+  width: 100vw;
+  height: 1020px;
   overflow: hidden;
-  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
+
+const FormContainer = styled.div`
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+`;
+
+const AvatarContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 60px;
+`;
+const UploadIcon = styled.div`
+  position: absolute;
+`;
+
+const FormDiv = styled.div`
+  margin: 20px 0px;
+  width: 300px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background: var(--dark-900-25);
+  border-radius: 10px;
+  input {
+    background: transparent;
+    border: none;
+    width: 260px;
+    height: 40px;
+    font-size: 18px;
+    text-align: left;
+  }
+`;
+
+const FormSelect = styled.div`
+  background: var(--dark-900-25);
+  border: none;
+  border-radius: 10px;
+  width: 300px;
+  select {
+    background: transparent;
+    border: none;
+    border-radius: 10px;
+    width: 260px;
+    height: 40px;
+    font-size: 18px;
+    color: var(--light-500);
+  }
+`;
+
+const SaveButton = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--light-100);
+  height: 60px;
+  border-radius: 10px;
+  width: 300px;
+  size: 16px;
+  color: var(--dark-900);
+  margin: 30px 0px;
+  div {
+    width: 150px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+`;
+
+const FilterForm = styled.div``;
 
 export function ProfileEdit() {
   const dispatch = useDispatch();
@@ -39,18 +116,18 @@ export function ProfileEdit() {
   }
 
   return (
-    <div className="profile__filterPage">
+    <Container>
       <CirclesBackground />
 
-      {/* <FilterPage
+      <FilterPage
         seeFilters={displayFilters}
         toggle={() => setDisplayFilters(!displayFilters)}
         hidden={!displayFilters}
-      /> */}
+      />
 
       <TopNav title="Profile settings" backIcon text=" " />
 
-      <div className="profile__edit-containter">
+      <FormContainer>
         <Formik
           initialValues={{
             picture: '',
@@ -91,73 +168,51 @@ export function ProfileEdit() {
             <form onSubmit={handleSubmit}>
               <AvatarContainer>
                 <Avatar tile />
+                <UploadIcon>
+                  <FileUploader picture={setPictureCallback} />
+                </UploadIcon>
               </AvatarContainer>
 
-              <FileUploader picture={setPictureCallback} />
-
-              <div className="profile__edit-label-input">
-                <label> Username:</label>
+              <FormDiv>
                 <input
+                  placeholder="User name"
                   type="text"
                   name="username"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.username}
                 />
-              </div>
-              <div className="profile__edit-label-input profile__edit__age-select-wrapper">
-                <label> Age range:</label>
-                <Select
+              </FormDiv>
+              <FormSelect>
+                <select
                   name="age"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.age}
-                  className="profile__edit__age-select"
                 >
-                  <option className="profile__edit__age-option" value="">
-                    no answer
-                  </option>
-                  <option className="profile__edit__age-option" value="NewB">
-                    Younger than 18yo
-                  </option>
-                  <option
-                    className="profile__edit__age-option"
-                    value="Generation Z"
-                  >
-                    Between 22 - 30yo
-                  </option>
-                  <option
-                    className="profile__edit__age-option"
-                    value="Midlife Crisis"
-                  >
-                    Between 30 - 40yo
-                  </option>
-                  <option
-                    className="profile__edit__age-option"
-                    value="Golden Age"
-                  >
-                    Between 40 - 50yo
-                  </option>
-                  <option className="profile__edit__age-option" value="Veteran">
-                    Over 50yo
-                  </option>
-                </Select>
-              </div>
+                  <option value="">no answer</option>
+                  <option value="NewB">Younger than 18yo</option>
+                  <option value="Generation Z">Between 22 - 30yo</option>
+                  <option value="Midlife Crisis">Between 30 - 40yo</option>
+                  <option value="Golden Age">Between 40 - 50yo</option>
+                  <option value="Veteran">Over 50yo</option>
+                </select>
+              </FormSelect>
 
-              <div className="profile__edit-label-input">
-                <label> City: </label>
+              <FormDiv>
                 <input
+                  placeholder="City"
                   type="text"
                   name="city"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.city}
                 />
-              </div>
+              </FormDiv>
 
-              <div className="profile__edit-label-input">
-                <label> Email: </label>
+              <FormDiv>
                 <input
+                  placeholder="Email"
                   type="email"
                   name="email"
                   onChange={handleChange}
@@ -165,10 +220,9 @@ export function ProfileEdit() {
                   value={values.email}
                 />
                 {errors.email && touched.email && errors.email}
-              </div>
+              </FormDiv>
 
-              <div className="profile__edit-label-input">
-                <label> Password: </label>
+              <FormDiv>
                 <input
                   type="password"
                   name="password"
@@ -178,50 +232,47 @@ export function ProfileEdit() {
                   value={values.password}
                 />
                 {errors.password && touched.password && errors.password}
-              </div>
+              </FormDiv>
 
-              <div className="profile__edit-current-filters">
-                <h4>
-                  {' '}
-                  Current filters: &nbsp;{' '}
-                  <div onClick={() => setDisplayFilters(!displayFilters)}>
-                    <Settings />
-                  </div>
-                </h4>
-
-                <div className="profile__edit-span-container">
-                  {activeFilters.genreFilters.map((x) => {
-                    return <span key={x}>{x}</span>;
-                  })}
-                  {activeFilters.timeFilters.map((x) => {
-                    return <span key={x}>{x}</span>;
-                  })}
+              <SaveButton type="submit" disabled={isSubmitting}>
+                <div>
+                  <Save />
+                  Save settings
                 </div>
-              </div>
-
-              <button
-                className="profile__bttn"
-                // active={location.pathname === '/dashboard/Profile'}
-                type="submit"
-                disabled={isSubmitting}
-              >
-                <Check /> &nbsp; Save
-              </button>
+              </SaveButton>
             </form>
           )}
         </Formik>
+      </FormContainer>
 
-        <div className="profile__edit-likes-friends">
-          <div className="profile__edit-grid">
-            <p className="profile__p-text">Show likes on profile page</p>
-            <Toggle />
+      <FilterForm>
+        <h4>
+          {' '}
+          Current filters: &nbsp;{' '}
+          <div onClick={() => setDisplayFilters(!displayFilters)}>
+            <Settings />
           </div>
-          <div className="profile__edit-grid">
-            <p className="profile__p-text">Show matches on profile page</p>
-            <Toggle />
-          </div>
+        </h4>
+
+        <div className="profile__edit-span-container">
+          {activeFilters.genreFilters.map((x) => {
+            return <span key={x}>{x}</span>;
+          })}
+          {activeFilters.timeFilters.map((x) => {
+            return <span key={x}>{x}</span>;
+          })}
+        </div>
+      </FilterForm>
+      <div className="profile__edit-likes-friends">
+        <div className="profile__edit-grid">
+          <p className="profile__p-text">Show likes on profile page</p>
+          <Toggle />
+        </div>
+        <div className="profile__edit-grid">
+          <p className="profile__p-text">Show matches on profile page</p>
+          <Toggle />
         </div>
       </div>
-    </div>
+    </Container>
   );
 }

@@ -39,3 +39,4 @@ export { Arrow } from './Arrow';
 export { CirclesBg } from './CirclesBg';
 
 export { Clock } from './Clock';
+export { Save } from './Save';

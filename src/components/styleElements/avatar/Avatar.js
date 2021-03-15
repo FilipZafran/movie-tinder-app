@@ -23,9 +23,10 @@ const TileContainer = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
-  z-index: 4;
   width: 180px;
   height: 180px;
+  overflow: hidden;
+  border-radius: 10px;
 `;
 
 const Tile = styled.div`
