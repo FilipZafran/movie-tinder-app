@@ -36,7 +36,18 @@
 }
 
 .topNav_title {
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 600;
   color: var(--light-100);
+}
+
+.topNav__none {
+  color: var(--prime-500);
+  background: transparent;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 16.25px;
+  font-weight: 400;
+  padding: 8px 16px;
+  margin: 20px;
 }

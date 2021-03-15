@@ -111,8 +111,16 @@ export function Profile() {
 
       <ProfileTile />
 
-      <ProfileLists filmArray={likesArray} listTitle={'Likes'} />
-      <ProfileLists filmArray={topMatches} listTitle={'Top Matches'} />
+      <ProfileLists
+        filmArray={likesArray}
+        listTitle={'Likes'}
+        link="/dashboard/likedMovies"
+      />
+      <ProfileLists
+        filmArray={topMatches}
+        listTitle={'Top Matches'}
+        link="/dashboard/topMatches"
+      />
 
       <Footer>
         <Link to="/dashboard/users">

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ChevronRight } from '../styleElements/icons';
 import styled from 'styled-components';
 
@@ -45,24 +45,15 @@ const ImageTile = styled.img`
   margin: 0px 10px;
 `;
 
-export const ProfileLists = ({ filmArray, listTitle }) => {
-  const location = useLocation();
-
+export const ProfileLists = ({ filmArray, listTitle, link }) => {
   return (
     <Container>
       <Header>
         <Title>{listTitle}</Title>
-        <Link to="/dashboard/LikedMovies">
+        <Link to={link}>
           <ShowAll>
             Show all
-            <ChevronRight
-              size={24}
-              active={
-                location.pathname === '/dashboard/LikedMovies'
-                  ? 'true'
-                  : 'false'
-              }
-            />
+            <ChevronRight size={24} />
           </ShowAll>
         </Link>
       </Header>

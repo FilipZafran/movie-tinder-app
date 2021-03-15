@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Select } from '@material-ui/core';
-import { Link, useLocation } from 'react-router-dom';
 import { Formik } from 'formik';
 import { CirclesBackground } from '../styleElements/CirclesBackground';
 import { TopNav } from '../TopNav';
@@ -16,7 +15,6 @@ import { selectActiveFilters } from '../../Redux/filtersSlice';
 import { selectCurrentUser } from '../../Redux/userSlice';
 
 export function ProfileEdit() {
-  const location = useLocation();
   const dispatch = useDispatch();
   const activeFilters = useSelector(selectActiveFilters);
   const currentUser = useSelector(selectCurrentUser);
@@ -42,15 +40,9 @@ export function ProfileEdit() {
         hidden={!displayFilters}
       />
 
-      <Link to="/dashboard//Profile">
-        <TopNav backIcon active={location.pathname === '/dashboard//Profile'} />
-      </Link>
+      <TopNav title="Profile settings" backIcon text=" " />
 
       <div className="profile__edit-containter">
-        <div className="profile__edit-footer">
-          <h1>Profile Settings </h1>
-        </div>
-
         <Formik
           initialValues={{
             picture: '',
