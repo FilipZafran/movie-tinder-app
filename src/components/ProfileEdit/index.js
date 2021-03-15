@@ -8,11 +8,19 @@ import Avatar from '../styleElements/avatar/Avatar.js';
 import { Check } from '../styleElements/icons/Check.js';
 import FileUploader from './FileUploader';
 import { Settings } from '../styleElements/icons/Settings';
-import { FilterPage } from '../FilterPage';
+// import { FilterPage } from '../FilterPage';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from '../../Redux/userSlice';
 import { selectActiveFilters } from '../../Redux/filtersSlice';
 import { selectCurrentUser } from '../../Redux/userSlice';
+import styled from 'styled-components';
+
+const AvatarContainer = styled.div`
+  width: 180px;
+  height: 180px;
+  overflow: hidden;
+  border-radius: 10px;
+`;
 
 export function ProfileEdit() {
   const dispatch = useDispatch();
@@ -34,11 +42,11 @@ export function ProfileEdit() {
     <div className="profile__filterPage">
       <CirclesBackground />
 
-      <FilterPage
+      {/* <FilterPage
         seeFilters={displayFilters}
         toggle={() => setDisplayFilters(!displayFilters)}
         hidden={!displayFilters}
-      />
+      /> */}
 
       <TopNav title="Profile settings" backIcon text=" " />
 
@@ -81,9 +89,9 @@ export function ProfileEdit() {
             isSubmitting,
           }) => (
             <form onSubmit={handleSubmit}>
-              <div id="profile__edit-picture-container">
-                <Avatar className="profile__avatar" />
-              </div>
+              <AvatarContainer>
+                <Avatar tile />
+              </AvatarContainer>
 
               <FileUploader picture={setPictureCallback} />
 
