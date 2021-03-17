@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Formik } from 'formik';
 import { CirclesBackground } from '../styleElements/CirclesBackground';
 import { TopNav } from '../TopNav';
-import { Toggle } from '../styleElements/controls/Toggle';
+import { FooterToggles } from './FooterToggles';
+import { FilterForm } from './FilterForm';
 import Avatar from '../styleElements/avatar/Avatar.js';
 import { Save } from '../styleElements/icons';
 import FileUploader from './FileUploader';
-import { Settings } from '../styleElements/icons/Settings';
 import { FilterPage } from '../FilterPage';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from '../../Redux/userSlice';
@@ -17,7 +17,7 @@ import styled from 'styled-components';
 const Container = styled.div`
   position: relative;
   width: 100vw;
-  height: 1020px;
+  height: 1250px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -97,7 +97,18 @@ const SaveButton = styled.div`
   }
 `;
 
-const FilterForm = styled.div``;
+const Footer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h2 {
+    font-size: 18px;
+    font-weight: 500;
+    width: 90vw;
+    text-align: left;
+    padding: 30px 0px;
+  }
+`;
 
 export function ProfileEdit() {
   const dispatch = useDispatch();
@@ -244,35 +255,15 @@ export function ProfileEdit() {
           )}
         </Formik>
       </FormContainer>
-
-      <FilterForm>
-        <h4>
-          {' '}
-          Current filters: &nbsp;{' '}
-          <div onClick={() => setDisplayFilters(!displayFilters)}>
-            <Settings />
-          </div>
-        </h4>
-
-        <div className="profile__edit-span-container">
-          {activeFilters.genreFilters.map((x) => {
-            return <span key={x}>{x}</span>;
-          })}
-          {activeFilters.timeFilters.map((x) => {
-            return <span key={x}>{x}</span>;
-          })}
-        </div>
-      </FilterForm>
-      <div className="profile__edit-likes-friends">
-        <div className="profile__edit-grid">
-          <p className="profile__p-text">Show likes on profile page</p>
-          <Toggle />
-        </div>
-        <div className="profile__edit-grid">
-          <p className="profile__p-text">Show matches on profile page</p>
-          <Toggle />
-        </div>
-      </div>
+      <FilterForm
+        activeFilters={activeFilters}
+        clickHandler={() => setDisplayFilters(!displayFilters)}
+      />
+      <Footer>
+        <h2>What should be publicly visible?</h2>
+        <FooterToggles text="Show likes on profile page" />
+        <FooterToggles text="Show matches on profile page" />
+      </Footer>
     </Container>
   );
 }
