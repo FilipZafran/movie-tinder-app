@@ -14,7 +14,7 @@ export const fetchLikes = createAsyncThunk(
         headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
         url: `${serverURL}/likeTracker/likes`,
       });
-      return response.data.dislikes;
+      return response.data.likes;
     } catch (err) {
       console.log(err);
     }
@@ -30,7 +30,7 @@ export const fetchDislikes = createAsyncThunk(
         headers: { 'x-auth-token': localStorage.getItem('x-auth-token') },
         url: `${serverURL}/likeTracker/dislikes`,
       });
-      return response.data.likes;
+      return response.data.dislikes;
     } catch (err) {
       console.log(err);
     }

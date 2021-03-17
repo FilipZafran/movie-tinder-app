@@ -5,7 +5,7 @@ import { Friends } from '../Friends';
 import { Invitations } from '../Invitations';
 import { MatchPage } from '../MatchPage';
 import { Profile } from '../Profile/Profile';
-import { ProfileEdit } from '../Profile/ProfileEdit';
+import { ProfileEdit } from '../ProfileEdit';
 import { LikedMovies } from '../Profile/LikedMovies';
 import { TopMatches } from '../Profile/TopMatches';
 import { Start } from '../Start/Start';
@@ -17,6 +17,8 @@ import {
   fetchFriendsInvitations,
   fetchFriendsRequests,
 } from '../../Redux/friendsSlice';
+import { fetchCurrentUser } from '../../Redux/userSlice';
+import { fetchLikes, fetchDislikes } from '../../Redux/likeTrackerSlice';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -25,6 +27,9 @@ const Dashboard = () => {
     dispatch(fetchAllFriends());
     dispatch(fetchFriendsRequests());
     dispatch(fetchFriendsInvitations());
+    dispatch(fetchCurrentUser());
+    dispatch(fetchLikes());
+    dispatch(fetchDislikes());
   });
 
   return (

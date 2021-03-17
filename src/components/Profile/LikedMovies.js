@@ -6,6 +6,13 @@ import { CirclesBackground } from '../styleElements/CirclesBackground';
 import { dummyData } from '../MatchPage/MatchCard/dummyData';
 import { LogoActive } from '../styleElements/icons';
 import Thumbnail from './Thumbnail';
+import styled from 'styled-components';
+
+const ImageTile = styled.img`
+  width: 100px;
+  border-radius: 10px;
+  margin: 0px 10px;
+`;
 
 export function LikedMovies() {
   const location = useLocation();
@@ -31,7 +38,7 @@ export function LikedMovies() {
       <div className="liked_movies__all">
         {likedFilmsAll.map((film) => (
           <Fragment key={film.id}>
-            <img
+            <ImageTile
               className="liked_movies__thumbnail"
               src={film.image}
               alt="movie thumbnail"

@@ -30,7 +30,7 @@ export const TopNav = ({
           <ChevronLeft className="light300" />
         </div>
       ) : (
-        <div className="topNav__none" />
+        <div className="topNav__none"> </div>
       )}
       <div className="topNav_title">{title}</div>
       {filterIcon ? (
@@ -47,10 +47,10 @@ export const TopNav = ({
         <Link to={textLink}>
           <div className="topNav__text">{text}</div>
         </Link>
-      ) : text ? (
-        <div className="topNav__text">{text}</div>
+      ) : text === ' ' ? (
+        <div className="topNav__none">{text}</div>
       ) : (
-        <div className="topNav__none" />
+        <div className="topNav__text">{text}</div>
       )}
     </div>
   );
