@@ -78,7 +78,7 @@ const FormSelect = styled.div`
   }
 `;
 
-const SaveButton = styled.div`
+const SaveButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -86,7 +86,7 @@ const SaveButton = styled.div`
   height: 60px;
   border-radius: 10px;
   width: 300px;
-  size: 16px;
+  font-size: 16px;
   color: var(--dark-900);
   margin: 30px 0px;
   div {
@@ -114,13 +114,13 @@ export function ProfileEdit() {
   const dispatch = useDispatch();
   const activeFilters = useSelector(selectActiveFilters);
   const currentUser = useSelector(selectCurrentUser);
-  const color = currentUser.color ? currentUser.color : 'warm';
+  const color = currentUser.color || 'warm';
 
   // const classes = useStyles();
   const [displayFilters, setDisplayFilters] = useState(false);
 
   // FileUploader > ProfileEdit
-  const [setPicture] = useState('');
+  const [picture, setPicture] = useState(currentUser.picture || '');
 
   // callback function
   function setPictureCallback(url) {
@@ -142,7 +142,7 @@ export function ProfileEdit() {
       <FormContainer>
         <Formik
           initialValues={{
-            picture: '',
+            picture: picture,
             username: currentUser.username,
             age: currentUser.age || '',
             city: currentUser.city || '',
@@ -162,8 +162,9 @@ export function ProfileEdit() {
           }}
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
-              dispatch(updateUser(values));
-              alert(JSON.stringify(values, null, 2));
+              const fullValues = { ...values, picture: picture };
+              dispatch(updateUser(fullValues));
+              alert(JSON.stringify(fullValues, null, 2));
               setSubmitting(false);
             }, 400);
           }}
@@ -181,7 +182,7 @@ export function ProfileEdit() {
               <AvatarContainer>
                 <Avatar tile color={color} />
                 <UploadIcon>
-                  <FileUploader picture={setPictureCallback} />
+                  <FileUploader getPicture={setPictureCallback} />
                 </UploadIcon>
               </AvatarContainer>
 
