@@ -80,6 +80,8 @@ export const ProfileTile = () => {
   const currentUser = useSelector(selectCurrentUser);
   const likesArray = useSelector(selectLikes);
   const activeFilters = useSelector(selectActiveFilters);
+  const genreFilters = activeFilters.genreFilters || [];
+  const timeFilters = activeFilters.timeFilters || [];
 
   return (
     <Container>
@@ -103,10 +105,10 @@ export const ProfileTile = () => {
 
         <FilterHeader>Current Catagories</FilterHeader>
         <FilterGroup>
-          {activeFilters.genreFilters.map((x) => {
+          {genreFilters.map((x) => {
             return <Tile key={x}>{x}</Tile>;
           })}
-          {activeFilters.timeFilters.map((x) => {
+          {timeFilters.map((x) => {
             return <Tile key={x}>{x}</Tile>;
           })}
         </FilterGroup>
