@@ -40,7 +40,7 @@ const Background = styled.div`
   height: 220px;
   width: 100vw;
   border-radius: 12px;
-  background-color: var(--warm-500-25);
+  background-color: ${(props) => `var(--${props.color}-500-25)`};
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -57,12 +57,12 @@ const Initials = styled.div`
   font-size: 35px;
 `;
 
-const Avatar = ({ initials, circle, tile }) => {
+const Avatar = ({ initials, circle, tile, color }) => {
   if (circle) {
     return (
       <Container>
         <Circles>
-          <AvatarCircles />
+          <AvatarCircles color={color} />
         </Circles>
         <Initials>{initials}</Initials>
       </Container>
@@ -71,16 +71,16 @@ const Avatar = ({ initials, circle, tile }) => {
     return (
       <TileContainer>
         <Tile>
-          <AvatarCircles />
+          <AvatarCircles color={color} />
         </Tile>
         <Initials>{initials}</Initials>
       </TileContainer>
     );
   } else {
     return (
-      <Background>
+      <Background color={color}>
         <div>
-          <AvatarCircles />
+          <AvatarCircles color={color} />
         </div>
         <Initials>{initials}</Initials>
       </Background>

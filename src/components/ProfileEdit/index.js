@@ -114,6 +114,7 @@ export function ProfileEdit() {
   const dispatch = useDispatch();
   const activeFilters = useSelector(selectActiveFilters);
   const currentUser = useSelector(selectCurrentUser);
+  const color = currentUser.color ? currentUser.color : 'warm';
 
   // const classes = useStyles();
   const [displayFilters, setDisplayFilters] = useState(false);
@@ -178,7 +179,7 @@ export function ProfileEdit() {
           }) => (
             <form onSubmit={handleSubmit}>
               <AvatarContainer>
-                <Avatar tile />
+                <Avatar tile color={color} />
                 <UploadIcon>
                   <FileUploader picture={setPictureCallback} />
                 </UploadIcon>

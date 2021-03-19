@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { ChevronRight } from '../styleElements/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCurrentUser } from '../../Redux/userSlice';
+import { fetchCurrentUser, selectCurrentUser } from '../../Redux/userSlice';
 import { selectLikes } from '../../Redux/likeTrackerSlice';
 import Avatar from '../styleElements/avatar/Avatar.js';
 import { ProfileTile } from './ProfileTile';
@@ -51,6 +51,8 @@ export function Profile() {
   const dispatch = useDispatch();
 
   const likesArray = useSelector(selectLikes);
+  const currentUser = useSelector(selectCurrentUser);
+  const color = currentUser.color ? currentUser.color : 'warm';
 
   const topMatches = [
     {
@@ -104,7 +106,7 @@ export function Profile() {
   return (
     <Container>
       <AvatarContainer>
-        <Avatar />
+        <Avatar color={color} />
       </AvatarContainer>
 
       <ProfileTopNav />
