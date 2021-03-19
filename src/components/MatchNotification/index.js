@@ -89,7 +89,7 @@ const UserIcon = styled.div`
   align-items: center;
   justify-content: center;
   padding: 0.4px;
-  background: var(--warm-900);
+  background: ${(props) => `var(--${props.color}-900)`};
   width: 22px;
   height: 22px;
   border-radius: 15px;
@@ -111,7 +111,7 @@ export const MatchNotification = ({ decision }) => {
   const dispatch = useDispatch();
   const friendsList = friends
     ? friends.matches.map((x) => (
-        <UserIcon key={x.id}>
+        <UserIcon color={x.color} key={x.id}>
           {x.username
             .split(' ')
             .map((x) => x[0])
