@@ -30,7 +30,7 @@ const Dashboard = () => {
     dispatch(fetchCurrentUser());
     dispatch(fetchLikes());
     dispatch(fetchDislikes());
-  });
+  }, []);
 
   return (
     <div className="dashboard">
