@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import {CirclesBg} from '../icons';
 
 interface Props {
   show: boolean;
@@ -18,25 +19,25 @@ const StyledConfirmPopUp = styled.div<{ display: string }>`
   width: 100vw;
   height: 100vh;
   justify-content: center;
+  color: var(--dark-900);
 `;
 
-const PopUpContainer = styled.div`
-  z-index: 5;
+const CirclesBackground = styled.div`
+  z-index: -1;
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 200px;
-  height: 180px;
-  border-radius: 20px;
-  padding: 10px;
-  background: var(--prime-500-25);
-  margin-top: 10vh;
+  width: 280px;
+  height: 200px;
+  border-radius: 10px;
+  overflow: hidden;
 `;
 
 const PopUp = styled.div`
-  width: 180px;
-  height: 160px;
-  background: var(--prime-900);
+  width: 240px;
+  height: 140px;
+  padding: 30px 20px;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -44,24 +45,19 @@ const PopUp = styled.div`
 
 const Text = styled.div`
   padding: 10px;
-  font-size: 30px;
-  font-weight: 600;
+  font-size: 20px;
 `;
 
-const SubText = styled.div`
+// eslint-disable-next-line no-undef
+const Button = styled.div<{yes: boolean}>`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50px;
-`;
-
-const Button = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 5px;
-  padding: 5px;
-  background: var(--dark-300);
+  border-radius: 8px;
+  padding: 8px;
+  background: ${(props) => (props.yes && 'var(--dark-900)')};
+  color: ${(props) => (props.yes && 'var(--light-100)')};
+  border: 1px solid var(--dark-900);
   width: 60px;
   cursor: pointer;
 `;
@@ -75,6 +71,9 @@ const ButtonChoices = styled.div`
 
 export const ConfirmPopUp = (props: Props) => {
   const [display, setDisplay] = React.useState('false');
+
+  const textToDisplay = props.text === 'accept friend request' ? 'accept friend request from ' : props.text === 'unfriend' ? 'unfriend ' :
+      props.text === 'cancel friend request' ? 'cancel friend request to ' : 'send friend request to ';
 
   const confirmHandler = () => {
     // console.log('friend: ', props.friendId.username);
@@ -91,13 +90,11 @@ export const ConfirmPopUp = (props: Props) => {
 
   return (
     <StyledConfirmPopUp display={display}>
-      <PopUpContainer>
         <PopUp>
-          <Text>Confirm</Text>
-          <SubText>{props.text}</SubText>
+          <Text>{textToDisplay}{`"${props.friendId.username}"?`}</Text>
           <ButtonChoices>
-            <Button onClick={confirmHandler}>Yes</Button>
             <Button
+              yes={false}
               onClick={() => {
                 setDisplay('false');
                 props.closePopUp(false);
@@ -105,9 +102,12 @@ export const ConfirmPopUp = (props: Props) => {
             >
               Cancel
             </Button>
+            <Button yes onClick={confirmHandler}>Yes</Button>
           </ButtonChoices>
         </PopUp>
-      </PopUpContainer>
+        <CirclesBackground>
+          <CirclesBg size="small" color="gold" />
+        </CirclesBackground>
     </StyledConfirmPopUp>
   );
 };

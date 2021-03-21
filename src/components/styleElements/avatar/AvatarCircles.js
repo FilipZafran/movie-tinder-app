@@ -3,8 +3,6 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   position: relative;
-  width: 100vw;
-  height: 400px;
 `;
 
 const Svg = styled.svg`

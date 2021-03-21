@@ -12,6 +12,7 @@ const Container = styled.div`
   height: 90px;
 `;
 const Circles = styled.div`
+  position: absolute;
   transform: scale(0.2);
   display: flex;
   align-items: center;
@@ -21,20 +22,15 @@ const Circles = styled.div`
 
 const Image = styled.div`
   position: absolute;
-  margin-top: 5px;
-  width: 100%;
-  height: 100%;
   display: ${(props) => (props.picture === '' ? 'none' : 'flex')};
   align-items: center;
   justify-content: center;
   img {
-    position: absolute;
     width: 85px;
     height: 85px;
     border-radius: 50%;
     overflow: hidden;
     z-index: 5;
-    top: 0px;
   }
 `;
 
