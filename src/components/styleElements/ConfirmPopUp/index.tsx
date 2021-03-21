@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import {CirclesBg} from '../icons';
+import { CirclesBg } from '../icons';
 
 interface Props {
   show: boolean;
@@ -49,14 +49,14 @@ const Text = styled.div`
 `;
 
 // eslint-disable-next-line no-undef
-const Button = styled.div<{yes: boolean}>`
+const Button = styled.div<{ yes: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 8px;
   padding: 8px;
-  background: ${(props) => (props.yes && 'var(--dark-900)')};
-  color: ${(props) => (props.yes && 'var(--light-100)')};
+  background: ${(props) => props.yes && 'var(--dark-900)'};
+  color: ${(props) => props.yes && 'var(--light-100)'};
   border: 1px solid var(--dark-900);
   width: 60px;
   cursor: pointer;
@@ -72,8 +72,14 @@ const ButtonChoices = styled.div`
 export const ConfirmPopUp = (props: Props) => {
   const [display, setDisplay] = React.useState('false');
 
-  const textToDisplay = props.text === 'accept friend request' ? 'accept friend request from ' : props.text === 'unfriend' ? 'unfriend ' :
-      props.text === 'cancel friend request' ? 'cancel friend request to ' : 'send friend request to ';
+  const textToDisplay =
+    props.text === 'accept friend request'
+      ? 'accept friend request from '
+      : props.text === 'unfriend'
+      ? 'unfriend '
+      : props.text === 'cancel friend request'
+      ? 'cancel friend request to '
+      : 'send friend request to ';
 
   const confirmHandler = () => {
     // console.log('friend: ', props.friendId.username);
@@ -90,24 +96,29 @@ export const ConfirmPopUp = (props: Props) => {
 
   return (
     <StyledConfirmPopUp display={display}>
-        <PopUp>
-          <Text>{textToDisplay}{`"${props.friendId.username}"?`}</Text>
-          <ButtonChoices>
-            <Button
-              yes={false}
-              onClick={() => {
-                setDisplay('false');
-                props.closePopUp(false);
-              }}
-            >
-              Cancel
-            </Button>
-            <Button yes onClick={confirmHandler}>Yes</Button>
-          </ButtonChoices>
-        </PopUp>
-        <CirclesBackground>
-          <CirclesBg size="small" color="gold" />
-        </CirclesBackground>
+      <PopUp>
+        <Text>
+          {textToDisplay}
+          {`"${props.friendId.username}"?`}
+        </Text>
+        <ButtonChoices>
+          <Button
+            yes={false}
+            onClick={() => {
+              setDisplay('false');
+              props.closePopUp(false);
+            }}
+          >
+            Cancel
+          </Button>
+          <Button yes onClick={confirmHandler}>
+            Yes
+          </Button>
+        </ButtonChoices>
+      </PopUp>
+      <CirclesBackground>
+        <CirclesBg size="small" color="gold" />
+      </CirclesBackground>
     </StyledConfirmPopUp>
   );
 };
