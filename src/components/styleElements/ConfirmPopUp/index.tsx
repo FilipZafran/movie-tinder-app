@@ -77,7 +77,7 @@ export const ConfirmPopUp = (props: Props) => {
   const [display, setDisplay] = React.useState('false');
 
   const confirmHandler = () => {
-    console.log('friend: ', props.friendId.username);
+    // console.log('friend: ', props.friendId.username);
     props.statusChange(true);
     props.closePopUp(false);
     setDisplay('false');

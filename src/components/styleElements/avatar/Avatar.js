@@ -57,7 +57,7 @@ const Initials = styled.div`
   font-size: 35px;
 `;
 
-const Avatar = ({ initials, circle, tile, color }) => {
+const Avatar = ({ initials, circle, tile, color, picture }) => {
   if (circle) {
     return (
       <Container>
@@ -80,7 +80,7 @@ const Avatar = ({ initials, circle, tile, color }) => {
     return (
       <Background color={color}>
         <div>
-          <AvatarCircles color={color} />
+          <AvatarCircles color={color} picture={picture} />
         </div>
         <Initials>{initials}</Initials>
       </Background>

@@ -53,6 +53,7 @@ export function Profile() {
   const likesArray = useSelector(selectLikes);
   const currentUser = useSelector(selectCurrentUser);
   const color = currentUser.color ? currentUser.color : 'warm';
+  const picture = currentUser.picture || '';
 
   const topMatches = [
     {
@@ -106,7 +107,7 @@ export function Profile() {
   return (
     <Container>
       <AvatarContainer>
-        <Avatar color={color} />
+        <Avatar color={color} picture={picture} />
       </AvatarContainer>
 
       <ProfileTopNav />
