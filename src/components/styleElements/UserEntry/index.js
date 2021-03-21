@@ -26,7 +26,8 @@ const StyledUserEntry = styled.div`
 `;
 
 export const UserEntry = ({ icon, clickHandler, user }) => {
-  const color = user.color ? user.color : 'warm';
+  const color = user.color || 'warm';
+  const picture = user.picture || '';
   const initials = user.username
     .toUpperCase()
     .split(' ')
@@ -35,7 +36,7 @@ export const UserEntry = ({ icon, clickHandler, user }) => {
   return (
     <StyledUserEntry>
       <div className="avatarInfo">
-        <Avatar circle initials={initials} color={color} />
+        <Avatar circle initials={initials} color={color} picture={picture} />
         <div className="userEntry__data">{user.username}</div>
       </div>
       <div className="userEntry__icon" onClick={() => clickHandler()}>
