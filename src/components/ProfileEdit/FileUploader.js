@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { UploadIcon } from '../styleElements/icons/UploadIcon';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from '../../Redux/userSlice';
 
 const Container = styled.div`
   position: relative;
@@ -22,17 +24,28 @@ const UploadSymbol = styled.div`
 `;
 
 const Input = styled.input`
-  display: ${(props) => (props.display ? 'flex' : 'none')};
+  display: ${(props) => (props.display === 'true' ? 'flex' : 'none')};
   position: absolute;
   top: 80px;
   left: -50px;
 `;
 
-const Cropper = styled.div``;
+const Cropper = styled.div`
+  width: 185px;
+  height: 200px;
+  border-radius: 10px;
+  overflow: hidden;
+  img {
+    max-width: 120%;
+  }
+`;
 
 function FileUploader(props) {
-  const [image, setImage] = useState('');
+  const currentUser = useSelector(selectCurrentUser);
+
+  const [image, setImage] = useState(currentUser.picture || '');
   const [show, setShow] = useState(false);
+
   // const [loading, setLoading] = useState(false);
 
   const uploadImage = async (e) => {
@@ -52,9 +65,7 @@ function FileUploader(props) {
     const file = await res.json();
 
     setImage(file.secure_url);
-
-    props.picture(file.secure_url);
-    console.log(file);
+    props.getPicture(file.secure_url);
   };
 
   return (
@@ -62,10 +73,15 @@ function FileUploader(props) {
       <UploadSymbol onClick={() => setShow(!show)}>
         <UploadIcon size={24} />
       </UploadSymbol>
-      <Input display={show} type="file" name="file" onChange={uploadImage} />
+      <Input
+        display={show.toString()}
+        type="file"
+        name="file"
+        onChange={uploadImage}
+      />
 
       <Cropper>
-        <img src={image} />
+        <img src={image} alt={image} />
       </Cropper>
     </Container>
   );

@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { Settings } from '../styleElements/icons/Settings';
 
 export const FilterForm = ({ activeFilters, clickHandler }) => {
+  const genreFilters = activeFilters.genreFilters || [];
+  const timeFilters = activeFilters.timeFilters || [];
   return (
     <Container>
       <Header>
@@ -13,10 +15,10 @@ export const FilterForm = ({ activeFilters, clickHandler }) => {
       </Header>
 
       <Filters>
-        {activeFilters.genreFilters.map((x) => {
+        {genreFilters.map((x) => {
           return <Tile key={x}>{x}</Tile>;
         })}
-        {activeFilters.timeFilters.map((x) => {
+        {timeFilters.map((x) => {
           return <Tile key={x}>{x}</Tile>;
         })}
       </Filters>

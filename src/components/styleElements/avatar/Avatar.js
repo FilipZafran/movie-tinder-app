@@ -12,10 +12,26 @@ const Container = styled.div`
   height: 90px;
 `;
 const Circles = styled.div`
+  position: absolute;
   transform: scale(0.2);
+  display: flex;
   align-items: center;
   justify-content: center;
   position: absolute;
+`;
+
+const Image = styled.div`
+  position: absolute;
+  display: ${(props) => (props.picture === '' ? 'none' : 'flex')};
+  align-items: center;
+  justify-content: center;
+  img {
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    overflow: hidden;
+    z-index: 5;
+  }
 `;
 
 const TileContainer = styled.div`
@@ -57,7 +73,7 @@ const Initials = styled.div`
   font-size: 35px;
 `;
 
-const Avatar = ({ initials, circle, tile, color }) => {
+const Avatar = ({ initials, circle, tile, color, picture }) => {
   if (circle) {
     return (
       <Container>
@@ -65,6 +81,9 @@ const Avatar = ({ initials, circle, tile, color }) => {
           <AvatarCircles color={color} />
         </Circles>
         <Initials>{initials}</Initials>
+        <Image picture={picture}>
+          <img src={picture} />
+        </Image>
       </Container>
     );
   } else if (tile) {
@@ -80,7 +99,7 @@ const Avatar = ({ initials, circle, tile, color }) => {
     return (
       <Background color={color}>
         <div>
-          <AvatarCircles color={color} />
+          <AvatarCircles color={color} picture={picture} />
         </div>
         <Initials>{initials}</Initials>
       </Background>

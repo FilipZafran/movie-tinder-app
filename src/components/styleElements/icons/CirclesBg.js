@@ -20,8 +20,8 @@ export const CirclesBg = ({ color, size }) => {
   return (
     <StyledSvg
       color={color}
-      width={size === 'middle' ? '600' : '237'}
-      height={size === 'middle' ? '800' : '186'}
+      width={size === 'small' ? '900' : size === 'middle' ? '600' : '237'}
+      height={size === 'small' ? '200' : size === 'middle' ? '800' : '186'}
       viewBox={size === 'middle' ? '0 0 600 800' : '0 0 237 186'}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

@@ -100,6 +100,13 @@ const UserIconList = styled.div`
   flex-direction: row;
 `;
 
+const Image = styled.img`
+  width: 22px;
+  height: 22px;
+  border-radius: 15px;
+  overflow: hidden;
+`;
+
 //TODO: make only appear on positive match
 
 export const MatchNotification = ({ decision }) => {
@@ -110,14 +117,18 @@ export const MatchNotification = ({ decision }) => {
 
   const dispatch = useDispatch();
   const friendsList = friends
-    ? friends.matches.map((x) => (
-        <UserIcon color={x.color} key={x.id}>
-          {x.username
-            .split(' ')
-            .map((x) => x[0])
-            .join('')}
-        </UserIcon>
-      ))
+    ? friends.matches.map((x) =>
+        x.picture === '' ? (
+          <UserIcon color={x.color} key={x.id}>
+            {x.username
+              .split(' ')
+              .map((x) => x[0])
+              .join('')}
+          </UserIcon>
+        ) : (
+          <Image src={x.picture} />
+        )
+      )
     : null;
 
   const getMatches = async () => {

@@ -93,9 +93,6 @@ export const SearchFriends = () => {
   };
 
   const getPeople = async () => {
-    // if (search === '') {
-    //   setPeople([]);
-    // } else {
     try {
       const fetchPeople = await dispatch(fetchSearchResults(search));
       unwrapResult(fetchPeople);
